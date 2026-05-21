@@ -6,7 +6,7 @@ import About from "./components/About/About";
 import Skills from "./components/Skills/Skills";
 import Projects from "./components/Projects/Projects";
 import Achievements from "./components/Achievements/Achievements";
-import Contact from "./components/Contact/Contact"; // ✅ added
+import Contact from "./components/Contact/contact"; // ✅ added
 
 import "./styles/global.css";
 import "./styles/background.css";
