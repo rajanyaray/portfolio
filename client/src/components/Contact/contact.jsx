@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
-import "./Contact.css";
+import "./contact.css";
 
 export default function Contact() {
   const [email, setEmail] = useState("");
