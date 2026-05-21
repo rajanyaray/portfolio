@@ -1,0 +1,700 @@
+Hero.jsx:
+import React, { useEffect, useState } from "react";
+import "./Hero.css";
+
+// PROFILE
+import profile from "../../assets/profile.png";
+
+// INNER
+import reactIcon from "../../assets/icons/react.png";
+import nodeIcon from "../../assets/icons/node.png";
+
+// MIDDLE
+import mongoIcon from "../../assets/icons/mongodb.png";
+import expressIcon from "../../assets/icons/express.png";
+import javaIcon from "../../assets/icons/java.png";
+
+// OUTER
+import cIcon from "../../assets/icons/c.png";
+import cppIcon from "../../assets/icons/cpp.png";
+import goIcon from "../../assets/icons/go.png";
+import pythonIcon from "../../assets/icons/python.png";
+
+const roles = [
+  "A FULL STACK DEVELOPER",
+  "A TECH ENTHUSIAST",
+  "A CURIOUS MIND",
+  "A LIFELONG LEARNER"
+];
+
+const Hero = () => {
+
+  /* !!! animation */
+  const [bangs, setBangs] = useState("!");
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setBangs(prev => (prev.length < 3 ? prev + "!" : "!"));
+    }, 600);
+    return () => clearInterval(interval);
+  }, []);
+
+  /* ROLE MATRIX */
+  const [roleIndex, setRoleIndex] = useState(0);
+  const [displayText, setDisplayText] = useState(roles[0]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setRoleIndex(prev => (prev + 1) % roles.length);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    setDisplayText(roles[roleIndex]);
+  }, [roleIndex]);
+
+  /* DECRYPT EFFECT */
+  const [nameText, setNameText] = useState("RAJANYA RAY");
+
+  const handleDecrypt = () => {
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    let iteration = 0;
+    const original = "RAJANYA RAY";
+
+    const interval = setInterval(() => {
+      setNameText(
+        original.split("").map((c, i) => {
+          if (i < iteration) return original[i];
+          return chars[Math.floor(Math.random() * 26)];
+        }).join("")
+      );
+
+      iteration += 0.5;
+
+      if (iteration >= original.length) clearInterval(interval);
+    }, 30);
+  };
+
+  return (
+    <section className="hero">
+
+      {/* LEFT SIDE */}
+      <div className="hero-left">
+
+        {/* HELLO */}
+        <h1 className="hello">
+          HELLO<span className="bangs">{bangs}</span>
+        </h1>
+
+        {/* WELCOME */}
+        <h2 className="welcome">
+          <span className="welcome-hollow">Welcome to my </span>
+          <span className="portfolio">Portfolio</span>
+        </h2>
+
+        {/* NAME */}
+        <p className="name">
+          <span className="iam">I am </span>
+          <span className="name-hover" onMouseEnter={handleDecrypt}>
+            {nameText}
+          </span>
+        </p>
+
+        {/* ROLE */}
+        <div className="role-container">
+          <p className="role" data-text={displayText}>
+            {displayText}
+          </p>
+        </div>
+
+        {/* BUTTONS */}
+        <div className="hero-buttons">
+ 
+          {/* Resume — uiverse Tsiangana */}
+          <a href="/resume.pdf" target="_blank" rel="noreferrer" className="botao">
+            <svg className="mysvg" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="24px" width="24px">
+              <path strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" stroke="#f1f1f1" d="M6 21H18M12 3V17M12 17L17 12M12 17L7 12" />
+            </svg>
+            <span className="texto">Resume</span>
+          </a>
+ 
+          {/* GitHub — uiverse charlie_4212 */}
+          <a href="https://github.com/yourusername" target="_blank" rel="noreferrer" className="gh-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="gh-icon">
+              <path d="M12 .5C5.65.5.5 5.65.5 12a11.5 11.5 0 0 0 7.86 10.93c.58.1.79-.25.79-.55v-1.94c-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.3-1.7-1.3-1.7-1.06-.73.08-.72.08-.72 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.72 1.26 3.38.96.1-.76.4-1.26.72-1.55-2.56-.29-5.26-1.28-5.26-5.7 0-1.26.45-2.28 1.2-3.08-.12-.3-.52-1.5.12-3.1 0 0 .98-.32 3.2 1.18a11.1 11.1 0 0 1 5.82 0c2.22-1.5 3.2-1.18 3.2-1.18.64 1.6.24 2.8.12 3.1.75.8 1.2 1.82 1.2 3.08 0 4.44-2.7 5.4-5.28 5.68.4.34.76 1.02.76 2.06v3.05c0 .3.2.66.8.55A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/>
+            </svg>
+            <span className="gh-label">GitHub</span>
+          </a>
+ 
+        </div>
+
+      </div>
+
+      {/* RIGHT SIDE */}
+      <div className="hero-right">
+
+        {/* ORBITS */}
+        <div className="orbit orbit-inner">
+          <div className="icon-wrap"><img src={reactIcon} /></div>
+          <div className="icon-wrap"><img src={nodeIcon} /></div>
+        </div>
+
+        <div className="orbit orbit-middle">
+          <div className="icon-wrap"><img src={mongoIcon} /></div>
+          <div className="icon-wrap"><img src={expressIcon} /></div>
+          <div className="icon-wrap"><img src={javaIcon} /></div>
+        </div>
+
+        <div className="orbit orbit-outer">
+          <div className="icon-wrap"><img src={cIcon} /></div>
+          <div className="icon-wrap"><img src={cppIcon} /></div>
+          <div className="icon-wrap"><img src={goIcon} /></div>
+          <div className="icon-wrap"><img src={pythonIcon} /></div>
+        </div>
+
+        {/* PROFILE */}
+        <img src={profile} alt="profile" className="profile-img" />
+
+      </div>
+
+      <div className="bottom-fade"></div>
+    </section>
+  );
+};
+
+export default Hero;
+
+
+
+Hero.css:
+/* ================= HERO BASE ================= */
+.hero {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  overflow: hidden;
+  padding: 0 60px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ================= LEFT ================= */
+.hero-left {
+  max-width: 550px;
+  padding-left: 5%;
+}
+
+/* ================= HELLO ================= */
+.hello {
+  font-size: 90px;
+  font-weight: 900;
+  font-family: Impact, Haettenschweiler, 'Arial Black', sans-serif;
+
+  background: linear-gradient(90deg, #ff4d6d, #ff0000, #ff7a00, #ffd000);
+  background-size: 300% 300%;
+  animation: helloGradient 6s ease infinite;
+
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+
+  cursor: pointer;
+  display: inline-block;
+}
+
+/* gradient animation */
+@keyframes helloGradient {
+  0% { background-position: 0% }
+  50% { background-position: 100% }
+  100% { background-position: 0% }
+}
+
+/* !!! blinking (IMPORTANT FIX) */
+.bangs {
+  display: inline-block;
+  background: inherit;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  min-width: 1ch; /* prevents layout jump */
+}
+
+@keyframes blink {
+  0%,100% { opacity: 1 }
+  50% { opacity: 0 }
+}
+
+/* ================= SHIMMER HOVER ================= */
+.hello:hover {
+  background-image: url("https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1200");
+  background-size: 200% auto;
+  background-repeat: repeat;
+
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+
+  animation: shimmer 2s linear infinite;
+}
+
+/* move background horizontally */
+@keyframes shimmer {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* ================= WELCOME ================= */
+.welcome {
+  font-size: 28px;
+  margin: 10px 0;
+}
+
+/* Hollow gradient */
+.welcome-hollow {
+  font-family: "Trebuchet MS", sans-serif;
+  font-weight: bold;
+
+  background: linear-gradient(90deg, #8b5cf6, #22d3ee);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  -webkit-text-stroke: 1px rgba(255,255,255,0.5);
+}
+
+/* Portfolio word */
+.portfolio {
+  font-family: Georgia, serif;
+  font-weight: bold;
+  cursor: pointer;
+
+  animation: portfolioColor 5s infinite linear;
+  transition: all 0.3s ease;
+}
+
+@keyframes portfolioColor {
+  0% { color: #ff4d6d; }
+  25% { color: #ff7a00; }
+  50% { color: #ffd000; }
+  75% { color: #00e0ff; }
+  100% { color: #ff4d6d; }
+}
+
+.portfolio:hover {
+  letter-spacing: 4px;
+  text-shadow: 0 0 12px rgba(0,255,255,0.8);
+}
+
+/* ================= NAME ================= */
+.name {
+  margin: 20px 0;
+}
+
+.iam {
+  font-size: 16px;
+  color: #aaa;
+  font-family: Arial, sans-serif;
+}
+
+/* NAME BIG */
+.name-hover {
+  font-size: 52px;
+  font-weight: 900;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  color: #ff3cac;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.name-hover:hover {
+  text-shadow: 0 0 10px #ff3cac, 0 0 20px #ff3cac;
+}
+
+/* ================= ROLE ================= */
+.role-container {
+  height: 30px;
+  overflow: hidden;
+}
+
+/* ================= ROLE ================= */
+.role-container {
+  height: 32px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ================= ROLE ================= */
+/* MAIN TEXT */
+.role {
+  position: relative;
+  font-size: 20px;
+  letter-spacing: 3px;
+  font-family: "Courier New", monospace;
+  color: #00ff9f;
+
+  /* glow */
+  text-shadow:
+    0 0 5px #00ff9f,
+    0 0 10px #00ff9f,
+    0 0 20px rgba(0,255,150,0.6);
+
+  z-index: 2;
+}
+
+/* MATRIX RAIN (BLURRED LINES) */
+.role::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0,255,150,0.25) 0px,
+    rgba(0,255,150,0.25) 2px,
+    transparent 2px,
+    transparent 8px
+  );
+
+  filter: blur(2px); /* 🔥 BLUR EFFECT ADDED */
+
+  animation: rain 1.5s linear infinite;
+  z-index: -1;
+}
+
+/* GLITCH (NO TEXT CHANGE, JUST DISTORTION) */
+.role::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  color: #00ff9f;
+  opacity: 0.7;
+
+  text-shadow: -2px 0 red, 2px 0 cyan;
+
+  animation: glitch 2.5s infinite;
+}
+
+/* RAIN ANIMATION */
+@keyframes rain {
+  from {
+    background-position: 0 -100%;
+  }
+  to {
+    background-position: 0 100%;
+  }
+}
+
+/* GLITCH ANIMATION (SUBTLE, NOT CHAOTIC) */
+@keyframes glitch {
+  0% { transform: translate(0); }
+  20% { transform: translate(-1px, 1px); }
+  40% { transform: translate(1px, -1px); }
+  60% { transform: translate(-1px, 0); }
+  80% { transform: translate(1px, 0); }
+  100% { transform: translate(0); }
+}
+
+/* ================= BUTTONS ================= */
+.hero-buttons {
+  display: flex;
+  gap: 1.2rem;
+  margin-top: 0.4rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+ 
+/* ── Resume button — uiverse Tsiangana ── */
+.botao {
+  position: relative;
+  width: 125px;
+  height: 45px;
+  border-radius: 20px;
+  border: none;
+  box-shadow: 1px 1px rgba(107,221,215,0.37);
+  padding: 5px 10px;
+  background-color: rgb(59,190,230);
+  color: #fff;
+  font-family: var(--hero-font-body);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  filter: drop-shadow(0 0 10px rgba(59,190,230,0.568));
+  transition: width 0.5s linear, height 0.5s linear, border-radius 0.5s linear;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  overflow: hidden;
+}
+.botao .mysvg { display: none; }
+.botao:hover {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+.botao:hover .texto { display: none; }
+.botao:hover .mysvg { display: inline; }
+.botao:hover::after {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 3px;
+  background-color: rgb(59,190,230);
+  margin-left: -20px;
+  animation: animateDown 0.9s linear infinite;
+}
+.botao:hover::before {
+  content: "";
+  position: absolute;
+  top: -3px; left: -3px;
+  width: 100%; height: 100%;
+  border: 3.5px solid transparent;
+  border-top: 3.5px solid #fff;
+  border-right: 3.5px solid #fff;
+  border-radius: 50%;
+  animation: animateC 2s linear infinite;
+}
+@keyframes animateC {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+@keyframes animateDown {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(20px); }
+}
+ 
+/* ── GitHub button — uiverse charlie_4212 ── */
+.gh-btn {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  background: #111827;
+  border-radius: 6px;
+  color: #f9fafb;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  padding: 8px;
+  overflow: hidden;
+  transition: width 0.7s ease, background 0.7s ease;
+  white-space: nowrap;
+}
+.gh-btn:hover {
+  width: 176px;
+  background: #1f2937;
+}
+/* The rotated square "tail" */
+.gh-btn::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 32px;
+  width: 24px; height: 24px;
+  background: #111827;
+  transform: rotate(45deg);
+  transition: left 0.7s ease, background 0.7s ease;
+}
+.gh-btn:hover::before {
+  left: 160px;
+  background: #1f2937;
+}
+.gh-icon {
+  width: 32px; height: 32px;
+  fill: #f9fafb;
+  flex-shrink: 0;
+}
+.gh-label {
+  display: inline-block;
+  border-left: 2px solid #4b5563;
+  padding-left: 8px;
+  font-family: var(--hero-font-body);
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: opacity 0.1s ease 0s, transform 0.3s ease 0s;
+}
+.gh-btn:hover .gh-label {
+  opacity: 1;
+  transform: scaleX(1);
+  transition: opacity 0.3s ease 0.5s, transform 0.3s ease 0.5s;
+}
+
+/* ================= RIGHT ================= */
+.hero-right {
+  position: relative;
+  width: 600px;
+  height: 100%;
+  transform: translateX(-20px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+/* ================= PROFILE ================= */
+.profile-img {
+  position: relative;
+  width: 500px;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+}
+
+/* ================= ORBITS ================= */
+.orbit {
+  position: absolute;
+  top: 44%;
+  left: 57%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 2px dotted rgba(255, 255, 255, 0.2);
+  pointer-events: none;
+}
+
+.orbit-inner {
+  width: 260px;
+  height: 260px;
+  animation: spin 6s linear infinite;
+}
+
+.orbit-middle {
+  width: 370px;
+  height: 370px;
+  animation: spin 12s linear infinite;
+}
+
+.orbit-outer {
+  width: 480px;
+  height: 480px;
+  animation: spin 20s linear infinite;
+}
+
+/* ICONS */
+.icon-wrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+.icon-wrap img {
+  width: 32px;
+  height: 32px;
+  transform: translate(-50%, -50%);
+}
+
+/* INNER */
+.orbit-inner .icon-wrap:nth-child(1) {
+  transform: rotate(0deg) translate(130px);
+}
+.orbit-inner .icon-wrap:nth-child(2) {
+  transform: rotate(180deg) translate(130px);
+}
+
+/* MIDDLE */
+.orbit-middle .icon-wrap:nth-child(1) {
+  transform: rotate(0deg) translate(185px);
+}
+.orbit-middle .icon-wrap:nth-child(2) {
+  transform: rotate(120deg) translate(185px);
+}
+.orbit-middle .icon-wrap:nth-child(3) {
+  transform: rotate(240deg) translate(185px);
+}
+
+/* OUTER */
+.orbit-outer .icon-wrap:nth-child(1) {
+  transform: rotate(0deg) translate(240px);
+}
+.orbit-outer .icon-wrap:nth-child(2) {
+  transform: rotate(90deg) translate(240px);
+}
+.orbit-outer .icon-wrap:nth-child(3) {
+  transform: rotate(180deg) translate(240px);
+}
+.orbit-outer .icon-wrap:nth-child(4) {
+  transform: rotate(270deg) translate(240px);
+}
+
+/* ROTATION */
+@keyframes spin {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* ================= BOTTOM FADE ================= */
+.bottom-fade {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 150px;
+  pointer-events: none;
+
+  background: linear-gradient(
+    to bottom,
+    rgba(18, 0, 24, 0) 0%,
+    rgba(18, 0, 24, 0.8) 60%,
+    #120018 100%
+  );
+
+  z-index: 1;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .hero-left {
+    text-align: center;
+    padding-left: 0;
+  }
+
+  .hello {
+    font-size: 48px;
+  }
+
+  .welcome {
+    font-size: 22px;
+  }
+
+  .name-hover {
+    font-size: 36px;
+  }
+
+  .role {
+    font-size: 16px;
+  }
+
+  .hero-right {
+    width: 100%;
+    height: auto;
+    margin-top: 30px;
+  }
+
+  .profile-img {
+    width: 300px;
+  }
+}

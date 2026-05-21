@@ -1,0 +1,581 @@
+Porjects.jsx:
+import { useState, useEffect } from "react";
+import "./Projects.css";
+
+// MAIN CARD IMAGES
+import p1 from "../../assets/p1.png";
+import p2 from "../../assets/p2.png";
+import p3 from "../../assets/p3.png";
+import p4 from "../../assets/p4.png";
+import p5 from "../../assets/p5.png";
+import p6 from "../../assets/p6.png";
+
+// PORTFOLIO PANEL IMAGES
+import p1_1 from "../../assets/p1_1.png";
+import p1_2 from "../../assets/p1_2.png";
+import p1_3 from "../../assets/p1_3.png";
+import p1_4 from "../../assets/p1_4.png";
+import p1_5 from "../../assets/p1_5.png";
+
+const projects = [
+  { title: "Portfolio", tagline: "Personal developer showcase", img: p1 },
+  { title: "ToDo List", tagline: "Task manager with clean UI", img: p2 },
+  { title: "Krishi Dristi", tagline: "Smart agriculture assistant", img: p3 },
+  { title: "TruthScope", tagline: "Fake news detection system", img: p4 },
+  { title: "SevaSaarthi", tagline: "Community service platform", img: p5 },
+  { title: "Cipher Clash", tagline: "Cybersecurity-based game", img: p6 },
+];
+
+export default function Projects() {
+  const [expanded, setExpanded] = useState(2);
+  const [selected, setSelected] = useState(null);
+  const [activeImg, setActiveImg] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  const portfolioImages = [p1_1, p1_2, p1_3, p1_4, p1_5];
+
+  useEffect(() => {
+    if (selected !== null) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "auto";
+    return () => (document.body.style.overflow = "auto");
+  }, [selected]);
+
+  useEffect(() => {
+    if (isPaused) return;
+    const interval = setInterval(() => {
+      setExpanded((prev) => (prev + 1) % projects.length);
+    }, 2000);
+    return () => clearInterval(interval);
+  }, [isPaused]);
+
+  useEffect(() => {
+    if (selected !== 0) return;
+    const interval = setInterval(() => {
+      setActiveImg((prev) => (prev + 1) % portfolioImages.length);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, [selected, portfolioImages.length]);
+
+  const getWidth = (index) => {
+    return index === expanded ? "26rem" : "5rem";
+  };
+
+  return (
+    <section id="projects">
+      <div className="projects-header">
+        <h1>PROJECTS</h1>
+        <p>Things I’ve built. Things I’m building.</p>
+      </div>
+
+      <div className="expand-wrapper">
+        <div className="expand-container">
+          {projects.map((proj, i) => (
+            <div
+              key={i}
+              className={`expand-card ${expanded === i ? "active" : ""}`}
+              style={{ width: getWidth(i) }}
+              onMouseEnter={() => {
+                setIsPaused(true);
+                setExpanded(i);
+              }}
+              onMouseLeave={() => setIsPaused(false)}
+              onClick={() => {
+                setSelected(i);
+                setActiveImg(0);
+              }}
+            >
+              <img src={proj.img} alt={proj.title} />
+
+              {/* NEW EFFECT LAYER */}
+              <div className="card-layer" />
+
+              {/* TEXT */}
+              <div className="card-content">
+                <h2>{proj.title}</h2>
+                <p>{proj.tagline}</p>
+              </div>
+
+              {/* BORDER */}
+              <div className="card-border" />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {selected === 0 && (
+        <div className="project-overlay" onClick={() => setSelected(null)}>
+          <div className="project-panel new" onClick={(e) => e.stopPropagation()}>
+            <div className="top-strip">
+              <div className="scroll-track">
+                <span>FULL STACK</span>
+                <span>REACT</span>
+                <span>PORTFOLIO</span>
+                <span>UI/UX</span>
+                <span>ANIMATIONS</span>
+                <span>FULL STACK</span>
+                <span>REACT</span>
+                <span>PORTFOLIO</span>
+              </div>
+            </div>
+
+            <div className="panel-body">
+              <div className="panel-left">
+                <div className="main-image">
+                  {portfolioImages.map((img, i) => (
+                    <img key={i} src={img} className={activeImg === i ? "show" : ""} alt="" />
+                  ))}
+                </div>
+
+                <div className="thumb-row">
+                  {portfolioImages.map((img, i) => (
+                    <img
+                      key={i}
+                      src={img}
+                      className={activeImg === i ? "active-thumb" : ""}
+                      onClick={() => setActiveImg(i)}
+                      alt=""
+                    />
+                  ))}
+                </div>
+              </div>
+
+              <div className="panel-right">
+                <h1>Portfolio</h1>
+                <p className="tagline">Modern Personal Website</p>
+
+                <p className="desc">
+                  A sleek and interactive portfolio website designed to showcase
+                  skills, projects, and experience with smooth animations and engaging UI.
+                </p>
+
+                <div className="feature-card">Key Features</div>
+
+                <h3>TECH STACK:</h3>
+                <div className="chips">
+                  <span>React</span>
+                  <span>JavaScript</span>
+                  <span>Framer Motion</span>
+                  <span>Node</span>
+                </div>
+
+                <div className="involvement">
+                  <div className="involvement-inner">
+                    <div className="involvement-front">
+                      My Involvement
+                    </div>
+
+                    <div className="involvement-back">
+                      Full Stack Development
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="close" onClick={() => setSelected(null)}>
+                  ✕
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </section>
+  );
+}
+
+
+Projects.css:
+/* ================= SECTION ================= */
+#projects {
+  padding: 120px 80px;
+}
+
+/* ================= HEADER ================= */
+.projects-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.projects-header h1 {
+  font-size: 42px;
+  letter-spacing: 2px;
+}
+
+.projects-header p {
+  opacity: 0.7;
+  margin-top: 10px;
+}
+
+/* ================= EXPAND CARDS ================= */
+.expand-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.expand-container {
+  display: flex;
+  gap: 10px;
+  max-width: 1100px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+/* CARD */
+.expand-card {
+  height: 380px;
+  border-radius: 25px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.5s ease;
+  flex-shrink: 0;
+}
+
+/* IMAGE */
+.expand-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+/* HOVER ZOOM */
+.expand-card:hover img {
+  transform: scale(1.05);
+}
+
+/* ACTIVE */
+.expand-card.active {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* ================= NEW CARD EFFECT ================= */
+
+/* transparent overlay */
+.card-layer {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.08);
+  opacity: 0;
+  transition: 0.4s;
+}
+
+/* white border */
+.card-border {
+  position: absolute;
+  inset: 0;
+  border: 2px solid white;
+  opacity: 0;
+  transform: scale(0.95);
+  transition: 0.4s;
+  border-radius: 25px;
+}
+
+/* text container */
+.card-content {
+  position: absolute;
+  inset: 0;
+  color: white;
+  opacity: 0;
+  transition: 0.4s;
+}
+
+/* heading center */
+.card-content h2 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  font-size: 22px;
+  transition: 0.4s;
+}
+
+/* description bottom */
+.card-content p {
+  position: absolute;
+  bottom: 15px;
+  left: 20px;
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+/* trigger */
+.expand-card.active .card-layer,
+.expand-card:hover .card-layer {
+  opacity: 1;
+}
+
+.expand-card.active .card-border,
+.expand-card:hover .card-border {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.expand-card.active .card-content,
+.expand-card:hover .card-content {
+  opacity: 1;
+}
+
+.expand-card.active .card-content h2,
+.expand-card:hover .card-content h2 {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* ================= OVERLAY ================= */
+.project-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  backdrop-filter: blur(12px);
+  background: rgba(0, 0, 0, 0.4);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 9999;
+}
+
+/* ================= PANEL ================= */
+.project-panel {
+  width: 85%;
+  height: 85%;
+  border-radius: 25px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 10000;
+  animation: panelIn 0.4s ease;
+}
+
+@keyframes panelIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ================= NEW PANEL DESIGN ================= */
+.project-panel.new {
+  background: #cfcfcf;
+}
+
+/* ================= TOP STRIP ================= */
+.top-strip {
+  height: 50px;
+  background: #8b4a2f;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.scroll-track {
+  display: flex;
+  gap: 40px;
+  white-space: nowrap;
+  animation: scrollText 12s linear infinite;
+}
+
+.scroll-track span {
+  color: white;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+@keyframes scrollText {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ================= PANEL BODY ================= */
+.panel-body {
+  display: flex;
+  height: 100%;
+}
+
+/* ================= LEFT ================= */
+.panel-left {
+  width: 55%;
+  padding: 20px;
+}
+
+.main-image {
+  height: 75%;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+}
+
+.main-image img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  opacity: 0;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  transform: scale(1.05);
+}
+
+.main-image img.show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* THUMBNAILS */
+.thumb-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.thumb-row img {
+  width: 70px;
+  height: 70px;
+  border-radius: 12px;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: all 0.3s ease;
+}
+
+.thumb-row img:hover,
+.active-thumb {
+  opacity: 1;
+  transform: scale(1.08);
+}
+
+/* ================= RIGHT ================= */
+.panel-right {
+  width: 45%;
+  padding: 30px;
+  position: relative;
+}
+
+.panel-right h1 {
+  font-size: 32px;
+}
+
+.tagline {
+  opacity: 0.7;
+  margin-bottom: 10px;
+}
+
+.desc {
+  margin-bottom: 20px;
+}
+
+/* ================= FEATURE CARD ================= */
+.feature-card {
+  background: linear-gradient(135deg, #6a00f4, #9d4edd);
+  padding: 25px;
+  border-radius: 15px;
+  margin: 20px 0;
+  color: white;
+  text-align: center;
+  transition: 0.3s;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+}
+
+/* ================= TECH STACK ================= */
+.chips span {
+  background: #6a00f4;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  margin: 5px;
+  display: inline-block;
+}
+
+/* ================= INVOLVEMENT ================= */
+/* ================= INVOLVEMENT (FLIP CARD) ================= */
+.involvement {
+  margin-top: 20px;
+  perspective: 1000px;
+}
+
+.involvement-inner {
+  position: relative;
+  width: 100%;
+  height: 60px;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+.involvement:hover .involvement-inner {
+  transform: rotateY(180deg);
+}
+
+.involvement-front,
+.involvement-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+  background: #6a00f4;
+  color: white;
+}
+
+/* BACK SIDE */
+.involvement-back {
+  transform: rotateY(180deg);
+}
+
+/* ================= CLOSE ================= */
+.close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  #projects {
+    padding: 80px 20px;
+  }
+
+  .expand-container {
+    gap: 6px;
+  }
+
+  .expand-card {
+    height: 300px;
+  }
+
+  .panel-body {
+    flex-direction: column;
+  }
+
+  .panel-left,
+  .panel-right {
+    width: 100%;
+  }
+
+  .main-image {
+    height: 250px;
+  }
+}

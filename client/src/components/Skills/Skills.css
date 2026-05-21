@@ -1,0 +1,140 @@
+#skills {
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(circle at center, #0a001a, #000);
+}
+
+/* GRID */
+.skills-grid {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition: transform 0.2s ease;
+}
+
+/* CORE */
+.core-node {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px 30px;
+  border-radius: 50%;
+  background: rgba(255, 0, 255, 0.2);
+  box-shadow: 0 0 40px violet;
+  font-weight: bold;
+}
+
+/* NODE */
+.node {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+}
+
+.node-inner {
+  padding: 12px 16px;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  background: rgba(255,255,255,0.05);
+  color: white;
+  transition: 0.3s;
+}
+
+/* GLOW COLORS */
+.frontend .node-inner {
+  box-shadow: 0 0 15px #ff00ff;
+}
+.backend .node-inner {
+  box-shadow: 0 0 15px #00ffff;
+}
+.ai .node-inner {
+  box-shadow: 0 0 15px #00ff88;
+}
+.tools .node-inner {
+  box-shadow: 0 0 15px #ffaa00;
+}
+
+/* HOVER */
+.node:hover .node-inner {
+  transform: scale(1.2);
+}
+
+/* FADE */
+.fade {
+  opacity: 0.2;
+}
+
+/* CONNECTIONS */
+.connections {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.connections line {
+  stroke: rgba(255,255,255,0.2);
+  stroke-width: 1;
+}
+
+/* PANEL */
+.panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(20px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.panel-content {
+  background: rgba(255,255,255,0.1);
+  padding: 30px;
+  border-radius: 20px;
+  width: 300px;
+}
+
+/* CATEGORY */
+.category-bar {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+}
+
+.category-bar button {
+  background: rgba(255,255,255,0.1);
+  border: none;
+  padding: 8px 12px;
+  color: white;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.category-bar .active {
+  background: violet;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .skills-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .node {
+    position: static;
+    margin: 10px 0;
+  }
+
+  .connections {
+    display: none;
+  }
+}

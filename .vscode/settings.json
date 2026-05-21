@@ -1,0 +1,6 @@
+{
+    "workbench.editor.enablePreview": false,
+    "simpleBrowser.focusLockIndicator.enabled": true,
+    "simpleBrowser.openInExternalBrowser": true,
+    "livePreview.openPreviewTarget": "external"
+}

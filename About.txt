@@ -1,0 +1,207 @@
+About.jsx:
+import { motion } from "framer-motion";
+import { useEffect } from "react";
+import aboutImg from "../../assets/about.png";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 60 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.8 },
+  },
+};
+
+const About = () => {
+
+  // ✅ FIX: hook inside component
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      const el = document.getElementById("time");
+      if (el) {
+        el.innerText = now.toLocaleTimeString();
+      }
+    };
+
+    updateTime(); // run once immediately
+    const interval = setInterval(updateTime, 1000);
+
+    return () => clearInterval(interval); // cleanup
+  }, []);
+
+  return (
+    <>
+      {/* SECTION 1 */}
+      <section id="about1" className="about-section">
+        <motion.div
+          className="about-container"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+        >
+          {/* LEFT */}
+          <div className="about-left">
+            <div className="about-box">
+              <h3>ABOUT ME</h3>
+              <h1>
+                I'm <span>Rajanya Ray</span>
+              </h1>
+              <p>
+                A passionate developer who loves building intelligent,
+                user-focused digital experiences.
+              </p>
+              <p className="small">
+                Full Stack Developer & AIML enthusiast from Kolkata.
+              </p>
+            </div>
+
+            {/* TIME BOX */}
+            <div className="time-box">
+              <p>TIME</p>
+              <h2 id="time"></h2>
+            </div>
+
+            {/* HIGHLIGHTS */}
+            <div className="highlight-box">
+              <div>5<br />Projects</div>
+              <div>10<br />Skills</div>
+              <div>2<br />Achievements</div>
+            </div>
+          </div>
+
+          {/* RIGHT */}
+          <div className="about-right">
+            <img src={aboutImg} alt="avatar" />
+          </div>
+        </motion.div>
+      </section>
+
+      {/* SECTION 2 */}
+      <section id="about2" className="about-section">
+        <motion.div
+          className="journey-container"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+        >
+          <h2>MY JOURNEY</h2>
+
+          <div className="timeline">
+            <div className="point">2019<br />School</div>
+            <div className="point">2021<br />First Code</div>
+            <div className="point">2022-24<br />College</div>
+            <div className="point">2023-24<br />Projects</div>
+            <div className="point">Future</div>
+          </div>
+
+          <div className="hobbies">
+            <div>Art & Sketching</div>
+            <div>Graphic Design</div>
+          </div>
+
+          <div className="gallery">
+            <img src="/src/assets/gallery1.png" />
+            <img src="/src/assets/gallery2.png" />
+            <img src="/src/assets/gallery3.png" />
+          </div>
+
+          <div className="tagline">
+            This is who I am — a coder, a developer, and a dreamer.
+          </div>
+        </motion.div>
+      </section>
+    </>
+  );
+};
+
+export default About;
+
+About.css:
+.about-section {
+  min-height: 100vh;
+  padding: 100px 80px;
+}
+
+/* SECTION 1 */
+.about-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 50px;
+}
+
+.about-left {
+  width: 50%;
+}
+
+.about-box {
+  padding: 30px;
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.about-box span {
+  color: violet;
+}
+
+.time-box {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 15px;
+  background: rgba(255,255,255,0.05);
+}
+
+.highlight-box {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.highlight-box div {
+  padding: 20px;
+  border-radius: 15px;
+  background: rgba(255,255,255,0.05);
+}
+
+.about-right img {
+  width: 350px;
+}
+
+/* SECTION 2 */
+
+.journey-container {
+  text-align: center;
+}
+
+.timeline {
+  display: flex;
+  justify-content: space-between;
+  margin: 50px 0;
+}
+
+.point {
+  padding: 15px;
+  border-radius: 50%;
+  background: violet;
+}
+
+.gallery {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.gallery img {
+  width: 200px;
+  border-radius: 15px;
+}
+
+.tagline {
+  margin-top: 40px;
+  padding: 20px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.05);
+}
