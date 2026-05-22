@@ -304,10 +304,6 @@ export default function Hero() {
           }}
         />
       ))}
-
-      {/* Scan line overlay */}
-      <div className="hero__scanlines" />
-
       <div className="hero__inner">
         {/* ── LEFT: Text content ── */}
         <div className="hero__left">

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { ThemeContext } from "../../context/ThemeContext";
 import { motion } from "framer-motion";
 import { User, Code, Folder, Trophy, Mail } from "lucide-react";
@@ -59,10 +59,85 @@ const glowVariants = {
   hover: { opacity: 1, scale: 1.7 },
 };
 
+// ── Cosmos particles canvas ──────────────────────────────────────────────────
+function CosmosCanvas() {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+
+    const resize = () => {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    };
+    resize();
+
+    // 28 particles — decent, visible, not overwhelming
+    const PARTICLE_COUNT = 28;
+    const particles = Array.from({ length: PARTICLE_COUNT }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 1.8 + 0.5,          // radius 0.5–2.3
+      speedX: (Math.random() - 0.5) * 0.35,
+      speedY: (Math.random() - 0.5) * 0.25,
+      alpha: Math.random() * 0.6 + 0.3,       // 0.3–0.9
+      pulse: Math.random() * Math.PI * 2,     // phase offset for pulsing
+    }));
+
+    let raf;
+    const draw = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      particles.forEach((p) => {
+        p.pulse += 0.025;
+        const glowAlpha = p.alpha * (0.75 + 0.25 * Math.sin(p.pulse));
+
+        // outer glow
+        const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 4.5);
+        grad.addColorStop(0, `rgba(96, 165, 250, ${glowAlpha})`);       // blue-400
+        grad.addColorStop(0.4, `rgba(59, 130, 246, ${glowAlpha * 0.5})`);
+        grad.addColorStop(1, `rgba(59, 130, 246, 0)`);
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r * 4.5, 0, Math.PI * 2);
+        ctx.fillStyle = grad;
+        ctx.fill();
+
+        // core dot
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(191, 219, 254, ${glowAlpha})`;             // blue-200
+        ctx.fill();
+
+        // drift + wrap
+        p.x += p.speedX;
+        p.y += p.speedY;
+        if (p.x < -10) p.x = canvas.width + 10;
+        if (p.x > canvas.width + 10) p.x = -10;
+        if (p.y < -10) p.y = canvas.height + 10;
+        if (p.y > canvas.height + 10) p.y = -10;
+      });
+
+      raf = requestAnimationFrame(draw);
+    };
+    draw();
+
+    window.addEventListener("resize", resize);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", resize);
+    };
+  }, []);
+
+  return <canvas ref={canvasRef} className="navbar-cosmos" />;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+
 const Navbar = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);
 
-  // 👇 TRACK ACTIVE SECTION
   const active = useActiveSection([
     "home",
     "about",
@@ -72,7 +147,6 @@ const Navbar = () => {
     "contact",
   ]);
 
-  // 👇 HANDLE NAV CLICK - SCROLL TO SECTION
   const handleNavClick = (e, href) => {
     e.preventDefault();
     const targetId = href.replace("#", "");
@@ -84,6 +158,9 @@ const Navbar = () => {
 
   return (
     <div className="navbar">
+      {/* Cosmos particles — clipped inside navbar */}
+      <CosmosCanvas />
+
       {/* Logo */}
       <div className="logo">
         <img src="/src/assets/logo.png" alt="logo" />
@@ -97,7 +174,7 @@ const Navbar = () => {
           return (
             <motion.li
               key={i}
-              className={`nav-item ${isActive ? "active" : ""}`} // 👈 ACTIVE CLASS
+              className={`nav-item ${isActive ? "active" : ""}`}
               initial="initial"
               whileHover="hover"
             >
@@ -118,10 +195,13 @@ const Navbar = () => {
                   href={item.href}
                   onClick={(e) => handleNavClick(e, item.href)}
                   className="nav-face"
+                  data-letters={item.label}
                   variants={itemVariants}
                 >
                   {item.icon}
-                  <span>{item.label}</span>
+                  <span className="nav-label link--kukuri" data-letters={item.label}>
+                    {item.label}
+                  </span>
                 </motion.a>
 
                 {/* BACK */}
@@ -129,10 +209,13 @@ const Navbar = () => {
                   href={item.href}
                   onClick={(e) => handleNavClick(e, item.href)}
                   className="nav-face back"
+                  data-letters={item.label}
                   variants={backVariants}
                 >
                   {item.icon}
-                  <span>{item.label}</span>
+                  <span className="nav-label link--kukuri" data-letters={item.label}>
+                    {item.label}
+                  </span>
                 </motion.a>
               </div>
             </motion.li>

@@ -1,0 +1,246 @@
+/* =============================================
+   CURSOR — Portfolio Custom Cursor
+   Dark mode:  electric cyan-white core + indigo trail
+   Light mode: rose-gold core + soft mauve trail
+   ============================================= */
+
+*,
+*::before,
+*::after {
+  cursor: none !important;
+}
+
+/* ── Cursor Root Variables ─────────────────── */
+:root {
+  --cur-core-size: 10px;
+  --cur-ring-size: 36px;
+  --cur-dot-color: #e0f7ff;
+  --cur-ring-color: rgba(120, 200, 255, 0.18);
+  --cur-ring-border: rgba(140, 210, 255, 0.55);
+  --cur-glow: rgba(100, 180, 255, 0.45);
+  --cur-hover-scale: 1.7;
+  --cur-text-scale: 0.45;
+  --cur-trail-color: rgba(140, 100, 255, 0.12);
+  --cur-trail-border: rgba(160, 110, 255, 0.3);
+  --cur-spark-color: #a78bfa;
+  --cur-mix-mode: screen;
+  --cur-transition: 0.12s cubic-bezier(0.23, 1, 0.32, 1);
+  --cur-ring-transition: 0.38s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+[data-theme="light"],
+.light {
+  --cur-dot-color: #6b1a4a;
+  --cur-ring-color: rgba(190, 100, 140, 0.13);
+  --cur-ring-border: rgba(190, 100, 150, 0.45);
+  --cur-glow: rgba(210, 110, 150, 0.38);
+  --cur-trail-color: rgba(200, 160, 200, 0.1);
+  --cur-trail-border: rgba(190, 130, 180, 0.28);
+  --cur-spark-color: #c4719a;
+  --cur-mix-mode: multiply;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --cur-dot-color: #6b1a4a;
+    --cur-ring-color: rgba(190, 100, 140, 0.13);
+    --cur-ring-border: rgba(190, 100, 150, 0.45);
+    --cur-glow: rgba(210, 110, 150, 0.38);
+    --cur-trail-color: rgba(200, 160, 200, 0.1);
+    --cur-trail-border: rgba(190, 130, 180, 0.28);
+    --cur-spark-color: #c4719a;
+    --cur-mix-mode: multiply;
+  }
+}
+
+/* ── Core Dot ──────────────────────────────── */
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--cur-core-size);
+  height: var(--cur-core-size);
+  border-radius: 50%;
+  background: var(--cur-dot-color);
+  box-shadow:
+    0 0 8px 3px var(--cur-glow),
+    0 0 24px 6px var(--cur-glow),
+    0 0 2px 1px rgba(255, 255, 255, 0.9);
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%) scale(1);
+  transition:
+    transform var(--cur-transition),
+    opacity var(--cur-transition),
+    box-shadow var(--cur-transition);
+  will-change: transform, left, top;
+  mix-blend-mode: var(--cur-mix-mode);
+}
+
+.cursor-dot.clicking {
+  transform: translate(-50%, -50%) scale(0.45);
+}
+
+.cursor-dot.hovering {
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+}
+
+/* ── Outer Ring ────────────────────────────── */
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--cur-ring-size);
+  height: var(--cur-ring-size);
+  border-radius: 50%;
+  border: 1.5px solid var(--cur-ring-border);
+  background: var(--cur-ring-color);
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate(-50%, -50%) scale(1) rotate(0deg);
+  transition:
+    transform var(--cur-ring-transition),
+    width var(--cur-ring-transition),
+    height var(--cur-ring-transition),
+    border-color var(--cur-ring-transition),
+    background var(--cur-ring-transition);
+  will-change: transform, left, top;
+  backdrop-filter: blur(0.5px);
+}
+
+/* Constellation orbit dots on the ring */
+.cursor-ring::before,
+.cursor-ring::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  background: var(--cur-ring-border);
+  box-shadow: 0 0 5px 2px var(--cur-glow);
+  animation: orbit-spin 2.8s linear infinite;
+}
+
+.cursor-ring::before {
+  width: 4px;
+  height: 4px;
+  top: -2px;
+  left: 50%;
+  margin-left: -2px;
+  transform-origin: 2px calc(var(--cur-ring-size) / 2 + 2px);
+}
+
+.cursor-ring::after {
+  width: 3px;
+  height: 3px;
+  top: -1.5px;
+  left: 50%;
+  margin-left: -1.5px;
+  transform-origin: 1.5px calc(var(--cur-ring-size) / 2 + 1.5px);
+  animation-delay: -1.4s;
+  animation-duration: 2.8s;
+  opacity: 0.65;
+}
+
+@keyframes orbit-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ── Hover state — ring morphs into a halo ── */
+.cursor-ring.hovering {
+  width: 56px;
+  height: 56px;
+  border-color: var(--cur-spark-color);
+  background: transparent;
+  border-width: 1px;
+  transform: translate(-50%, -50%) scale(1) rotate(45deg);
+}
+
+/* ── Click pulse ────────────────────────────── */
+.cursor-ring.clicking {
+  transform: translate(-50%, -50%) scale(0.72);
+  transition: transform 0.08s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* ── Sparkle burst on click ─────────────────── */
+.cursor-spark {
+  position: fixed;
+  pointer-events: none;
+  z-index: 99997;
+  border-radius: 50%;
+  background: var(--cur-spark-color);
+  width: 6px;
+  height: 6px;
+  transform: translate(-50%, -50%);
+  animation: spark-burst 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  box-shadow: 0 0 6px 2px var(--cur-glow);
+}
+
+@keyframes spark-burst {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--spark-dx)), calc(-50% + var(--spark-dy))) scale(0.1);
+  }
+}
+
+/* ── Trailing ghost ─────────────────────────── */
+.cursor-trail {
+  position: fixed;
+  pointer-events: none;
+  z-index: 99996;
+  border-radius: 50%;
+  background: var(--cur-trail-color);
+  border: 1px solid var(--cur-trail-border);
+  transform: translate(-50%, -50%);
+  animation: trail-fade 0.55s ease-out forwards;
+}
+
+@keyframes trail-fade {
+  0%   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(2.4); }
+}
+
+/* ── Text cursor variant ────────────────────── */
+.cursor-ring.on-text {
+  width: 3px;
+  height: 28px;
+  border-radius: 2px;
+  border: none;
+  background: var(--cur-ring-border);
+  animation: blink-caret 1s step-end infinite;
+}
+
+.cursor-ring.on-text::before,
+.cursor-ring.on-text::after {
+  display: none;
+}
+
+@keyframes blink-caret {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.2; }
+}
+
+/* ── Hide on mobile/touch ───────────────────── */
+@media (hover: none) and (pointer: coarse) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none;
+  }
+  * { cursor: auto !important; }
+}
+
+/* ── Reduced motion ─────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .cursor-ring::before,
+  .cursor-ring::after {
+    animation: none;
+  }
+  .cursor-dot,
+  .cursor-ring {
+    transition: none;
+  }
+}

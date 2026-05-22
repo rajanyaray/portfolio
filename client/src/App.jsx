@@ -11,8 +11,9 @@ import Footer from "./components/Footer/Footer";
 
 import "./styles/global.css";
 import "./styles/background.css";
+import Cursor from "./components/Cursor/Cursor";
 
-function App() {
+export default function App() {
   const [showTop, setShowTop] = useState(false);
 
   useEffect(() => {
@@ -29,6 +30,8 @@ function App() {
 
   return (
     <>
+      <Cursor />
+      
       {/* 🔝 NAVBAR (fixed throughout) */}
       <Navbar />
 
@@ -105,5 +108,3 @@ function App() {
     </>
   );
 }
-
-export default App;
