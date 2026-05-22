@@ -9,8 +9,8 @@ const navItems = [
   {
     icon: <User />,
     label: "About",
-    href: "#about1",
-    ids: ["about1", "about2"],   // 👈 important
+    href: "#about",
+    ids: ["about"],
     color: "#2563eb",
   },
   {
@@ -64,14 +64,23 @@ const Navbar = () => {
 
   // 👇 TRACK ACTIVE SECTION
   const active = useActiveSection([
-    "hero",
-    "about1",
-    "about2",
+    "home",
+    "about",
     "skills",
     "projects",
     "achievements",
     "contact",
   ]);
+
+  // 👇 HANDLE NAV CLICK - SCROLL TO SECTION
+  const handleNavClick = (e, href) => {
+    e.preventDefault();
+    const targetId = href.replace("#", "");
+    const targetElement = document.getElementById(targetId);
+    if (targetElement) {
+      targetElement.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <div className="navbar">
@@ -107,6 +116,7 @@ const Navbar = () => {
                 {/* FRONT */}
                 <motion.a
                   href={item.href}
+                  onClick={(e) => handleNavClick(e, item.href)}
                   className="nav-face"
                   variants={itemVariants}
                 >
@@ -117,6 +127,7 @@ const Navbar = () => {
                 {/* BACK */}
                 <motion.a
                   href={item.href}
+                  onClick={(e) => handleNavClick(e, item.href)}
                   className="nav-face back"
                   variants={backVariants}
                 >

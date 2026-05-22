@@ -281,7 +281,7 @@ export default function Hero() {
   );
 
   return (
-    <section className="hero" id="home">
+    <section className="hero" id="hero">
       {/* Ambient background layers */}
       <div className="hero__bg-layer hero__bg-mesh" />
       <div className="hero__bg-layer hero__bg-radial hero__bg-radial--left" />
