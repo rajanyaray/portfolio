@@ -61,9 +61,20 @@
   position: relative;
 }
 
-.nav-links li.active a {
-  color: violet;
+/* Active section — gradient on the label span (where text actually lives) */
+.nav-links li.active .nav-label {
+  background: linear-gradient(90deg, #f59e0b, #f97316);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
   font-weight: 700;
+  filter: drop-shadow(0 0 8px rgba(251,146,60,0.6));
+}
+
+/* Active icon colour */
+.nav-links li.active .nav-face svg {
+  color: #f97316;
+  stroke: #f97316;
 }
 
 /* MAIN LINK */
@@ -77,6 +88,7 @@
 
   text-decoration: none;
   font-weight: 500;
+  font-size: 18px;
 
   position: relative;
   z-index: 2;
@@ -92,24 +104,37 @@
 }
 
 .text {
-  font-size: 14px;
+  font-size: 18px;
 }
 
-/* ================= GLOW ================= */
+/* ================= HOVER BG EFFECT — diagonal shimmer stripe ================= */
 
 .nav-glow {
   position: absolute;
-  inset: -4px;
+  inset: 0;
   border-radius: 12px;
-  filter: blur(10px);
-  z-index: -1;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+  /* diagonal shimmer stripe */
+  background: linear-gradient(
+    115deg,
+    transparent 20%,
+    rgba(255,255,255,0.18) 40%,
+    rgba(251,191,36,0.22) 50%,
+    rgba(249,115,22,0.18) 60%,
+    transparent 80%
+  );
+  background-size: 300% 100%;
+  background-position: 200% 0;
   opacity: 0;
-  transition: 0.3s ease;
+  transition: opacity 0.25s ease, background-position 0s;
 }
 
 .nav-item:hover .nav-glow {
   opacity: 1;
-  transform: scale(1.2);
+  background-position: -100% 0;
+  transition: opacity 0.25s ease, background-position 0.55s cubic-bezier(0.4,0,0.2,1);
 }
 
 /* FLOAT EFFECT */
@@ -132,6 +157,7 @@
   border-radius: 12px;
 
   text-decoration: none;
+  font-size: 18px;
 
   transform-style: preserve-3d;
   transform-origin: center bottom;
@@ -153,33 +179,32 @@
 .nav-label {
   position: relative;
   display: inline-block;
-  font-size: 14px;
+  font-size: 18px;
   line-height: 1;
   overflow: hidden;
   white-space: nowrap;
   font-weight: inherit;
 }
 
-/* Kukuri bar sweep (::after) */
+/* Kukuri bar sweep (::after) — sweeps across, fully opaque so it hides the text beneath */
 .nav-label::after {
   content: '';
   position: absolute;
-  height: 100%;
-  width: 100%;
-  top: 0;
+  height: 120%;
+  width: 110%;
+  top: -10%;
   left: 0;
-  /* bar color adapts to theme via CSS vars set below */
-  background: var(--kukuri-bar-color, #f0f0f0);
-  transform: translate3d(-101%, 0, 0);
-  transition: transform 0.38s cubic-bezier(0.7, 0, 0.3, 1);
+  background: var(--kukuri-bar-color, #ffffff);
+  transform: translate3d(-110%, 0, 0);
+  transition: transform 0.36s cubic-bezier(0.7, 0, 0.3, 1);
   z-index: 1;
 }
 
 .nav-item:hover .nav-label::after {
-  transform: translate3d(101%, 0, 0);
+  transform: translate3d(110%, 0, 0);
 }
 
-/* Kukuri colored text reveal (::before) */
+/* Kukuri reveal text (::before) — shown AFTER bar sweeps past */
 .nav-label::before {
   content: attr(data-letters);
   position: absolute;
@@ -189,10 +214,11 @@
   overflow: hidden;
   white-space: nowrap;
   width: 0%;
-  transition: width 0.38s 0.28s ease;
-  /* text color on reveal adapts to theme */
+  /* Reveal starts just as the bar finishes sweeping */
+  transition: width 0.36s 0.26s cubic-bezier(0.4, 0, 0.2, 1);
   color: var(--kukuri-reveal-color, #111);
   font-weight: 700;
+  font-size: 18px;
 }
 
 .nav-item:hover .nav-label::before {
@@ -257,8 +283,17 @@ body[data-theme="light"] .nav-item:hover .nav-face {
 }
 
 body[data-theme="light"] .nav-label {
-  --kukuri-bar-color: #f5f5f5;
-  --kukuri-reveal-color: #000000;
+  --kukuri-bar-color: #1e1040;       /* dark bar sweeps over light bg */
+  --kukuri-reveal-color: #000000;    /* black bold on hover reveal */
+}
+
+/* Hover text: black bold in light mode */
+body[data-theme="light"] .nav-item:hover .nav-label {
+  background: none;
+  -webkit-background-clip: unset;
+  background-clip: unset;
+  -webkit-text-fill-color: #000000;
+  font-weight: 700;
 }
 
 /* ================= DARK MODE ================= */
@@ -270,7 +305,7 @@ body[data-theme="dark"] .navbar {
 
 body[data-theme="dark"] .nav-link,
 body[data-theme="dark"] .nav-face {
-  color: #d1d5db; /* light grey */
+  color: #d1d5db;
   font-weight: 500;
 }
 
@@ -281,8 +316,17 @@ body[data-theme="dark"] .nav-item:hover .nav-face {
 }
 
 body[data-theme="dark"] .nav-label {
-  --kukuri-bar-color: #1e1e2e;
-  --kukuri-reveal-color: #ffffff;
+  --kukuri-bar-color: #ffffff;       /* white bar sweeps over dark bg */
+  --kukuri-reveal-color: #ffffff;    /* white bold on hover reveal */
+}
+
+/* Hover text: white bold in dark mode */
+body[data-theme="dark"] .nav-item:hover .nav-label {
+  background: none;
+  -webkit-background-clip: unset;
+  background-clip: unset;
+  -webkit-text-fill-color: #ffffff;
+  font-weight: 700;
 }
 
 /* ================= TOGGLE ================= */

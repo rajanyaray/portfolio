@@ -112,7 +112,7 @@ function ExpandingWord({ children }) {
 // ── Orbit System ──────────────────────────────────────────────────────────
 const ORBITS = [
   {
-    rx: 100, ry: 85,          // inner ellipse radii
+    rx: 100, ry: 85,
     speed: 16,
     color: "#a78bfa",
     glow: "#7c3aed",
@@ -123,7 +123,7 @@ const ORBITS = [
     ],
   },
   {
-    rx: 170, ry: 145,      // middle ellipse
+    rx: 170, ry: 145,
     speed: 26,
     color: "#38bdf8",
     glow: "#0ea5e9",
@@ -135,56 +135,64 @@ const ORBITS = [
     ],
   },
   {
-    rx: 245, ry: 210,         // outer ellipse
+    rx: 245, ry: 210,
     speed: 38,
     color: "#fb7185",
     glow: "#e11d48",
     dashArray: "10 7",
     icons: [
-      { src: cIcon,      label: "C"       },
-      { src: cppIcon,    label: "C++"     },
-      { src: expressIcon,label: "Express" },
+      { src: cIcon,       label: "C"       },
+      { src: cppIcon,     label: "C++"     },
+      { src: expressIcon, label: "Express" },
     ],
   },
 ];
 
-// Parametric point on an ellipse (angle in degrees)
+// SVG viewBox dimensions
+const VB_W = 540, VB_H = 500;
+
 function ellipsePoint(rx, ry, angleDeg) {
   const rad = (angleDeg * Math.PI) / 180;
   return { x: rx * Math.cos(rad), y: ry * Math.sin(rad) };
 }
- 
-function OrbitIcon({ src, label, rx, ry, startAngle, speed, color, orbitIdx, scale = 1 }) {
+
+// Continuous rAF angle for a single icon
+function useOrbitAngle(startAngle, speed) {
   const [angle, setAngle] = useState(startAngle);
-  const rafRef = useRef(null);
+  const rafRef  = useRef(null);
   const lastRef = useRef(null);
- 
   useEffect(() => {
     const step = (ts) => {
       if (lastRef.current === null) lastRef.current = ts;
-      const delta = ts - lastRef.current;
+      const dt = ts - lastRef.current;
       lastRef.current = ts;
-      // degrees per ms → full 360° in `speed` seconds
-      setAngle((a) => (a + (360 / (speed * 1000)) * delta) % 360);
+      setAngle((a) => (a + (360 / (speed * 1000)) * dt) % 360);
       rafRef.current = requestAnimationFrame(step);
     };
     rafRef.current = requestAnimationFrame(step);
     return () => cancelAnimationFrame(rafRef.current);
   }, [speed]);
- 
-  const pt = ellipsePoint(rx, ry, angle);
-  // Apply scale factor to match SVG rendering
-  const scaledX = pt.x * scale;
-  const scaledY = pt.y * scale;
-  
+  return angle;
+}
+
+// One orbiting icon chip.
+// scaleX/scaleY: container-pixels per viewBox-unit on each axis
+// dyOffset: how many container-pixels the SVG centre is above/below the container centre
+function OrbitIcon({ src, label, rx, ry, startAngle, speed, color, scaleX, scaleY, dyOffset }) {
+  const angle = useOrbitAngle(startAngle, speed);
+  const pt    = ellipsePoint(rx, ry, angle);
+
+  const pixelX = pt.x * scaleX;
+  const pixelY = pt.y * scaleY + dyOffset;
+
   return (
     <div
       className="orbit-icon"
       style={{
         "--orbit-color": color,
         position: "absolute",
-        left: `calc(50% + ${scaledX}px - 22px)`,
-        top:  `calc(50% + ${scaledY}px - 5% - 22px)`,
+        left: `calc(50% + ${pixelX}px - 22px)`,
+        top:  `calc(50% + ${pixelY}px - 22px)`,
       }}
     >
       <img src={src} alt={label} draggable="false" />
@@ -192,45 +200,53 @@ function OrbitIcon({ src, label, rx, ry, startAngle, speed, color, orbitIdx, sca
     </div>
   );
 }
- 
+
 function OrbitSystem() {
   const [hovered, setHovered] = useState(null);
-  const [scale, setScale] = useState(1);
-  const containerRef = useRef(null);
-  
-  // SVG canvas size — same as viewBox
-  const W = 540, H = 500;
-  const cx = W / 2, cy = H / 2;
+  const svgRef                = useRef(null);
+  const containerRef          = useRef(null);
+  const [tf, setTf]           = useState({ scaleX: 1, scaleY: 1, dyOffset: 0 });
 
-  // Calculate scale factor when container renders
   useEffect(() => {
-    const updateScale = () => {
-      if (containerRef.current) {
-        const svg = containerRef.current.querySelector('.orbit-svg');
-        if (svg && svg.clientWidth) {
-          const scaleX = svg.clientWidth / W;
-          setScale(scaleX);
-        }
-      }
+    const update = () => {
+      const svg = svgRef.current;
+      const con = containerRef.current;
+      if (!svg || !con) return;
+
+      const svgRect = svg.getBoundingClientRect();
+      const conRect = con.getBoundingClientRect();
+
+      // How many container-pixels per viewBox unit on each axis
+      const sX = svgRect.width  / VB_W;
+      const sY = svgRect.height / VB_H;
+
+      // Where is the SVG's viewBox centre in container coordinates?
+      // SVG centre in page coords = svgRect.top + svgRect.height/2
+      // Container centre in page coords = conRect.top + conRect.height/2
+      const svgCenterY = svgRect.top  + svgRect.height / 2;
+      const conCenterY = conRect.top  + conRect.height / 2;
+      const dy = svgCenterY - conCenterY;   // positive → SVG centre is below container centre
+
+      setTf({ scaleX: sX, scaleY: sY, dyOffset: dy });
     };
-    
-    updateScale();
-    const resizeObserver = new ResizeObserver(updateScale);
-    if (containerRef.current) resizeObserver.observe(containerRef.current);
-    window.addEventListener('resize', updateScale);
-    
-    return () => {
-      resizeObserver.disconnect();
-      window.removeEventListener('resize', updateScale);
-    };
+
+    update();
+    const ro = new ResizeObserver(update);
+    if (containerRef.current) ro.observe(containerRef.current);
+    window.addEventListener("resize", update);
+    return () => { ro.disconnect(); window.removeEventListener("resize", update); };
   }, []);
+
+  const cx = VB_W / 2, cy = VB_H / 2;
+  const { scaleX, scaleY, dyOffset } = tf;
 
   return (
     <div className="orbit-system" ref={containerRef}>
-      {/* ── SVG rings ── */}
+      {/* SVG rings */}
       <svg
+        ref={svgRef}
         className="orbit-svg"
-        viewBox={`0 0 ${W} ${H}`}
+        viewBox={`0 0 ${VB_W} ${VB_H}`}
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
       >
@@ -245,7 +261,6 @@ function OrbitSystem() {
             </filter>
           ))}
         </defs>
- 
         {ORBITS.map((o, i) => (
           <ellipse
             key={i}
@@ -261,22 +276,22 @@ function OrbitSystem() {
           />
         ))}
       </svg>
- 
-      {/* ── Hover zones (invisible, stacked largest→smallest) ── */}
+
+      {/* Hover zones */}
       {[...ORBITS].reverse().map((o, ri) => {
         const i = ORBITS.length - 1 - ri;
         return (
           <div
             key={i}
             className="orbit-hover-zone"
-            style={{ width: o.rx * 2 * scale, height: o.ry * 2 * scale }}
+            style={{ width: o.rx * 2 * scaleX, height: o.ry * 2 * scaleY }}
             onMouseEnter={() => setHovered(i)}
             onMouseLeave={() => setHovered(null)}
           />
         );
       })}
- 
-      {/* ── Animated icons ── */}
+
+      {/* Animated icons — pixel-perfect on the SVG rings */}
       {ORBITS.map((o, oi) =>
         o.icons.map((icon, ii) => (
           <OrbitIcon
@@ -288,12 +303,12 @@ function OrbitSystem() {
             startAngle={(360 / o.icons.length) * ii}
             speed={o.speed}
             color={o.color}
-            orbitIdx={oi}
-            scale={scale}
+            scaleX={scaleX}
+            scaleY={scaleY}
+            dyOffset={dyOffset}
           />
         ))
       )}
- 
       {/* ── Standing profile photo ── */}
       <div className="profile-stand">
         <div className="profile-stand__glow" />

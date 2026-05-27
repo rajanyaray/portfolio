@@ -6,7 +6,7 @@ body {
 
 /* Light Mode */
 body[data-theme="light"] {
-  background: linear-gradient(120deg, #ffffff, #e0e0ff, #cdb4ff, #f8f9ff);
+  background: linear-gradient(120deg, #ffffff, #eeb4ff, #bbbbff, #ffabd4, #ffffff);
   background-size: 300% 300%;
 }
 
