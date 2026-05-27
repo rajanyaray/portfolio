@@ -28,6 +28,7 @@ function useDecrypt(original) {
   const startDecrypt = () => {
     let iteration = 0;
     const total = original.length * 3;
+
     const step = () => {
       setDisplay(
         original
@@ -54,32 +55,42 @@ function useDecrypt(original) {
 }
 
 // ── Morph text component ───────────────────────────────────────────────────
+// ── Updated Morph text component with Multi-Color Typing ───────────────────
 const PHRASES = [
-  "A Full Stack Developer",
-  "A Tech Enthusiast",
-  "A Curious Mind",
-  "A Lifelong Learner",
+  "Full Stack Developer  ",
+  "Tech Enthusiast  ",
+  "Curious Mind  ",
+  "Lifelong Learner  ",
 ];
 
 function MorphText() {
   const [index, setIndex] = useState(0);
-  const [morphing, setMorphing] = useState(false);
+  const [typingClass, setTypingClass] = useState("typing");
 
   useEffect(() => {
+    // Cycles the phrases and restarts the typing/erasing animation cycle
     const interval = setInterval(() => {
-      setMorphing(true);
+      setTypingClass("erasing");
       setTimeout(() => {
         setIndex((i) => (i + 1) % PHRASES.length);
-        setMorphing(false);
-      }, 500);
-    }, 2500);
+        setTypingClass("typing");
+      }, 1000); // Wait for erase animation to complete before switching text
+    }, 4500);
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <span className={`morph-text ${morphing ? "morphing" : ""}`}>
-      {PHRASES[index]}
-    </span>
+    <div className={`hero__morph-row phrase-theme-${index}`}>
+      <span className="hero__morph-prefix">✦</span>
+      <span className="morph-constant-a">A </span>
+      <span 
+        className={`morph-text ${typingClass}`}
+        style={{ "--char-count": PHRASES[index].length }}
+      >
+        {PHRASES[index]}
+      </span>
+      <span className="hero__morph-suffix">✦</span>
+    </div>
   );
 }
 
@@ -112,7 +123,7 @@ const ORBITS = [
     ],
   },
   {
-    rx: 170, ry: 145,         // middle ellipse
+    rx: 170, ry: 145,      // middle ellipse
     speed: 26,
     color: "#38bdf8",
     glow: "#0ea5e9",
@@ -136,14 +147,14 @@ const ORBITS = [
     ],
   },
 ];
- 
+
 // Parametric point on an ellipse (angle in degrees)
 function ellipsePoint(rx, ry, angleDeg) {
   const rad = (angleDeg * Math.PI) / 180;
   return { x: rx * Math.cos(rad), y: ry * Math.sin(rad) };
 }
  
-function OrbitIcon({ src, label, rx, ry, startAngle, speed, color, orbitIdx }) {
+function OrbitIcon({ src, label, rx, ry, startAngle, speed, color, orbitIdx, scale = 1 }) {
   const [angle, setAngle] = useState(startAngle);
   const rafRef = useRef(null);
   const lastRef = useRef(null);
@@ -162,15 +173,18 @@ function OrbitIcon({ src, label, rx, ry, startAngle, speed, color, orbitIdx }) {
   }, [speed]);
  
   const pt = ellipsePoint(rx, ry, angle);
- 
+  // Apply scale factor to match SVG rendering
+  const scaledX = pt.x * scale;
+  const scaledY = pt.y * scale;
+  
   return (
     <div
       className="orbit-icon"
       style={{
         "--orbit-color": color,
         position: "absolute",
-        left: `calc(50% + ${pt.x}px - 22px)`,
-        top:  `calc(50% + ${pt.y}px - 22px)`,
+        left: `calc(50% + ${scaledX}px - 22px)`,
+        top:  `calc(50% + ${scaledY}px - 5% - 22px)`,
       }}
     >
       <img src={src} alt={label} draggable="false" />
@@ -181,13 +195,38 @@ function OrbitIcon({ src, label, rx, ry, startAngle, speed, color, orbitIdx }) {
  
 function OrbitSystem() {
   const [hovered, setHovered] = useState(null);
- 
-  // SVG canvas size — same as container
+  const [scale, setScale] = useState(1);
+  const containerRef = useRef(null);
+  
+  // SVG canvas size — same as viewBox
   const W = 540, H = 500;
   const cx = W / 2, cy = H / 2;
- 
+
+  // Calculate scale factor when container renders
+  useEffect(() => {
+    const updateScale = () => {
+      if (containerRef.current) {
+        const svg = containerRef.current.querySelector('.orbit-svg');
+        if (svg && svg.clientWidth) {
+          const scaleX = svg.clientWidth / W;
+          setScale(scaleX);
+        }
+      }
+    };
+    
+    updateScale();
+    const resizeObserver = new ResizeObserver(updateScale);
+    if (containerRef.current) resizeObserver.observe(containerRef.current);
+    window.addEventListener('resize', updateScale);
+    
+    return () => {
+      resizeObserver.disconnect();
+      window.removeEventListener('resize', updateScale);
+    };
+  }, []);
+
   return (
-    <div className="orbit-system">
+    <div className="orbit-system" ref={containerRef}>
       {/* ── SVG rings ── */}
       <svg
         className="orbit-svg"
@@ -230,7 +269,7 @@ function OrbitSystem() {
           <div
             key={i}
             className="orbit-hover-zone"
-            style={{ width: o.rx * 2, height: o.ry * 2 }}
+            style={{ width: o.rx * 2 * scale, height: o.ry * 2 * scale }}
             onMouseEnter={() => setHovered(i)}
             onMouseLeave={() => setHovered(null)}
           />
@@ -250,6 +289,7 @@ function OrbitSystem() {
             speed={o.speed}
             color={o.color}
             orbitIdx={oi}
+            scale={scale}
           />
         ))
       )}
@@ -267,7 +307,6 @@ function OrbitSystem() {
 // ── Main Hero ──────────────────────────────────────────────────────────────
 export default function Hero() {
   const { display: nameDisplay, startDecrypt, reset } = useDecrypt("RAJANYA RAY");
-
   // Floating particles (subtle, non-obtrusive)
   const [sparks] = useState(() =>
     Array.from({ length: 18 }, (_, i) => ({
@@ -309,12 +348,13 @@ export default function Hero() {
         <div className="hero__left">
 
           {/* Line 1: HELLO!!! */}
-          <h1 className="hero__hello">
-            {"HELLO!!!".split("").map((ch, i) => (
+          <h1 className="hero__hello shadow-dance-text">
+            {"HELLO".split("").map((ch, i) => (
               <span key={i} className="hero__hello-char" style={{ animationDelay: `${i * 0.06}s` }}>
                 {ch}
               </span>
             ))}
+            <span className="hero__typing-exclamations"></span>
           </h1>
 
           {/* Line 2: Welcome to my Portfolio */}
@@ -349,27 +389,26 @@ export default function Hero() {
             <span className="hero__divider-line" />
           </div>
 
-        {/* BUTTONS */}
-        <div className="hero-buttons">
+          {/* BUTTONS */}
+          <div className="hero-buttons">
  
-          {/* Resume — uiverse Tsiangana */}
-          <a href="/resume.pdf" target="_blank" rel="noreferrer" className="botao">
-            <svg className="mysvg" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="24px" width="24px">
-              <path strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" stroke="#f1f1f1" d="M6 21H18M12 3V17M12 17L17 12M12 17L7 12" />
-            </svg>
-            <span className="texto">Resume</span>
-          </a>
+            {/* Resume — uiverse Tsiangana */}
+            <a href="/resume.pdf" target="_blank" rel="noreferrer" className="botao">
+              <svg className="mysvg" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="24px" width="24px">
+                <path strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" stroke="#f1f1f1" d="M6 21H18M12 3V17M12 17L17 12M12 17L7 12" />
+              </svg>
+              <span className="texto">Resume</span>
+            </a>
  
-          {/* GitHub — uiverse charlie_4212 */}
-          <a href="https://github.com/yourusername" target="_blank" rel="noreferrer" className="gh-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="gh-icon">
-              <path d="M12 .5C5.65.5.5 5.65.5 12a11.5 11.5 0 0 0 7.86 10.93c.58.1.79-.25.79-.55v-1.94c-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.3-1.7-1.3-1.7-1.06-.73.08-.72.08-.72 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.72 1.26 3.38.96.1-.76.4-1.26.72-1.55-2.56-.29-5.26-1.28-5.26-5.7 0-1.26.45-2.28 1.2-3.08-.12-.3-.52-1.5.12-3.1 0 0 .98-.32 3.2 1.18a11.1 11.1 0 0 1 5.82 0c2.22-1.5 3.2-1.18 3.2-1.18.64 1.6.24 2.8.12 3.1.75.8 1.2 1.82 1.2 3.08 0 4.44-2.7 5.4-5.28 5.68.4.34.76 1.02.76 2.06v3.05c0 .3.2.66.8.55A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/>
-            </svg>
-            <span className="gh-label">GitHub</span>
-          </a>
+            {/* GitHub — uiverse charlie_4212 */}
+            <a href="https://github.com/yourusername" target="_blank" rel="noreferrer" className="gh-btn">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="gh-icon">
+                <path d="M12 .5C5.65.5.5 5.65.5 12a11.5 11.5 0 0 0 7.86 10.93c.58.1.79-.25.79-.55v-1.94c-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.3-1.7-1.3-1.7-1.06-.73.08-.72.08-.72 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.72 1.26 3.38.96.1-.76.4-1.26.72-1.55-2.56-.29-5.26-1.28-5.26-5.7 0-1.26.45-2.28 1.2-3.08-.12-.3-.52-1.5.12-3.1 0 0 .98-.32 3.2 1.18a11.1 11.1 0 0 1 5.82 0c2.22-1.5 3.2-1.18 3.2-1.18.64 1.6.24 2.8.12 3.1.75.8 1.2 1.82 1.2 3.08 0 4.44-2.7 5.4-5.28 5.68.4.34.76 1.02.76 2.06v3.05c0 .3.2.66.8.55A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/>
+              </svg>
+              <span className="gh-label">GitHub</span>
+            </a>
  
-        </div>
-
+          </div>
 
         </div>
 

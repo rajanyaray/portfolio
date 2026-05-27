@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import "./Footer.css";
+import "./footer.css";
 
 /* ── Social SVGs ── */
 const GithubIcon = () => (

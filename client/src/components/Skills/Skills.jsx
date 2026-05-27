@@ -147,6 +147,122 @@ function SpotlightCard({ children, color, className = "" }) {
   );
 }
 
+// Hook: returns JS-animated positions for elliptical orbit
+function useEllipseOrbit(count, rx, ry, speed = 0.0004) {
+  const [angles, setAngles] = useState(() =>
+    Array.from({ length: count }, (_, i) => (i / count) * Math.PI * 2)
+  );
+  const rafRef = useRef(null);
+  const lastRef = useRef(null);
+
+  useEffect(() => {
+    lastRef.current = null;
+    // Reset angles when count changes
+    setAngles(Array.from({ length: count }, (_, i) => (i / count) * Math.PI * 2));
+  }, [count]);
+
+  useEffect(() => {
+    let running = true;
+    const tick = (ts) => {
+      if (!running) return;
+      const dt = lastRef.current ? ts - lastRef.current : 0;
+      lastRef.current = ts;
+      setAngles((prev) => prev.map((a) => a + speed * dt));
+      rafRef.current = requestAnimationFrame(tick);
+    };
+    rafRef.current = requestAnimationFrame(tick);
+    return () => {
+      running = false;
+      cancelAnimationFrame(rafRef.current);
+    };
+  }, [speed]);
+
+  return angles.map((a) => ({
+    x: Math.cos(a) * rx,
+    y: Math.sin(a) * ry,
+  }));
+}
+
+// Responsive orbit dimensions based on stage width
+function useOrbitDimensions(stageRef) {
+  const [dims, setDims] = useState({ rx: 280, ry: 170, stageW: 600, stageH: 420 });
+
+  useEffect(() => {
+    const update = () => {
+      const w = window.innerWidth;
+      if (w <= 480) {
+        setDims({ rx: 160, ry: 100, stageW: 400, stageH: 290 });
+      } else if (w <= 620) {
+        setDims({ rx: 195, ry: 120, stageW: 450, stageH: 330 });
+      } else if (w <= 820) {
+        setDims({ rx: 230, ry: 140, stageW: 530, stageH: 380 });
+      } else {
+        setDims({ rx: 280, ry: 170, stageW: 600, stageH: 420 });
+      }
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
+  return dims;
+}
+
+function OrbitingSkills({ skills, color, glow }) {
+  const stageRef = useRef(null);
+  const { rx, ry, stageW, stageH } = useOrbitDimensions(stageRef);
+  const positions = useEllipseOrbit(skills.length, rx, ry);
+  const [hoveredIdx, setHoveredIdx] = useState(null);
+
+  return (
+    <div
+      ref={stageRef}
+      className="orbit-stage"
+      style={{ width: stageW, height: stageH }}
+    >
+      {/* Single elliptical orbit ring — skills sit on this path */}
+      <div
+        className="orbit-ring"
+        style={{
+          "--ring-color": glow,
+          "--ring-ry": `${ry}px`,
+          width: rx * 2,
+          height: ry * 2,
+        }}
+      />
+
+      {/* Orbiting skill cards */}
+      {skills.map((sk, i) => {
+        const pos = positions[i] || { x: 0, y: 0 };
+        const isHovered = hoveredIdx === i;
+        return (
+          <div
+            key={sk.name}
+            className="skill-orb"
+            style={{
+              "--orb-color": color,
+              transform: `translate(calc(-50% + ${pos.x}px), calc(-50% + ${pos.y}px))`,
+              zIndex: isHovered ? 20 : 3,
+            }}
+            onMouseEnter={() => setHoveredIdx(i)}
+            onMouseLeave={() => setHoveredIdx(null)}
+          >
+            <div className={`skill-orb-inner${isHovered ? " skill-orb-inner--hovered" : ""}`}>
+              <img
+                src={sk.icon}
+                alt={sk.name}
+                className="skill-orb-icon"
+                onError={(e) => { e.target.style.display = "none"; }}
+              />
+              <span className="skill-orb-name">{sk.name}</span>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 export default function Skills() {
   const [active, setActive] = useState(0);
   const [prev, setPrev] = useState(null);
@@ -186,12 +302,6 @@ export default function Skills() {
 
   const div = DIVISIONS[active];
 
-  // orbit positions for skills distributed around ellipse
-  const getOrbitPos = (i, total, rx = 240, ry = 180) => {
-    const angle = (i / total) * 2 * Math.PI - Math.PI / 2;
-    return { x: Math.cos(angle) * rx, y: Math.sin(angle) * ry };
-  };
-
   return (
     <section className="skills-section" id="skills">
       {/* Animated BG blobs */}
@@ -229,40 +339,19 @@ export default function Skills() {
           })}
         </div>
 
-        {/* Orbit Stage */}
-        <div className="orbit-stage">
-          {/* Orbit rings */}
-          <div className="orbit-ring orbit-ring--outer" style={{ "--ring-color": div.glow }} />
-          <div className="orbit-ring orbit-ring--inner" style={{ "--ring-color": div.glow }} />
-          <div className="orbit-ring orbit-ring--pulse" style={{ "--ring-color": div.glow }} />
+        {/* Orbit Stage — now handled by OrbitingSkills */}
+        <div className="orbit-stage-wrapper">
+          <OrbitingSkills
+            key={div.id}
+            skills={div.skills}
+            color={div.color}
+            glow={div.glow}
+          />
 
-          {/* Skill orbit cards */}
-          {div.skills.map((sk, i) => {
-            const orbRadius = Math.max(180, 240 - (div.skills.length - 6) * 10);
-            return (
-              <div
-                key={`${div.id}-${sk.name}`}
-                className="skill-orb"
-                style={{
-                  "--skill-index": i,
-                  "--skill-count": div.skills.length,
-                  "--orb-color": div.color,
-                  "--orb-radius": `${orbRadius}px`,
-                  animationDelay: `${i * 0.08}s`,
-                }}
-              >
-                <div className="skill-orb-inner">
-                  <img src={sk.icon} alt={sk.name} className="skill-orb-icon" onError={(e) => { e.target.style.display = "none"; }} />
-                  <span className="skill-orb-name">{sk.name}</span>
-                </div>
-              </div>
-            );
-          })}
-
-          {/* Center Division Card */}
+          {/* Center Division Card — absolutely centered over the orbit stage */}
           <div
             className={`division-card ${animDir === "next" ? "div-card--in-next" : "div-card--in-prev"}`}
-            key={div.id}
+            key={div.id + "-card"}
             style={{ "--div-color": div.color, "--div-glow": div.glow }}
           >
             <div className="division-card-inner">
@@ -275,7 +364,6 @@ export default function Skills() {
               <div className="div-card-level">
                 <span className="level-pill">{div.level}</span>
               </div>
-              {/* Dot indicators */}
               <div className="div-card-dots">
                 {DIVISIONS.map((_, i) => (
                   <button
@@ -289,23 +377,8 @@ export default function Skills() {
             <div className="div-card-shimmer" />
           </div>
 
-          {/* Connector lines */}
-          {div.skills.map((sk, i) => {
-            const orbRadius = Math.max(180, 240 - (div.skills.length - 6) * 10);
-            return (
-              <div
-                key={`line-${i}`}
-                className="orbit-connector"
-                style={{
-                  "--skill-index": i,
-                  "--skill-count": div.skills.length,
-                  "--conn-color": div.color,
-                  "--orb-radius": `${orbRadius}px`,
-                  animationDelay: `${i * 0.1}s`,
-                }}
-              />
-            );
-          })}
+          {/* Hover hint */}
+          <p className="orbit-hint">Hover any skill</p>
         </div>
 
         {/* Right side buttons */}

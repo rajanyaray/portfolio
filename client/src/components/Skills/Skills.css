@@ -1,6 +1,5 @@
 /* =====================================================
-   SKILLS SECTION — Full Effects CSS
-   Dark: purple→blue bg | Light: white→lavender bg
+   SKILLS SECTION — Full Effects CSS (Revamped)
    ===================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;500;600;700&display=swap');
@@ -41,19 +40,20 @@
   }
 }
 
-/* ── Section Shell ── */
+/* ── Section Shell — fit viewport, no scroll ── */
 .skills-section {
   position: relative;
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
+  min-height: 600px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  padding: 80px 24px 20px;
+  justify-content: center;
+  padding: 60px 16px 16px;
   overflow: hidden;
   box-sizing: border-box;
-  gap: 6px;
+  gap: 0;
 }
 
 /* ── Animated Background Blobs ── */
@@ -93,13 +93,14 @@
 /* ── Heading ── */
 .skills-heading-wrap {
   text-align: center;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
   z-index: 2;
+  flex-shrink: 0;
 }
 
 .skills-heading {
   font-family: 'Orbitron', monospace;
-  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-size: clamp(1.8rem, 4vw, 3.2rem);
   font-weight: 900;
   letter-spacing: 0.18em;
   color: var(--s-heading-color);
@@ -134,76 +135,49 @@
   50%     { transform: translateY(-5px); }
 }
 
-.skills-heading-sub {
-  margin-top: 10px;
-}
-
-.available-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  font-family: 'Rajdhani', sans-serif;
-  font-size: 0.82rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  color: #34d399;
-  background: rgba(52, 211, 153, 0.1);
-  border: 1px solid rgba(52, 211, 153, 0.3);
-  border-radius: 999px;
-  padding: 4px 14px;
-  text-transform: uppercase;
-}
-.avail-dot {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: #34d399;
-  box-shadow: 0 0 8px #34d399;
-  animation: dotPulse 1.5s ease-in-out infinite;
-}
-@keyframes dotPulse {
-  0%,100% { transform: scale(1); opacity: 1; }
-  50%     { transform: scale(1.4); opacity: 0.6; }
-}
-
 /* ── Arena ── */
 .skills-arena {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 120px;
+  gap: 0;
   width: 100%;
   max-width: 1400px;
   z-index: 2;
   flex: 1;
-  padding: 0 20px;
+  min-height: 0;
+  padding: 0;
 }
 
 /* ── Side Buttons ── */
 .side-btns {
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: 1rem;
   flex-shrink: 0;
+  z-index: 3;
 }
 
 .side-left {
   align-items: flex-end;
+  margin-right: -30px;
 }
 
 .side-right {
   align-items: flex-start;
+  margin-left: -30px;
 }
 
 .side-btn {
   position: relative;
-  width: 80px;
-  height: 80px;
+  width: 76px;
+  height: 76px;
   border-radius: 50%;
   border: none;
   background: transparent;
   color: var(--btn-color, #a78bfa);
   font-family: 'Rajdhani', sans-serif;
-  font-size: 0.68rem;
+  font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -246,7 +220,6 @@
   50%     { box-shadow: 0 0 30px var(--btn-glow), 0 0 70px var(--btn-glow); }
 }
 
-/* Isometric projection layers */
 .side-btn::before,
 .side-btn::after {
   content: '';
@@ -278,102 +251,89 @@
 .side-btn-label {
   position: relative;
   z-index: 2;
-  font-size: 0.64rem;
+  font-size: 0.6rem;
   text-align: center;
   line-height: 1.2;
+}
+
+/* ── Orbit Stage Wrapper ── */
+.orbit-stage-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  flex: 0 0 auto;
 }
 
 /* ── Orbit Stage ── */
 .orbit-stage {
   position: relative;
-  width: 560px;
-  height: 420px;
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* Orbit rings */
+/* ── Unique Orbit Ring — rotating neon gradient ── */
 .orbit-ring {
   position: absolute;
-  border-radius: 50%;
-  border: 1px solid var(--ring-color, rgba(139,92,246,0.2));
-  pointer-events: none;
-  box-shadow: 0 0 20px var(--ring-color, rgba(139,92,246,0.2));
-}
-.orbit-ring--outer {
-  width: 520px; height: 390px;
-  border-style: dashed;
-  border-width: 1.5px;
-  opacity: 0.6;
-  box-shadow: 0 0 30px var(--ring-color), inset 0 0 20px rgba(0,0,0,0.3);
-}
-.orbit-ring--inner {
-  width: 380px; height: 285px;
-  border-style: dotted;
-  opacity: 0.5;
-  box-shadow: 0 0 25px var(--ring-color);
-}
-.orbit-ring--pulse {
-  width: 450px; height: 335px;
-  border-width: 2px;
-  opacity: 0.4;
-  box-shadow: 0 0 20px var(--ring-color);
-  animation: ringPulse 3s ease-in-out infinite;
-}
-@keyframes ringRotate {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
-@keyframes ringPulse {
-  0%,100% { transform: scale(1); opacity: 0.25; }
-  50%     { transform: scale(1.04); opacity: 0.55; }
-}
-
-/* Connector Lines */
-.orbit-connector {
-  position: absolute;
-  height: 1.5px;
-  width: calc(var(--orb-radius, 240px) * 0.71);
-  background: linear-gradient(90deg, transparent, var(--conn-color), transparent);
-  transform-origin: left center;
-  left: 50%;
   top: 50%;
-  opacity: 0;
-  animation: connRevolution 45s linear infinite, connFade 0.6s ease forwards;
-  filter: drop-shadow(0 0 8px var(--conn-color));
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  pointer-events: none;
+  /* Neon conic gradient border using box-shadow layering */
+  background: transparent;
+  border: none;
+  /* Layered glow using pseudo-element trick via box-shadow */
+  box-shadow:
+    0 0 0 1.5px var(--ring-color, rgba(139,92,246,0.6)),
+    0 0 14px 2px var(--ring-color, rgba(139,92,246,0.45)),
+    0 0 36px 4px var(--ring-color, rgba(139,92,246,0.2)),
+    0 0 60px 6px var(--ring-color, rgba(139,92,246,0.1));
+  animation: ringPulse 2.5s ease-in-out infinite, ringRotateGlow 6s linear infinite;
 }
 
-@keyframes connRevolution {
-  from { 
-    transform: rotate(calc(var(--skill-index, 0) / var(--skill-count, 6) * 360deg));
-  }
-  to { 
-    transform: rotate(calc(var(--skill-index, 0) / var(--skill-count, 6) * 360deg + 360deg));
-  }
+/* Spinning highlight dot on the ring */
+.orbit-ring::before {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 10px 4px var(--ring-color, rgba(139,92,246,0.9));
+  top: -5px;
+  left: 50%;
+  transform-origin: 50% calc(50% + (var(--ring-ry, 85px)));
+  animation: orbitDot 4s linear infinite;
+  opacity: 0.9;
 }
 
-@keyframes connFade {
-  to { opacity: 0.6; }
+@keyframes orbitDot {
+  from { transform: rotate(0deg) translateY(calc(-1 * var(--ring-ry, 85px))); }
+  to   { transform: rotate(360deg) translateY(calc(-1 * var(--ring-ry, 85px))); }
 }
 
-/* ── Skill Orb Cards ── */
+@keyframes ringPulse {
+  0%,100% { opacity: 0.7; }
+  50%     { opacity: 1; }
+}
+
+@keyframes ringRotateGlow {
+  0%   { filter: hue-rotate(0deg) brightness(1); }
+  50%  { filter: hue-rotate(30deg) brightness(1.3); }
+  100% { filter: hue-rotate(0deg) brightness(1); }
+}
+
+/* ── Skill Orbs — skill2 style ── */
 .skill-orb {
   position: absolute;
   left: 50%;
   top: 50%;
-  animation: orbRevolution 45s linear infinite;
-  transform-origin: center;
-}
-
-@keyframes orbRevolution {
-  from { 
-    transform: rotate(calc(var(--skill-index, 0) / var(--skill-count, 6) * 360deg)) translateX(var(--orb-radius, 240px)) rotate(calc(var(--skill-index, 0) / var(--skill-count, 6) * -360deg));
-  }
-  to { 
-    transform: rotate(calc(var(--skill-index, 0) / var(--skill-count, 6) * 360deg + 360deg)) translateX(var(--orb-radius, 240px)) rotate(calc(var(--skill-index, 0) / var(--skill-count, 6) * -360deg - 360deg));
-  }
+  will-change: transform;
+  pointer-events: auto;
 }
 
 .skill-orb-inner {
@@ -381,72 +341,82 @@
   flex-direction: column;
   align-items: center;
   gap: 4px;
-  padding: 10px 10px 8px;
-  background: var(--s-card-bg);
-  border: 1.5px solid color-mix(in srgb, var(--orb-color) 40%, transparent);
-  border-radius: 14px;
-  backdrop-filter: blur(14px);
-  min-width: 64px;
+  padding: 9px 9px 7px;
+  background: rgb(255, 255, 255);
+  border-bottom: 2px solid blueviolet;
+  border-right: 2px solid blueviolet;
+  border-top: 2px solid white;
+  border-left: 2px solid white;
+  border-radius: 8px;
+  min-width: 62px;
   cursor: default;
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  box-shadow: 0 4px 18px rgba(0,0,0,0.25),
-              inset 0 0 12px rgba(255,255,255,0.03);
-  animation: orbFloat 3s ease-in-out infinite;
-  animation-delay: var(--orb-delay, 0s);
-}
-@keyframes orbFloat {
-  0%,100% { transform: translateY(0px); }
-  50%     { transform: translateY(-5px); }
+  transition-duration: 1s;
+  transition-property: border-top, border-left, border-bottom, border-right, box-shadow, transform;
 }
 
+.skill-orb-inner--hovered,
 .skill-orb-inner:hover {
-  transform: translateY(-8px) scale(1.18);
-  border-color: var(--orb-color);
-  box-shadow: 0 0 22px var(--orb-color),
-              0 8px 32px rgba(0,0,0,0.3),
-              inset 0 0 16px rgba(255,255,255,0.06);
-  z-index: 10;
+  border-top: 2px solid blueviolet !important;
+  border-left: 2px solid blueviolet !important;
+  border-bottom: 2px solid rgb(238, 103, 238) !important;
+  border-right: 2px solid rgb(238, 103, 238) !important;
+  box-shadow: rgba(240, 46, 170, 0.4) 5px 5px,
+              rgba(240, 46, 170, 0.3) 10px 10px,
+              rgba(240, 46, 170, 0.2) 15px 15px !important;
+  transform: translateY(-4px) scale(1.1) !important;
 }
 
 .skill-orb-icon {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   object-fit: contain;
-  filter: drop-shadow(0 0 4px var(--orb-color));
-  transition: filter 0.3s;
+  transition: transform 0.3s;
 }
+
+.skill-orb-inner--hovered .skill-orb-icon,
 .skill-orb-inner:hover .skill-orb-icon {
-  filter: drop-shadow(0 0 10px var(--orb-color)) brightness(1.2);
+  transform: scale(1.15) rotate(-6deg);
 }
 
 .skill-orb-name {
   font-family: 'Rajdhani', sans-serif;
-  font-size: 0.62rem;
-  font-weight: 600;
-  color: var(--s-text-primary);
+  font-size: 0.58rem;
+  font-weight: 700;
+  color: blueviolet;
   text-align: center;
   letter-spacing: 0.05em;
-  opacity: 0.85;
+  white-space: nowrap;
 }
 
-/* ── Division Card (center) ── */
+/* Hover hint */
+.orbit-hint {
+  position: absolute;
+  bottom: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 500;
+  color: var(--s-text-muted);
+  letter-spacing: 0.08em;
+  pointer-events: none;
+  white-space: nowrap;
+  opacity: 0.6;
+}
+
+/* ──────────────────────────────────────────────
+   CENTER CARD — Holographic Sci-Fi Design
+   ────────────────────────────────────────────── */
 .division-card {
   position: absolute;
-  width: 190px;
-  height: 254px;
-  background: linear-gradient(163deg, var(--div-color) 0%, #3700ff 100%);
-  border-radius: 20px;
+  width: 185px;
+  height: 240px;
   z-index: 5;
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  animation: divCardEntry 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
-}
-
-.division-card:hover {
-  box-shadow: 0 0 30px 2px var(--div-glow), 0 0 50px 1px var(--div-glow);
+  animation: divCardEntry 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+  perspective: 800px;
 }
 
 .div-card--in-next  { animation-name: divCardInNext;  }
@@ -460,100 +430,239 @@
   from { opacity: 0; transform: translate(-50%, -50%) translateX(-60px) scale(0.85) rotateY(-20deg); }
   to   { opacity: 1; transform: translate(-50%, -50%) translateX(0)    scale(1)    rotateY(0deg);  }
 }
-@keyframes divCardInPrev {
-  from { opacity: 0; transform: translateX(-60px) scale(0.85) rotateY(-20deg); }
-  to   { opacity: 1; transform: translateX(0)     scale(1)    rotateY(0deg);   }
+
+/* Outer spinning gradient border */
+.division-card::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 22px;
+  background: conic-gradient(
+    from var(--card-angle, 0deg),
+    #ff006640, #a855f7, #00d4ff, #00ff8880, #a855f7, #ff006640
+  );
+  animation: cardBorderSpin 4s linear infinite;
+  z-index: -1;
 }
 
+@property --card-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes cardBorderSpin {
+  to { --card-angle: 360deg; }
+}
+
+/* Fallback for browsers not supporting @property */
+.division-card::before {
+  animation: cardBorderSpinFallback 4s linear infinite;
+}
+@keyframes cardBorderSpinFallback {
+  from { filter: hue-rotate(0deg); }
+  to   { filter: hue-rotate(360deg); }
+}
+
+/* Outer glow halo */
+.division-card::after {
+  content: '';
+  position: absolute;
+  inset: -12px;
+  border-radius: 30px;
+  background: transparent;
+  box-shadow:
+    0 0 30px 8px color-mix(in srgb, var(--div-color, #a78bfa) 60%, transparent),
+    0 0 60px 16px color-mix(in srgb, var(--div-color, #a78bfa) 25%, transparent);
+  animation: haloBreath 3s ease-in-out infinite;
+  z-index: -2;
+  pointer-events: none;
+}
+
+@keyframes haloBreath {
+  0%,100% { opacity: 0.6; transform: scale(1); }
+  50%     { opacity: 1;   transform: scale(1.04); }
+}
+
+.division-card:hover::after {
+  opacity: 1;
+}
+
+/* Inner card surface */
 .division-card-inner {
   position: absolute;
-  inset: 2px;
-  background: #1a1a1a;
+  inset: 3px;
+  background: linear-gradient(145deg,
+    rgba(8, 4, 28, 0.97) 0%,
+    rgba(20, 8, 55, 0.95) 50%,
+    rgba(8, 4, 28, 0.97) 100%
+  );
   border-radius: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 16px 14px;
+  padding: 14px 12px;
   text-align: center;
-  backdrop-filter: blur(16px);
+  backdrop-filter: blur(20px);
   overflow: hidden;
-  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.3s ease;
 }
 
 .division-card:hover .division-card-inner {
-  transform: scale(0.98);
+  transform: scale(0.985);
 }
 
+/* Holographic scanline overlay */
+.division-card-inner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(138, 92, 246, 0.04) 2px,
+    rgba(138, 92, 246, 0.04) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Moving holographic sheen */
+.division-card-inner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(255,255,255,0.06) 45%,
+    rgba(167,139,250,0.08) 50%,
+    rgba(255,255,255,0.06) 55%,
+    transparent 70%
+  );
+  background-size: 300% 300%;
+  animation: holoSheen 3s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 2;
+}
+
+@keyframes holoSheen {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Card icon wrap — hexagonal feel */
 .div-card-icon-wrap {
   position: relative;
-  width: 50px; height: 50px;
+  width: 52px; height: 52px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 12px;
-  background: color-mix(in srgb, var(--div-color) 15%, transparent);
-  border: 1px solid color-mix(in srgb, var(--div-color) 40%, transparent);
+  border-radius: 14px;
+  background: linear-gradient(135deg,
+    color-mix(in srgb, var(--div-color) 20%, transparent),
+    color-mix(in srgb, var(--div-color) 8%, transparent)
+  );
+  border: 1px solid color-mix(in srgb, var(--div-color) 60%, transparent);
+  box-shadow:
+    inset 0 0 14px color-mix(in srgb, var(--div-color) 20%, transparent),
+    0 0 18px color-mix(in srgb, var(--div-color) 30%, transparent);
+  z-index: 3;
+  animation: iconHexPulse 2.5s ease-in-out infinite;
 }
+
+@keyframes iconHexPulse {
+  0%,100% { box-shadow: inset 0 0 14px color-mix(in srgb, var(--div-color) 20%, transparent), 0 0 18px color-mix(in srgb, var(--div-color) 30%, transparent); }
+  50%     { box-shadow: inset 0 0 20px color-mix(in srgb, var(--div-color) 35%, transparent), 0 0 30px color-mix(in srgb, var(--div-color) 50%, transparent); }
+}
+
 .div-card-code-icon {
   font-family: 'Orbitron', monospace;
-  font-size: 1rem;
-  font-weight: 700;
+  font-size: 1.05rem;
+  font-weight: 900;
   color: var(--div-color);
-  text-shadow: 0 0 12px var(--div-color);
+  text-shadow:
+    0 0 8px var(--div-color),
+    0 0 20px var(--div-color);
+  z-index: 3;
+  animation: codeIconFlicker 4s ease-in-out infinite;
 }
+
+@keyframes codeIconFlicker {
+  0%,90%,100% { opacity: 1; }
+  92%         { opacity: 0.7; }
+  95%         { opacity: 1; }
+  97%         { opacity: 0.85; }
+}
+
 .div-card-icon-glow {
   position: absolute;
-  inset: -6px;
+  inset: -8px;
   border-radius: 50%;
-  background: var(--div-glow);
-  filter: blur(10px);
+  background: radial-gradient(circle, var(--div-glow) 0%, transparent 70%);
+  filter: blur(8px);
   animation: iconGlowPulse 2s ease-in-out infinite;
+  z-index: 0;
 }
 @keyframes iconGlowPulse {
-  0%,100% { opacity: 0.5; }
-  50%     { opacity: 1; }
+  0%,100% { opacity: 0.5; transform: scale(1); }
+  50%     { opacity: 1;   transform: scale(1.2); }
 }
 
 .div-card-title {
   font-family: 'Orbitron', monospace;
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   font-weight: 700;
   color: var(--s-text-primary);
   margin: 0;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
   line-height: 1.3;
+  z-index: 3;
+  text-shadow: 0 0 8px var(--div-color);
 }
 
 .div-card-desc {
   font-family: 'Rajdhani', sans-serif;
-  font-size: 0.62rem;
+  font-size: 0.58rem;
   color: var(--s-text-muted);
   margin: 0;
   line-height: 1.45;
+  z-index: 3;
 }
 
 .div-card-level {
   margin-top: 2px;
+  z-index: 3;
 }
 .level-pill {
   font-family: 'Rajdhani', sans-serif;
-  font-size: 0.62rem;
+  font-size: 0.6rem;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   padding: 3px 12px;
   border-radius: 999px;
   background: color-mix(in srgb, var(--div-color) 18%, transparent);
   border: 1px solid color-mix(in srgb, var(--div-color) 50%, transparent);
   color: var(--div-color);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--div-color) 30%, transparent);
+  animation: pillGlow 2s ease-in-out infinite;
+}
+
+@keyframes pillGlow {
+  0%,100% { box-shadow: 0 0 8px color-mix(in srgb, var(--div-color) 30%, transparent); }
+  50%     { box-shadow: 0 0 18px color-mix(in srgb, var(--div-color) 60%, transparent); }
 }
 
 .div-card-dots {
   display: flex;
   gap: 5px;
   margin-top: 4px;
+  z-index: 3;
 }
 .div-dot {
   width: 6px; height: 6px;
@@ -566,8 +675,8 @@
 }
 .div-dot--active {
   background: var(--div-color, #a78bfa);
-  box-shadow: 0 0 8px var(--div-color, #a78bfa);
-  transform: scale(1.4);
+  box-shadow: 0 0 10px var(--div-color, #a78bfa), 0 0 20px var(--div-color, #a78bfa);
+  transform: scale(1.5);
 }
 
 /* Card shimmer sweep */
@@ -579,83 +688,119 @@
   background-size: 200% 200%;
   animation: shimmerSweep 3s ease-in-out infinite;
   pointer-events: none;
+  z-index: 4;
 }
 @keyframes shimmerSweep {
   0%   { background-position: 200% 0; }
   100% { background-position: -200% 0; }
 }
 
-/* ── Trait Cards (bottom) ── */
+/* ──────────────────────────────────────────────
+   BOTTOM TRAIT CARDS — skill1 style
+   ────────────────────────────────────────────── */
 .trait-cards-row {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   width: 100%;
-  max-width: 980px;
+  max-width: 960px;
   z-index: 2;
   flex-shrink: 0;
+  margin-top: 4px;
 }
 
 .spotlight-wrap {
   position: relative;
   flex: 1;
-  border-radius: 14px;
+  border-radius: 6px;
   overflow: hidden;
 }
 .spotlight-layer {
   position: absolute;
   inset: 0;
-  z-index: 1;
+  z-index: 10;
   pointer-events: none;
   transition: opacity 0.3s;
   border-radius: inherit;
 }
 
+/* skill1 button style — dark bg with expanding orange circle */
 .trait-card {
   position: relative;
-  padding: 14px 14px 12px;
-  background: var(--s-trait-bg);
-  backdrop-filter: blur(18px);
-  border: 1px solid var(--s-card-border);
-  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
   overflow: hidden;
+  padding: 12px 14px 10px;
+  background: #1f2937; /* gray-800 */
+  border-radius: 6px;
+  color: white;
   cursor: default;
-  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
-              box-shadow 0.35s ease,
-              border-color 0.35s ease;
+  transition: all 0.35s ease;
   animation: traitCardIn 0.6s ease both;
   z-index: 2;
-  box-shadow: inset 0 0 20px rgba(255,255,255,0.025),
-              0 4px 20px rgba(0,0,0,0.25);
+  min-height: 80px;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid rgba(255,255,255,0.08);
 }
+
 @keyframes traitCardIn {
   from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-.trait-card:hover {
-  transform: translateY(-6px) scale(1.04);
-  box-shadow: 0 0 28px rgba(139,92,246,0.35),
-              0 12px 40px rgba(0,0,0,0.3),
-              inset 0 0 20px rgba(255,255,255,0.04);
-  border-color: rgba(139,92,246,0.6);
+/* Expanding orange circle on hover */
+.trait-card::before {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  background: #ea580c; /* orange-600 */
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.5s ease-out, height 0.5s ease-out;
+  z-index: 0;
+}
+
+.trait-card:hover::before {
+  width: 220px;
+  height: 220px;
+}
+
+/* Bottom-left SVG blob decoration */
+.trait-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: -8px;
+  width: 50px; height: 100%;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 487 487'%3E%3Cpath fill-opacity='.1' fill-rule='nonzero' fill='%23FFF' d='M0 .3c67 2.1 134.1 4.3 186.3 37 52.2 32.7 89.6 95.8 112.8 150.6 23.2 54.8 32.3 101.4 61.2 149.9 28.9 48.4 77.7 98.8 126.4 149.2H0V.3z'/%3E%3C/svg%3E") no-repeat left center / auto 100%;
+  opacity: 1;
+  z-index: 1;
+  pointer-events: none;
 }
 
 .trait-card-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
+  position: relative;
+  z-index: 2;
+  width: 100%;
 }
 
 .trait-icon {
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   display: flex;
   align-items: center;
-  filter: drop-shadow(0 0 8px rgba(139,92,246,0.6));
   transition: transform 0.3s;
+  filter: drop-shadow(0 0 6px rgba(255,255,255,0.4));
 }
 .trait-card:hover .trait-icon {
-  transform: scale(1.25) rotate(-8deg);
+  transform: scale(1.2) rotate(-8deg);
 }
 
 .trait-card-lines {
@@ -666,78 +811,90 @@
 .trait-line {
   height: 2px;
   border-radius: 2px;
-  background: linear-gradient(90deg, rgba(139,92,246,0.5), transparent);
+  background: linear-gradient(90deg, rgba(255,255,255,0.4), transparent);
 }
-.trait-line--1 { width: 30px; }
-.trait-line--2 { width: 20px; opacity: 0.5; }
+.trait-line--1 { width: 28px; }
+.trait-line--2 { width: 18px; opacity: 0.5; }
 
 .trait-title {
   font-family: 'Rajdhani', sans-serif;
   font-size: 0.82rem;
   font-weight: 700;
-  color: var(--s-text-primary);
-  margin: 0 0 4px;
-  letter-spacing: 0.04em;
+  color: white;
+  margin: 0 0 3px;
+  letter-spacing: 0.05em;
+  position: relative;
+  z-index: 2;
 }
 
 .trait-desc {
   font-family: 'Rajdhani', sans-serif;
-  font-size: 0.67rem;
-  color: var(--s-text-muted);
+  font-size: 0.64rem;
+  color: rgba(255,255,255,0.75);
   margin: 0;
   line-height: 1.4;
+  position: relative;
+  z-index: 2;
 }
 
-/* Trait shimmer */
+/* Shimmer on trait card */
 .trait-card-shimmer {
   position: absolute;
   inset: 0;
-  background: linear-gradient(110deg, transparent 40%, rgba(255,255,255,0.04) 50%, transparent 60%);
+  background: linear-gradient(130deg, transparent 0%, rgba(255,255,255,0.08) 45%, rgba(255,255,255,0.04) 50%, transparent 55%);
   background-size: 200% 200%;
   animation: shimmerSweep 4s ease-in-out infinite;
   pointer-events: none;
+  z-index: 1;
 }
 
-/* Animated border glow */
+/* Top-right SVG decor: override the border-anim div to be a decorative element */
 .trait-card-border-anim {
   position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  border: 1px solid transparent;
-  background: linear-gradient(var(--s-trait-bg), var(--s-trait-bg)) padding-box,
-              linear-gradient(90deg, #7c3aed, #2563eb, #7c3aed) border-box;
-  background-size: 200% 100%;
-  animation: borderScroll 4s linear infinite;
+  top: 0; right: -12px;
+  width: 48px; height: 100%;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 487 487'%3E%3Cpath fill-opacity='.1' fill-rule='nonzero' fill='%23FFF' d='M487 486.7c-66.1-3.6-132.3-7.3-186.3-37s-95.9-85.3-126.2-137.2c-30.4-51.8-49.3-99.9-76.5-151.4C70.9 109.6 35.6 54.8.3 0H487v486.7z'/%3E%3C/svg%3E") no-repeat right center / auto 100%;
+  opacity: 1;
+  z-index: 1;
   pointer-events: none;
-  opacity: 0.4;
 }
-@keyframes borderScroll {
-  0%   { background-position: 0% 0; }
-  100% { background-position: 200% 0; }
+
+/* Gradient overlay on trait cards for depth */
+.trait-card-top::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  top: auto;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  bottom: -6px;
+  pointer-events: none;
 }
 
 /* ── Responsive tweaks ── */
-@media (max-width: 820px) {
-  .orbit-stage {
-    width: 420px;
-    height: 340px;
-  }
-  .orbit-ring--outer { width: 400px; height: 310px; }
-  .orbit-ring--inner { width: 300px; height: 230px; }
-  .orbit-ring--pulse { width: 350px; height: 270px; }
-  .side-btn { width: 75px; height: 75px; font-size: 0.62rem; }
+@media (max-width: 900px) {
+  .skills-arena { gap: 0; }
+  .side-left  { margin-right: -20px; }
+  .side-right { margin-left: -20px; }
+  .side-btn { width: 68px; height: 68px; }
   .division-card { width: 160px; height: 215px; }
-  .trait-cards-row { gap: 6px; }
-  .skills-arena { gap: 80px; }
+  .trait-cards-row { gap: 5px; }
 }
 
-@media (max-width: 620px) {
-  .skills-arena { flex-wrap: wrap; gap: 30px; max-width: 100%; }
-  .side-btns { flex-direction: row; gap: 12px; }
-  .orbit-stage { width: 340px; height: 280px; }
-  .orbit-ring--outer { width: 320px; height: 260px; }
-  .orbit-ring--inner { width: 240px; height: 190px; }
-  .orbit-ring--pulse { width: 280px; height: 225px; }
-  .side-btn { width: 65px; height: 65px; font-size: 0.58rem; }
+@media (max-width: 700px) {
+  .skills-arena { flex-wrap: wrap; gap: 24px; max-width: 100%; }
+  .side-btns { flex-direction: row; gap: 10px; }
+  .side-left  { margin-right: 0; }
+  .side-right { margin-left: 0; }
+  .side-btn { width: 60px; height: 60px; font-size: 0.56rem; }
   .division-card { width: 150px; height: 200px; }
+  .trait-cards-row { flex-wrap: wrap; }
+  .spotlight-wrap { flex: 0 0 calc(50% - 6px); }
+}
+
+@media (max-width: 480px) {
+  .skill-orb-inner { min-width: 50px; padding: 7px 7px 6px; }
+  .skill-orb-icon { width: 22px; height: 22px; }
+  .skill-orb-name { font-size: 0.52rem; }
+  .skills-section { padding: 50px 10px 10px; }
 }

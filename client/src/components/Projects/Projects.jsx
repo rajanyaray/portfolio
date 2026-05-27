@@ -85,7 +85,35 @@ const projects = [
   },
 ];
 
-// Animated Title Letter by letter
+// ── Floating Paths Background (bgcomponents.txt) ────────────────────────────
+function FloatingPathsBackground({ position, children, className }) {
+  const paths = Array.from({ length: 36 }, (_, i) => ({
+    id: i,
+    d: `M-${380 - i * 5 * position} -${189 + i * 6}C-${380 - i * 5 * position} -${189 + i * 6} -${312 - i * 5 * position} ${216 - i * 6} ${152 - i * 5 * position} ${343 - i * 6}C${616 - i * 5 * position} ${470 - i * 6} ${684 - i * 5 * position} ${875 - i * 6} ${684 - i * 5 * position} ${875 - i * 6}`,
+    width: 0.5 + i * 0.03,
+  }));
+  return (
+    <div className={`fp-wrap${className ? " " + className : ""}`}>
+      <div className="fp-svg-layer" aria-hidden="true">
+        <svg className="fp-svg" viewBox="0 0 696 316" fill="none">
+          {paths.map((path) => (
+            <path
+              key={path.id}
+              d={path.d}
+              stroke="currentColor"
+              strokeWidth={path.width}
+              strokeOpacity={0.08 + path.id * 0.016}
+              className={`fp-path fp-path-${path.id % 4}`}
+            />
+          ))}
+        </svg>
+      </div>
+      {children}
+    </div>
+  );
+}
+
+// ── Animated Title Letter by letter (UNCHANGED) ─────────────────────────────
 function AnimatedTitle({ text }) {
   return (
     <h1 className="panel-title">
@@ -102,7 +130,7 @@ function AnimatedTitle({ text }) {
   );
 }
 
-// Holographic Feature Card
+// ── Holographic Feature Card (UNCHANGED) ────────────────────────────────────
 function HolographicCard({ features }) {
   const cardRef = useRef(null);
 
@@ -152,7 +180,7 @@ function HolographicCard({ features }) {
   );
 }
 
-// Ribbon
+// ── Ribbon (UNCHANGED) ───────────────────────────────────────────────────────
 function Ribbon({ words }) {
   const doubled = [...words, ...words, ...words];
   return (
@@ -169,12 +197,16 @@ function Ribbon({ words }) {
   );
 }
 
-// Shine Tech Chip
+// ── Tech Chip — from techstack.txt (rose/ripple style) ─────────────────────
 function TechChip({ label }) {
-  return <span className="tech-chip">{label}</span>;
+  return (
+    <button className="tech-chip-new">
+      {label}
+    </button>
+  );
 }
 
-// Involvement Flip Card
+// ── Involvement Flip Card (UNCHANGED) ────────────────────────────────────────
 function InvolvementCard({ text }) {
   return (
     <div className="inv-card">
@@ -193,7 +225,7 @@ function InvolvementCard({ text }) {
   );
 }
 
-// Carousel
+// ── Carousel (UNCHANGED) ─────────────────────────────────────────────────────
 function Carousel({ images }) {
   const [active, setActive] = useState(0);
   const [dragging, setDragging] = useState(false);
@@ -271,21 +303,87 @@ function Carousel({ images }) {
   );
 }
 
-// Panel for each project
+// ── Panel image with hover effects ──────────────────────────────────────────
+function PanelImage({ src, alt }) {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <div
+      className={`panel-img-wrap${hovered ? " panel-img-hovered" : ""}`}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      <img src={src} alt={alt} className="panel-img" />
+      <div className="panel-img-glow" />
+      <div className="panel-img-scanlines" />
+      <div className="panel-img-corners">
+        <span className="pic-corner pic-tl" />
+        <span className="pic-corner pic-tr" />
+        <span className="pic-corner pic-bl" />
+        <span className="pic-corner pic-br" />
+      </div>
+      <div className="panel-img-overlay-text">EXPLORE ↗</div>
+    </div>
+  );
+}
+
+// ── Website button (from website.txt) ───────────────────────────────────────
+function WebsiteButton() {
+  return (
+    <div className="ws-group">
+      <div className="ws-tooltip">
+        <div className="ws-tooltip-inner">
+          <svg fill="none" viewBox="0 0 24 24" height="20px" width="20px" className="ws-globe">
+            <circle strokeLinejoin="round" r="9" cy="12" cx="12" stroke="currentColor" strokeWidth="1.5"/>
+            <path strokeLinejoin="round" d="M12 3C12 3 8.5 6 8.5 12C8.5 18 12 21 12 21" stroke="currentColor" strokeWidth="1.5"/>
+            <path strokeLinejoin="round" d="M12 3C12 3 15.5 6 15.5 12C15.5 18 12 21 12 21" stroke="currentColor" strokeWidth="1.5"/>
+            <path strokeLinejoin="round" d="M3 12H21" stroke="currentColor" strokeWidth="1.5"/>
+            <path strokeLinejoin="round" d="M19.5 7.5H4.5" stroke="currentColor" strokeWidth="1.5"/>
+            <path strokeLinejoin="round" d="M19.5 16.5H4.5" stroke="currentColor" strokeWidth="1.5"/>
+          </svg>
+          <span>View Live</span>
+        </div>
+        <div className="ws-tooltip-arrow" />
+      </div>
+
+      <div className="ws-pill">
+        <svg fill="none" viewBox="0 0 24 24" height="20px" width="20px" className="ws-icon">
+          <path
+            strokeLinejoin="round" strokeLinecap="round"
+            d="M15.4306 7.70172C7.55045 7.99826 3.43929 15.232 2.17021 19.3956C2.07701 19.7014 2.31139 20 2.63107 20C2.82491 20 3.0008 19.8828 3.08334 19.7074C6.04179 13.4211 12.7066 12.3152 15.514 12.5639C15.7583 12.5856 15.9333 12.7956 15.9333 13.0409V15.1247C15.9333 15.5667 16.4648 15.7913 16.7818 15.4833L20.6976 11.6784C20.8723 11.5087 20.8993 11.2378 20.7615 11.037L16.8456 5.32965C16.5677 4.92457 15.9333 5.12126 15.9333 5.61253V7.19231C15.9333 7.46845 15.7065 7.69133 15.4306 7.70172Z"
+            fill="currentColor"
+          />
+        </svg>
+        <span className="ws-label">View Live Website</span>
+      </div>
+    </div>
+  );
+}
+
+// ── ProjectPanel — UPDATED window layout ────────────────────────────────────
 function ProjectPanel({ proj, onClose }) {
   return (
     <div className="project-overlay" onClick={onClose}>
       <div className="project-panel" onClick={(e) => e.stopPropagation()}>
 
+        {/* TOP: moving ribbon strip (same Ribbon component, unchanged) */}
         <Ribbon words={proj.ribbon} />
 
         <div className="panel-body">
-          {/* LEFT */}
+          {/* LEFT — project image with effects + tech stack below */}
           <div className="panel-left">
-            <Carousel images={proj.images} />
+            <PanelImage src={proj.img} alt={proj.title} />
+
+            <div className="panel-tech-section">
+              <h3 className="tech-heading">TECH STACK</h3>
+              <div className="chips">
+                {proj.tech.map((t, i) => (
+                  <TechChip key={i} label={t} />
+                ))}
+              </div>
+            </div>
           </div>
 
-          {/* RIGHT */}
+          {/* RIGHT — title, desc, holographic features, website button */}
           <div className="panel-right">
             <button className="close-btn" onClick={onClose} aria-label="Close">✕</button>
 
@@ -295,14 +393,11 @@ function ProjectPanel({ proj, onClose }) {
 
             <HolographicCard features={proj.features} />
 
-            <h3 className="tech-heading">TECH STACK</h3>
-            <div className="chips">
-              {proj.tech.map((t, i) => (
-                <TechChip key={i} label={t} />
-              ))}
-            </div>
-
             <InvolvementCard text={proj.involvement} />
+
+            <div className="panel-website-btn">
+              <WebsiteButton />
+            </div>
           </div>
         </div>
       </div>
@@ -310,6 +405,7 @@ function ProjectPanel({ proj, onClose }) {
   );
 }
 
+// ── Main export (UNCHANGED section skeleton + floating paths added) ──────────
 export default function Projects() {
   const [expanded, setExpanded] = useState(2);
   const [selected, setSelected] = useState(null);
@@ -322,18 +418,22 @@ export default function Projects() {
     return () => { document.body.style.overflow = ""; };
   }, [selected]);
 
-  useEffect(() => {
-    if (isPaused) return;
-    const interval = setInterval(() => {
-      setExpanded((prev) => (prev + 1) % projects.length);
-    }, 2000);
-    return () => clearInterval(interval);
-  }, [isPaused]);
+  // Auto-cycling disabled to prevent blinking/instability
+  // useEffect(() => {
+  //   if (isPaused) return;
+  //   const interval = setInterval(() => {
+  //     setExpanded((prev) => (prev + 1) % projects.length);
+  //   }, 2000);
+  //   return () => clearInterval(interval);
+  // }, [isPaused]);
 
   const getWidth = (index) => (index === expanded ? "26rem" : "5rem");
 
   return (
     <section id="projects" ref={sectionRef}>
+      {/* Floating paths background — added as per bgcomponents.txt */}
+      <FloatingPathsBackground position={1} />
+
       <div className="projects-header">
         <div className="header-label">✦ SELECTED WORK</div>
         <h1 className="header-title">
