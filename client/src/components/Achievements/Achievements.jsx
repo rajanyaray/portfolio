@@ -1,280 +1,289 @@
-import React, { useRef, useEffect, useState, useCallback, forwardRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import "./Achievements.css";
 
-// ── Data ─────────────────────────────────────────────────────────────────────
-
+// ── Award data ──────────────────────────────────────────────────────────────
 const AWARDS = [
-  { badge: "🏆", title: "SIH 2025 Winner", desc: "Smart India Hackathon — National Champion", color: "#ffb700", glow: "rgba(255,183,0,0.5)" },
-  { badge: "🥈", title: "SBH 2025 — 4th Place", desc: "Smart Bengal Hackathon — Top 5 Finalist", color: "#00f5ff", glow: "rgba(0,245,255,0.5)" },
-  { badge: "🎓", title: "MCKV Conference", desc: "Research Paper Finalist at MCKV Institute", color: "#b8ff3a", glow: "rgba(184,255,58,0.5)" },
-  { badge: "🤖", title: "GEN AI 2025", desc: "Generative AI National Competition Finalist", color: "#b14aff", glow: "rgba(177,74,255,0.5)" },
-  { badge: "🚀", title: "Artpark Codeforge", desc: "IISc Bangalore — Codeforge Hackathon Finalist", color: "#ff2d78", glow: "rgba(255,45,120,0.5)" },
+  {
+    id: 1,
+    title: "Best Developer Award",
+    org: "TechFest 2024",
+    icon: "🏆",
+    color: "#ff6b6b",
+    border: "#ff6b6b",
+    glow: "rgba(255,107,107,0.45)",
+    bg: "#321111",
+  },
+  {
+    id: 2,
+    title: "Hackathon Champion",
+    org: "CodeSprint 2023",
+    icon: "🥇",
+    color: "#ffd93d",
+    border: "#ffd93d",
+    glow: "rgba(255,217,61,0.45)",
+    bg: "#322b11",
+  },
+  {
+    id: 3,
+    title: "Open Source Contributor",
+    org: "GitHub Stars",
+    icon: "⭐",
+    color: "#6bcb77",
+    border: "#6bcb77",
+    glow: "rgba(107,203,119,0.45)",
+    bg: "#113216",
+  },
+  {
+    id: 4,
+    title: "UI/UX Excellence",
+    org: "Design Awards 2024",
+    icon: "🎨",
+    color: "#4d96ff",
+    border: "#4d96ff",
+    glow: "rgba(77,150,255,0.45)",
+    bg: "#111d32",
+  },
+  {
+    id: 5,
+    title: "Innovation Prize",
+    org: "StartupHub 2023",
+    icon: "🚀",
+    color: "#c77dff",
+    border: "#c77dff",
+    glow: "rgba(199,125,255,0.45)",
+    bg: "#251132",
+  },
 ];
 
+// ── Certificate data ─────────────────────────────────────────────────────────
 const CERTS = [
   {
-    id: "c1", title: "Web Development",
+    id: "c1",
+    image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=400&h=300&fit=crop",
+    title: "React Professional",
+  },
+  {
+    id: "c2",
+    image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&h=300&fit=crop",
+    title: "AWS Cloud Practitioner",
+  },
+  {
+    id: "c3",
     image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=300&fit=crop",
-  },
-  {
-    id: "c2", title: "Machine Learning",
-    image: "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=400&h=300&fit=crop",
-  },
-  {
-    id: "c3", title: "Cloud Computing",
-    image: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=400&h=300&fit=crop",
+    title: "Full Stack Dev",
   },
 ];
 
+// ── Leadership data ───────────────────────────────────────────────────────────
 const LEADERSHIP = [
-  { icon: "👑", title: "Tech Club Head", sub: "Led 200+ student developer community", color: "#ff2d78" },
-  { icon: "🎙️", title: "Event Organiser", sub: "Orchestrated 3 inter-college hackathons", color: "#ffb700" },
-  { icon: "🌱", title: "Open-Source Mentor", sub: "Guided 15 contributors in GSSoC '25", color: "#b8ff3a" },
+  {
+    title: "Tech Lead",
+    subtitle: "Led a team of 8 engineers, delivered 3 major product launches and mentored junior developers.",
+    icon: "👨‍💻",
+    front: "rgb(209,72,122)",
+    back: "rgb(230,173,203)",
+    reveal: "TECH LEAD",
+  },
+  {
+    title: "Community Head",
+    subtitle: "Organised 12+ workshops, grew campus coding community to 500+ members.",
+    icon: "🌐",
+    front: "rgb(72,130,209)",
+    back: "rgb(173,203,230)",
+    reveal: "COMMUNITY",
+  },
 ];
 
-// ── Heading (uiverse codebykay101 inspired) ───────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────────────
+//  Award Carousel
+// ─────────────────────────────────────────────────────────────────────────────
+function AwardsCarousel() {
+  const [active, setActive] = useState(0);
+  const total = AWARDS.length;
 
-const AchHeading = () => {
-  const letters = "ACHIEVEMENTS".split("");
-  return (
-    <div className="ach-heading-wrap">
-      <div className="ach-heading-glow-ring" />
-      <h1 className="ach-heading" aria-label="ACHIEVEMENTS">
-        {letters.map((ch, i) => (
-          <span
-            key={i}
-            className="ach-letter"
-            style={{ "--i": i, "--total": letters.length }}
-          >
-            {ch}
-          </span>
-        ))}
-      </h1>
-      <p className="ach-tagline">
-        <span className="ach-tagline-inner" data-text="Milestones That Shaped The Journey">
-          Milestones That Shaped The Journey
-        </span>
-      </p>
-      <div className="ach-available-badge">
-        <span className="avail-dot" />
-        Available for Internships &amp; Collaborations
-      </div>
-    </div>
-  );
-};
+  const prev = () => setActive((a) => (a - 1 + total) % total);
+  const next = () => setActive((a) => (a + 1) % total);
 
-// ── Award Glass Cards (uiverse hover effect) ──────────────────────────────────
-
-const AwardCards = () => {
-  return (
-    <div className="awards-section">
-      <div className="awards-label">◈ Awards &amp; Recognition ◈</div>
-      <div className="awards-glass-container">
-        {AWARDS.map((award, i) => (
-          <div
-            key={i}
-            className="glass-card"
-            style={{ "--accent": award.color, "--glow": award.glow, "--delay": `${i * 0.1}s` }}
-          >
-            <div className="glass-card-inner">
-              <div className="glass-badge">{award.badge}</div>
-              <div className="glass-title">{award.title}</div>
-              <div className="glass-desc">{award.desc}</div>
-              <div className="glass-shine" />
-              <div className="glass-border-glow" />
-            </div>
-            <div className="glass-reflection" />
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-// ── 3D Folder Certificates ───────────────────────────────────────────────────
-
-const CertFolder = () => {
-  const [isHovered, setIsHovered] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState(null);
-  const [hiddenId, setHiddenId] = useState(null);
-  const cardRefs = useRef([]);
-
-  const rotations = [-14, 0, 14];
-  const translations = [-58, 0, 58];
-
-  const openCard = (index) => {
-    setSelectedIndex(index);
-    setHiddenId(CERTS[index].id);
-  };
-
-  const closeCard = () => {
-    setSelectedIndex(null);
-    setTimeout(() => setHiddenId(null), 400);
-  };
-
-  useEffect(() => {
-    const handleKey = (e) => {
-      if (e.key === "Escape") closeCard();
-      if (selectedIndex !== null) {
-        if (e.key === "ArrowRight") setSelectedIndex((p) => (p + 1) % CERTS.length);
-        if (e.key === "ArrowLeft") setSelectedIndex((p) => (p - 1 + CERTS.length) % CERTS.length);
-      }
-    };
-    window.addEventListener("keydown", handleKey);
-    return () => window.removeEventListener("keydown", handleKey);
-  }, [selectedIndex]);
+  // positions: centre, right, far-right, far-left, left
+  const positions = [0, 1, 2, -2, -1];
 
   return (
-    <div className="cert-section">
-      <div className="sub-label cyan-label">✦ Certificates</div>
+    <div className="carousel-wrap">
+      <div className="carousel-stage">
+        {AWARDS.map((award, i) => {
+          const offset = ((i - active + total) % total);
+          // map offset to slot: 0=center,1=right,2=far-right,3=far-left(=total-2),4=left(=total-1)
+          const slot = offset <= 2 ? offset : offset - total;
+          const absSlot = Math.abs(slot);
+          const zIndex = 10 - absSlot;
+          const translateX = slot * 270;
+          const scale = absSlot === 0 ? 1 : absSlot === 1 ? 0.82 : 0.65;
+          const opacity = absSlot <= 2 ? 1 - absSlot * 0.22 : 0;
+          const rotateY = slot * -12;
+          const isCenter = slot === 0;
 
-      <div
-        className={`folder-wrap ${isHovered ? "hovered" : ""}`}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
-        {/* Glow bg */}
-        <div className="folder-glow-bg" style={{ opacity: isHovered ? 1 : 0 }} />
-
-        <div className="folder-stage">
-          {/* Back */}
-          <div className="folder-back" style={{ transform: isHovered ? "rotateX(-18deg)" : "rotateX(0deg)" }} />
-          {/* Tab */}
-          <div className="folder-tab" style={{ transform: isHovered ? "rotateX(-28deg) translateY(-3px)" : "rotateX(0deg)" }} />
-
-          {/* Cards */}
-          <div className="folder-cards-area">
-            {CERTS.map((cert, idx) => (
-              <div
-                key={cert.id}
-                ref={(el) => (cardRefs.current[idx] = el)}
-                className="folder-proj-card"
-                style={{
-                  transform: isHovered
-                    ? `translateY(-95px) translateX(${translations[idx]}px) rotate(${rotations[idx]}deg) scale(1)`
-                    : "translateY(0) translateX(0) rotate(0deg) scale(0.4)",
-                  opacity: hiddenId === cert.id ? 0 : isHovered ? 1 : 0,
-                  transition: `all 600ms cubic-bezier(0.34, 1.56, 0.64, 1) ${idx * 80}ms`,
-                  zIndex: 20 - idx,
-                }}
-                onClick={() => openCard(idx)}
-              >
-                <img src={cert.image} alt={cert.title} />
-                <div className="proj-card-label">{cert.title}</div>
+          return (
+            <div
+              key={award.id}
+              className={`award-card-outer ${isCenter ? "center" : ""}`}
+              style={{
+                transform: `translateX(${translateX}px) scale(${scale}) rotateY(${rotateY}deg)`,
+                zIndex,
+                opacity,
+                "--card-color": award.color,
+                "--card-border": award.border,
+                "--card-glow": award.glow,
+                "--card-bg-solid": `linear-gradient(135deg, ${award.bg}, #090514)`,
+              }}
+              onClick={() => !isCenter && setActive(i)}
+            >
+              <div className="award-card-inner">
+                <div className="award-card-front">
+                  <span className="award-icon">{award.icon}</span>
+                  <h3 className="award-title">{award.title}</h3>
+                  <p className="award-org">{award.org}</p>
+                  <div className="award-shine" />
+                </div>
               </div>
-            ))}
+            </div>
+          );
+        })}
+      </div>
+
+      <div className="carousel-dots">
+        {AWARDS.map((_, i) => (
+          <button
+            key={i}
+            className={`carousel-dot ${i === active ? "active" : ""}`}
+            onClick={() => setActive(i)}
+          />
+        ))}
+      </div>
+
+      <button className="carousel-btn carousel-prev" onClick={prev} aria-label="Previous">
+        ‹
+      </button>
+      <button className="carousel-btn carousel-next" onClick={next} aria-label="Next">
+        ›
+      </button>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  3D Folder – Certificates
+// ─────────────────────────────────────────────────────────────────────────────
+function CertFolder() {
+  const [hovered, setHovered] = useState(false);
+  const [lightbox, setLightbox] = useState(null);
+
+  return (
+    <>
+      <div
+        className={`folder-wrapper ${hovered ? "open" : ""}`}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+      >
+        {/* floating cards */}
+        {CERTS.map((cert, i) => (
+          <div
+            key={cert.id}
+            className="cert-card"
+            style={{ "--ci": i }}
+            onClick={() => hovered && setLightbox(i)}
+          >
+            <img src={cert.image} alt={cert.title} />
+            <span>{cert.title}</span>
           </div>
+        ))}
 
-          {/* Front */}
-          <div className="folder-front" style={{ transform: isHovered ? "rotateX(28deg) translateY(10px)" : "rotateX(0deg)" }} />
-          {/* Shine */}
-          <div className="folder-shine" style={{ transform: isHovered ? "rotateX(28deg) translateY(10px)" : "rotateX(0deg)" }} />
-        </div>
-
-        <div className="folder-title">Certificates</div>
-        <div className="folder-sub" style={{ opacity: isHovered ? 0 : 0.7 }}>Hover to explore</div>
-        <div className="folder-count" style={{ opacity: isHovered ? 1 : 0 }}>{CERTS.length} certs</div>
+        {/* folder back */}
+        <div className="folder-back" />
+        {/* folder tab */}
+        <div className="folder-tab" />
+        {/* folder front */}
+        <div className="folder-front" />
+        {/* shine */}
+        <div className="folder-shine" />
       </div>
 
       {/* Lightbox */}
-      {selectedIndex !== null && (
-        <div className="cert-lightbox" onClick={closeCard}>
-          <div className="cert-lightbox-card" onClick={(e) => e.stopPropagation()}>
-            <button className="cert-lb-close" onClick={closeCard}>✕</button>
-            <img src={CERTS[selectedIndex].image} alt={CERTS[selectedIndex].title} />
-            <div className="cert-lb-title">{CERTS[selectedIndex].title}</div>
-            <div className="cert-lb-nav">
-              <button onClick={() => setSelectedIndex((p) => (p - 1 + CERTS.length) % CERTS.length)}>‹</button>
-              {CERTS.map((_, i) => (
-                <span key={i} className={`cert-lb-dot ${i === selectedIndex ? "active" : ""}`} onClick={() => setSelectedIndex(i)} />
-              ))}
-              <button onClick={() => setSelectedIndex((p) => (p + 1) % CERTS.length)}>›</button>
+      {lightbox !== null && (
+        <div className="cert-lightbox" onClick={() => setLightbox(null)}>
+          <div className="cert-lightbox-inner" onClick={(e) => e.stopPropagation()}>
+            <button className="lb-close" onClick={() => setLightbox(null)}>✕</button>
+            <img src={CERTS[lightbox].image} alt={CERTS[lightbox].title} />
+            <p>{CERTS[lightbox].title}</p>
+            <div className="lb-nav">
+              <button onClick={() => setLightbox((lightbox - 1 + CERTS.length) % CERTS.length)}>‹</button>
+              <button onClick={() => setLightbox((lightbox + 1) % CERTS.length)}>›</button>
             </div>
           </div>
         </div>
       )}
-    </div>
+    </>
   );
-};
+}
 
-// ── Leadership Cards (uiverse mayurd8862 inspired) ────────────────────────────
-
-const LeadershipCards = () => {
+// ─────────────────────────────────────────────────────────────────────────────
+//  Leadership Cards
+// ─────────────────────────────────────────────────────────────────────────────
+function LeadershipCard({ data }) {
   return (
-    <div className="leadership-section">
-      <div className="sub-label pink-label">✦ Leadership</div>
-      <div className="leadership-stack">
-        {LEADERSHIP.map((item, i) => (
-          <div key={i} className="leader-card" style={{ "--accent": item.color }}>
-            <div className="leader-card-before" />
-            <div className="leader-card-after" />
-            <div className="leader-icon-wrap">
-              <span className="leader-icon">{item.icon}</span>
-            </div>
-            <div className="leader-body">
-              <div className="leader-title">{item.title}</div>
-              <div className="leader-sub">{item.sub}</div>
-            </div>
-            <div className="leader-arrow">›</div>
-            <div className="leader-ripple" />
-          </div>
-        ))}
+    <div
+      className="lead-card"
+      style={{ "--lc-front": data.front, "--lc-back": data.back }}
+    >
+      <span className="lead-icon">{data.icon}</span>
+      <div className="lead-content">
+        <h4>{data.title}</h4>
+        <p>{data.subtitle}</p>
       </div>
+      <div className="lead-hover-reveal">{data.reveal}</div>
     </div>
   );
-};
+}
 
-// ── Floating Orb Decoration ───────────────────────────────────────────────────
-
-const FloatingOrbs = () => (
-  <div className="orbs-container" aria-hidden="true">
-    <div className="orb orb-1" />
-    <div className="orb orb-2" />
-    <div className="orb orb-3" />
-    <div className="orb orb-4" />
-  </div>
-);
-
-// ── Grid noise overlay ────────────────────────────────────────────────────────
-
-const GridNoise = () => (
-  <div className="grid-noise" aria-hidden="true">
-    <div className="grid-lines" />
-  </div>
-);
-
-// ── Main ──────────────────────────────────────────────────────────────────────
-
-const Achievements = () => {
+// ─────────────────────────────────────────────────────────────────────────────
+//  Main Section
+// ─────────────────────────────────────────────────────────────────────────────
+export default function Achievements() {
   return (
     <section className="achievements-section" id="achievements">
-      <GridNoise />
-      <FloatingOrbs />
+      {/* Decorative orbs */}
+      <div className="orb orb1" />
+      <div className="orb orb2" />
+      <div className="orb orb3" />
 
-      {/* Scanning line */}
-      <div className="scan-line" aria-hidden="true" />
+      {/* Heading */}
+      <div className="ach-heading-wrap">
+        <h2 className="ach-heading">
+          <span className="ach-heading-text">Achievements</span>
+          <span className="ach-heading-line" />
+        </h2>
+      </div>
 
-      {/* Corner accents */}
-      <div className="corner corner-tl" />
-      <div className="corner corner-tr" />
-      <div className="corner corner-bl" />
-      <div className="corner corner-br" />
+      {/* Awards carousel */}
+      <div className="awards-section">
+        <p className="sub-label">🏅 Awards &amp; Recognition</p>
+        <AwardsCarousel />
+      </div>
 
-      <div className="ach-inner">
-        {/* Heading */}
-        <AchHeading />
-
-        {/* Awards row */}
-        <AwardCards />
-
-        {/* Bottom row: Certificates + Leadership */}
-        <div className="ach-bottom">
+      {/* Bottom row: folder + leadership */}
+      <div className="bottom-row">
+        <div className="certs-col">
+          <p className="sub-label">📁 Certificates</p>
           <CertFolder />
-          <LeadershipCards />
+        </div>
+        <div className="lead-col">
+          <p className="sub-label">👑 Leadership Roles</p>
+          <div className="lead-cards-list">
+            {LEADERSHIP.map((l, i) => (
+              <LeadershipCard key={i} data={l} />
+            ))}
+          </div>
         </div>
       </div>
     </section>
   );
-};
-
-export default Achievements;
+}

@@ -354,7 +354,7 @@
 .project-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.55);
+  background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(16px) saturate(1.5);
   display: flex;
   align-items: center;
@@ -369,41 +369,137 @@
 
 /* ─── PANEL ─────────────────────────────────────────────────── */
 .project-panel {
-  width: 88%;
+  width: 60%;
   max-width: 1200px;
-  height: 88vh;
-  max-height: 820px;
-  border-radius: 28px;
+  height: 70vh;
+  max-height: 640px;
+  border-radius: 32px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   position: relative;
-  background: var(--panel-bg);
-  border: 1px solid var(--c-border);
-  box-shadow: var(--shadow-card);
+  background: #bab1be; /* Warm grey/taupe solid background exactly like attached photo */
+  border: none;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
   animation: panelIn 0.45s cubic-bezier(0.16, 1, 0.3, 1);
   z-index: 10000;
+  padding-bottom: 24px;
 }
 @keyframes panelIn {
   from { transform: scale(0.88) translateY(30px); opacity: 0; }
   to   { transform: scale(1) translateY(0); opacity: 1; }
 }
 
-/* ─── RIBBON ────────────────────────────────────────────────── */
-.ribbon-wrap {
+/* ─── PANEL HEADER BAR ──────────────────────────────────────── */
+.panel-header-bar {
   height: 48px;
   overflow: hidden;
-  background: var(--ribbon-bg);
-  background-size: 300% 100%;
-  animation: ribbonBg 8s linear infinite;
+  background: #a65f3c; /* Solid brown/rust header strip exactly like photo */
   position: relative;
   display: flex;
   align-items: center;
   flex-shrink: 0;
+  width: 100%;
 }
-@keyframes ribbonBg {
-  0%   { background-position: 0% 0%; }
-  100% { background-position: 300% 0%; }
+
+/* UIVERSE CLOSE BUTTON */
+.uiverse-close-btn {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  border: 2px solid #000000;
+  background: transparent;
+  overflow: hidden;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.5s ease-in-out;
+  z-index: 20;
+}
+
+.uiverse-close-btn:hover {
+  border-color: #22c55e;
+}
+
+.uiverse-close-btn .close-txt {
+  margin: 0;
+  font-family: 'Manrope', 'Syne', sans-serif;
+  font-size: 24px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000000;
+  position: relative;
+  z-index: 10;
+  transition: transform 0.5s ease-in-out;
+}
+
+.uiverse-close-btn:hover .close-txt {
+  transform: scale(0);
+}
+
+.uiverse-close-btn .bg-span {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #22c55e;
+  transform: rotate(45deg);
+  transition: all 0.5s ease-in-out;
+}
+
+/* Span 1 */
+.uiverse-close-btn .span-top {
+  top: 100%;
+  left: 0;
+}
+.uiverse-close-btn:hover .span-top {
+  top: 75%;
+}
+
+/* Span 2 */
+.uiverse-close-btn .span-left {
+  top: 0;
+  left: 100%;
+}
+.uiverse-close-btn:hover .span-left {
+  left: 75%;
+}
+
+/* Span 3 */
+.uiverse-close-btn .span-right {
+  top: 0;
+  right: 100%;
+}
+.uiverse-close-btn:hover .span-right {
+  right: 75%;
+}
+
+/* Span 4 */
+.uiverse-close-btn .span-bottom {
+  bottom: 100%;
+  right: 0;
+}
+.uiverse-close-btn:hover .span-bottom {
+  bottom: 75%;
+}
+
+/* ─── RIBBON MARQUEE ────────────────────────────────────────── */
+.ribbon-wrap {
+  width: 100%;
+  height: 48px;
+  overflow: hidden;
+  background: #a65f3c; /* Solid brown/rust background from mockup */
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
 }
 
 .ribbon-track {
@@ -412,6 +508,7 @@
   white-space: nowrap;
   animation: ribbonScroll 20s linear infinite;
 }
+
 @keyframes ribbonScroll {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
@@ -420,47 +517,47 @@
 .ribbon-word {
   display: inline-flex;
   align-items: center;
-  padding: 0 6px;
-  font-size: 11px;
+  padding: 0 10px;
+  font-family: "Syne", sans-serif;
+  font-size: 13px;
   font-weight: 800;
+  font-style: italic; /* Mockup italic */
   letter-spacing: 2px;
-  transition: transform 0.2s;
-  color: hsl(calc(var(--i) * 30), 80%, 75%);
+  color: white; /* Mockup white text */
+  text-transform: uppercase;
   cursor: default;
+  transition: transform 0.2s;
 }
 .ribbon-word:hover {
-  transform: scaleY(1.3);
+  transform: scale(1.1);
 }
 
 .ribbon-sep {
-  margin-left: 12px;
-  margin-right: 6px;
-  opacity: 0.4;
+  margin-left: 20px;
+  margin-right: 10px;
+  opacity: 0.5;
   color: white;
 }
 
 /* ─── PANEL BODY ────────────────────────────────────────────── */
 .panel-body {
   display: flex;
-  height: 100%;
+  height: calc(100% - 48px - 60px);
   overflow: hidden;
+  gap: 36px;
+  padding: 28px 36px 16px;
 }
 
 /* ─── LEFT PANEL ────────────────────────────────────────────── */
 .panel-left {
-  width: 52%;
-  background: #080810;
+  width: 48%;
+  background: transparent;
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  gap: 20px;
+  padding: 0;
   overflow: hidden;
-  gap: 0;
-  padding: 24px 24px 20px;
-}
-@media (prefers-color-scheme: light) {
-  .panel-left { background: #1a1228; }
 }
 
 /* ─── PANEL IMAGE WITH EFFECTS ──────────────────────────────── */
@@ -468,16 +565,16 @@
   position: relative;
   width: 100%;
   flex: 1;
-  border-radius: 16px;
+  border-radius: 18px;
   overflow: hidden;
   cursor: crosshair;
-  border: 1px solid rgba(124,58,237,0.25);
-  transition: border-color 0.3s, box-shadow 0.3s;
-  max-height: 340px;
+  border: none;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  transition: box-shadow 0.3s;
+  max-height: 280px;
 }
 .panel-img-wrap.panel-img-hovered {
-  border-color: rgba(167,139,250,0.6);
-  box-shadow: 0 0 40px rgba(124,58,237,0.4), 0 0 80px rgba(37,99,235,0.2);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
 }
 
 .panel-img {
@@ -562,77 +659,62 @@
 .panel-tech-section {
   width: 100%;
   flex-shrink: 0;
-  padding-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.tech-heading {
-  font-size: 11px;
-  letter-spacing: 3px;
-  color: var(--c-sub);
-  margin-bottom: 10px;
+.tech-heading-label {
+  font-family: "Syne", sans-serif;
+  font-size: 13px;
   font-weight: 700;
-  color: rgba(167,139,250,0.7);
+  color: white;
+  letter-spacing: 1px;
+  margin: 0;
 }
 
 .chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 10px;
 }
 
-/* ─── TECH CHIP — from techstack.txt (rose-style ripple) ───── */
+/* ─── TECH CHIP — Solid purple pill buttons matching the photo ─── */
 .tech-chip-new {
-  padding: 6px 14px;
-  background: #7c3aed;
-  border-radius: 6px;
+  padding: 8px 20px;
+  background: #52069e; /* Solid dark purple/violet exactly like photo */
+  border-radius: 99px; /* Pill shaped */
   color: white;
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.5px;
   border: none;
   cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  z-index: 0;
-  text-shadow: 1px 2px 3px rgba(0,0,0,0.35);
-  transition: box-shadow 0.3s, transform 0.3s;
-}
-/* The expanding ripple blob from techstack.txt */
-.tech-chip-new::after {
-  content: '';
-  position: absolute;
-  height: 4px; width: 4px;
-  background: #4c1d95;
-  left: 8px; bottom: 0;
-  border-radius: 50%;
-  z-index: -1;
-  transform: translateY(100%);
-  transition: transform 0.7s, scale 0.7s;
-}
-.tech-chip-new:hover::after {
-  transform: translateY(0) scale(30);
+  text-transform: uppercase;
+  box-shadow: 0 4px 10px rgba(82, 6, 158, 0.2);
+  transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
 }
 .tech-chip-new:hover {
-  box-shadow: 0 6px 24px rgba(124,58,237,0.5);
+  background: #420480;
   transform: translateY(-1px);
-  text-shadow: 1px 2px 6px rgba(255,255,255,0.2);
+  box-shadow: 0 6px 14px rgba(82, 6, 158, 0.3);
 }
 
 /* ─── RIGHT PANEL ───────────────────────────────────────────── */
 .panel-right {
-  width: 48%;
-  padding: 28px 28px 28px 32px;
+  width: 52%;
+  padding: 0;
   overflow-y: auto;
   position: relative;
-  color: var(--c-text);
   scrollbar-width: thin;
-  scrollbar-color: var(--c-accent2) transparent;
+  scrollbar-color: #52069e transparent;
   display: flex;
   flex-direction: column;
+  gap: 14px;
 }
 .panel-right::-webkit-scrollbar { width: 4px; }
 .panel-right::-webkit-scrollbar-thumb {
-  background: var(--c-accent2);
+  background: #52069e;
   border-radius: 4px;
 }
 
@@ -660,15 +742,15 @@
 
 /* ─── ANIMATED TITLE ────────────────────────────────────────── */
 .panel-title {
-  font-size: clamp(28px, 3.5vw, 42px);
-  font-weight: 900;
-  letter-spacing: -1px;
-  color: var(--c-text);
-  margin: 0 0 6px;
+  font-family: "Syne", sans-serif;
+  font-size: 38px;
+  font-weight: 800;
+  color: #1c1524; /* Dark charcoal exactly like photo */
+  margin: 0;
+  line-height: 1.1;
   display: flex;
   flex-wrap: wrap;
   gap: 1px;
-  line-height: 1.1;
 }
 
 .title-char {
@@ -677,7 +759,7 @@
   transition: color 0.2s, transform 0.2s;
 }
 .title-char:hover {
-  color: var(--c-accent2);
+  color: #52069e;
   transform: translateY(-3px);
 }
 @keyframes titleReveal {
@@ -693,38 +775,49 @@
   }
 }
 
-.panel-tagline {
-  font-size: 13px;
-  color: var(--c-accent1);
+.panel-tagline-new {
+  font-family: "Nunito", sans-serif;
+  font-size: 15px;
   font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  margin: 0 0 14px;
+  color: #2b1f35; /* Dark charcoal tagline */
+  margin: 0;
 }
 
-.panel-desc {
+.panel-desc-new {
+  font-family: "Nunito", sans-serif;
   font-size: 13.5px;
-  line-height: 1.7;
-  color: var(--c-sub);
-  margin-bottom: 20px;
+  line-height: 1.6;
+  color: white; /* White description text matching photo layout */
+  margin: 0;
+}
+
+/* ─── BOTTOM LIVE VIEW ACTION BUTTON ────────────────────────── */
+.panel-bottom-action {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+  flex-shrink: 0;
 }
 
 /* ─── HOLOGRAPHIC CARD ──────────────────────────────────────── */
 .holo-card {
   position: relative;
-  border-radius: 16px;
-  padding: 20px;
-  margin-bottom: 20px;
+  border-radius: 20px;
+  padding: 24px;
+  margin-top: 14px;
+  margin-bottom: 14px;
   cursor: pointer;
-  transition: transform 0.1s;
+  transition: transform 0.1s, box-shadow 0.3s;
   overflow: hidden;
-  background: linear-gradient(135deg, #1a0533 0%, #0a1a4a 50%, #1a0533 100%);
-  border: 1px solid rgba(255,255,255,0.12);
-  box-shadow: 0 8px 32px rgba(124,58,237,0.2);
+  background: #52069e; /* Solid dark purple exactly like photo card */
+  border: none;
+  box-shadow: 0 10px 30px rgba(82, 6, 158, 0.25);
+  color: white;
 }
 @media (prefers-color-scheme: light) {
   .holo-card {
-    background: linear-gradient(135deg, #2d0a6e, #0a1a5a, #2d0a6e);
+    background: #52069e;
   }
 }
 
@@ -957,27 +1050,28 @@
   display: flex;
   align-items: center;
   gap: 0;
-  background: linear-gradient(135deg, rgba(216,180,254,0.15), rgba(191,219,254,0.15));
-  border: 1px solid rgba(139,92,246,0.35);
+  background: #52069e; /* Solid purple matching mockup */
+  border: none;
   border-radius: 999px;
-  padding: 10px 18px;
-  color: var(--c-text);
+  padding: 10px 24px;
+  color: white;
   text-decoration: none;
   cursor: pointer;
-  transition: gap 0.3s, padding 0.3s, box-shadow 0.3s, background 0.3s;
+  transition: gap 0.3s, padding 0.3s, box-shadow 0.3s, background 0.3s, transform 0.2s;
   font-family: inherit;
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.5px;
+  box-shadow: 0 8px 24px rgba(82, 6, 158, 0.35);
 }
 .ws-pill:hover {
   gap: 10px;
-  padding: 10px 22px;
-  background: linear-gradient(135deg, rgba(124,58,237,0.25), rgba(37,99,235,0.2));
-  box-shadow: 0 0 28px rgba(124,58,237,0.4), 0 0 60px rgba(37,99,235,0.2);
-  border-color: rgba(167,139,250,0.7);
+  padding: 10px 28px;
+  background: #420480;
+  box-shadow: 0 10px 30px rgba(82, 6, 158, 0.5);
+  transform: translateY(-2px);
 }
-.ws-icon { fill: var(--c-accent2); flex-shrink: 0; }
+.ws-icon { fill: white; flex-shrink: 0; }
 .ws-label {
   overflow: hidden;
   max-width: 0;

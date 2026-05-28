@@ -1,87 +1,85 @@
 import { useState, useEffect, useRef } from "react";
 import "./Projects.css";
 
-// MAIN CARD IMAGES
-import p1 from "../../assets/p1.png";
-import p2 from "../../assets/p2.png";
-import p3 from "../../assets/p3.png";
-import p4 from "../../assets/p4.png";
-import p5 from "../../assets/p5.png";
-import p6 from "../../assets/p6.png";
-
 // PORTFOLIO PANEL IMAGES
-import p1_1 from "../../assets/p1_1.png";
-import p1_2 from "../../assets/p1_2.png";
-import p1_3 from "../../assets/p1_3.png";
-import p1_4 from "../../assets/p1_4.png";
-import p1_5 from "../../assets/p1_5.png";
+import pw1 from "../../assets/pw1.jpeg";
+import pw2 from "../../assets/pw2.jpeg";
+import pw3 from "../../assets/pw3.jpeg";
+import pw4 from "../../assets/pw4.jpeg";
+import pw6 from "../../assets/pw6.jpeg";
 
 const projects = [
   {
-    title: "Portfolio",
+    title: "KrishiDrishti",
     tagline: "Personal developer showcase",
-    img: p1,
+    img: pw1,
+    panelImg: pw1,
     ribbon: ["FULL STACK", "REACT", "PORTFOLIO", "UI/UX", "ANIMATIONS", "FRAMER MOTION", "RESPONSIVE", "CREATIVE"],
     desc: "A sleek and interactive portfolio website designed to showcase skills, projects, and experience with smooth animations and engaging UI.",
     features: ["Smooth page transitions", "Interactive project cards", "Dark/Light mode", "Responsive design", "Custom animations"],
     tech: ["React", "JavaScript", "Framer Motion", "Node"],
     involvement: "Full Stack Development",
-    images: [p1_1, p1_2, p1_3, p1_4, p1_5],
+    images: [pw1],
   },
   {
-    title: "ToDo List",
+    title: "TrialGo",
     tagline: "Task manager with clean UI",
-    img: p2,
+    img: pw2,
+    panelImg: pw2,
     ribbon: ["PRODUCTIVITY", "REACT", "CRUD", "LOCAL STORAGE", "CLEAN UI", "MINIMALIST", "FAST", "INTUITIVE"],
     desc: "A beautifully designed task manager app with real-time updates, priority sorting, and persistent local storage integration.",
     features: ["Drag & drop tasks", "Priority labels", "Due date reminders", "Local persistence", "Category filters"],
     tech: ["React", "CSS3", "LocalStorage", "Hooks"],
     involvement: "Frontend Development",
-    images: [p1_1, p1_2, p1_3, p1_4, p1_5],
+    images: [pw2],
   },
   {
-    title: "Krishi Dristi",
+    title: "StegoChain",
     tagline: "Smart agriculture assistant",
-    img: p3,
+    img: pw3,
+    panelImg: pw3,
     ribbon: ["AI/ML", "AGRICULTURE", "PYTHON", "COMPUTER VISION", "DEEP LEARNING", "CROP DETECTION", "IOT", "SMART FARMING"],
     desc: "An AI-powered agriculture assistant that leverages computer vision and machine learning to detect crop diseases and recommend treatments.",
     features: ["Disease detection", "Crop health analysis", "Treatment suggestions", "Weather integration", "Multilingual support"],
     tech: ["Python", "TensorFlow", "OpenCV", "Flask", "React"],
     involvement: "ML Engineering",
-    images: [p1_1, p1_2, p1_3, p1_4, p1_5],
+    images: [pw3],
   },
   {
     title: "TruthScope",
     tagline: "Fake news detection system",
-    img: p4,
+    img: pw4,
+    panelImg: pw4,
     ribbon: ["NLP", "FAKE NEWS", "BERT", "PYTHON", "AI", "CLASSIFICATION", "DEEP LEARNING", "SOCIAL IMPACT"],
     desc: "A sophisticated fake news detection system using NLP and transformer models to classify news articles with high accuracy.",
     features: ["BERT classification", "Real-time analysis", "Source credibility", "Confidence scoring", "Browser extension"],
     tech: ["Python", "BERT", "Scikit-learn", "FastAPI", "React"],
     involvement: "NLP Engineering",
-    images: [p1_1, p1_2, p1_3, p1_4, p1_5],
+    images: [pw4],
   },
   {
-    title: "SevaSaarthi",
+    title: "BharatTrack",
     tagline: "Community service platform",
-    img: p5,
+    img: pw6,
+    panelImg: pw6,
     ribbon: ["SOCIAL IMPACT", "FULL STACK", "COMMUNITY", "NODE.JS", "MONGODB", "MAPS API", "VOLUNTEER", "NGO"],
     desc: "A community service platform connecting volunteers with NGOs and social causes, featuring real-time tracking and impact metrics.",
     features: ["Volunteer matching", "Real-time tracking", "Impact dashboard", "Event management", "Certificate generation"],
     tech: ["React", "Node.js", "MongoDB", "Google Maps", "Socket.io"],
     involvement: "Full Stack Development",
-    images: [p1_1, p1_2, p1_3, p1_4, p1_5],
+    images: [pw6],
   },
   {
-    title: "Cipher Clash",
+    title: "BharatTrack",
     tagline: "Cybersecurity-based game",
-    img: p6,
+    img: pw6,
+    panelImg: pw6,
     ribbon: ["GAME DEV", "CYBERSECURITY", "CTF", "JAVASCRIPT", "PUZZLES", "ENCRYPTION", "HACKING", "INTERACTIVE"],
     desc: "An immersive cybersecurity-themed game where players solve encryption puzzles and hacking challenges in a race against time.",
     features: ["Progressive difficulty", "Real crypto concepts", "Leaderboard system", "Time challenges", "Hint system"],
     tech: ["JavaScript", "Canvas API", "Node.js", "WebSockets", "CSS3"],
     involvement: "Game Development",
-    images: [p1_1, p1_2, p1_3, p1_4, p1_5],
+    images: [pw6],
   },
 ];
 
@@ -359,22 +357,36 @@ function WebsiteButton() {
   );
 }
 
-// ── ProjectPanel — UPDATED window layout ────────────────────────────────────
+// ── ProjectPanel — RESTORED premium effects inside the skeleton window ──
 function ProjectPanel({ proj, onClose }) {
   return (
     <div className="project-overlay" onClick={onClose}>
       <div className="project-panel" onClick={(e) => e.stopPropagation()}>
 
-        {/* TOP: moving ribbon strip (same Ribbon component, unchanged) */}
-        <Ribbon words={proj.ribbon} />
+        {/* TOP: rust-colored header strip with animated Ribbon marquee */}
+        <div className="panel-header-bar">
+          <Ribbon words={proj.ribbon} />
+          <button
+            className="uiverse-close-btn"
+            type="button"
+            onClick={onClose}
+            aria-label="Close"
+          >
+            <p className="close-txt">×</p>
+            <span className="bg-span span-top"></span>
+            <span className="bg-span span-left"></span>
+            <span className="bg-span span-right"></span>
+            <span className="bg-span span-bottom"></span>
+          </button>
+        </div>
 
         <div className="panel-body">
           {/* LEFT — project image with effects + tech stack below */}
           <div className="panel-left">
-            <PanelImage src={proj.img} alt={proj.title} />
+            <PanelImage src={proj.panelImg} alt={proj.title} />
 
             <div className="panel-tech-section">
-              <h3 className="tech-heading">TECH STACK</h3>
+              <h3 className="tech-heading-label">TECH STACK:</h3>
               <div className="chips">
                 {proj.tech.map((t, i) => (
                   <TechChip key={i} label={t} />
@@ -383,22 +395,19 @@ function ProjectPanel({ proj, onClose }) {
             </div>
           </div>
 
-          {/* RIGHT — title, desc, holographic features, website button */}
+          {/* RIGHT — title, desc, holographic features */}
           <div className="panel-right">
-            <button className="close-btn" onClick={onClose} aria-label="Close">✕</button>
-
             <AnimatedTitle text={proj.title} />
-            <p className="panel-tagline">{proj.tagline}</p>
-            <p className="panel-desc">{proj.desc}</p>
+            <p className="panel-tagline-new">{proj.tagline}</p>
+            <p className="panel-desc-new">{proj.desc}</p>
 
             <HolographicCard features={proj.features} />
-
-            <InvolvementCard text={proj.involvement} />
-
-            <div className="panel-website-btn">
-              <WebsiteButton />
-            </div>
           </div>
+        </div>
+
+        {/* BOTTOM: Center premium sliding Website Button */}
+        <div className="panel-bottom-action">
+          <WebsiteButton />
         </div>
       </div>
     </div>
