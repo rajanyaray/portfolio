@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import "./Achievements.css";
+import SectionHeading from "../SectionHeading/SectionHeading";
 
 // ── Award data ──────────────────────────────────────────────────────────────
 const AWARDS = [
@@ -256,12 +257,7 @@ export default function Achievements() {
       <div className="orb orb3" />
 
       {/* Heading */}
-      <div className="ach-heading-wrap">
-        <h2 className="ach-heading">
-          <span className="ach-heading-text">Achievements</span>
-          <span className="ach-heading-line" />
-        </h2>
-      </div>
+      <SectionHeading title="ACHIEVEMENTS" tagline="AWARDS & CERTS" />
 
       {/* Awards carousel */}
       <div className="awards-section">

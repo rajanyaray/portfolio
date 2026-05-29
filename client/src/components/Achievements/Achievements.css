@@ -10,13 +10,13 @@
 .achievements-section {
   position: relative;
   width: 100%;
-  min-height: 100vh;
-  padding: 40px 4vw 20px; /* Reduced top/bottom padding */
+  height: 100vh;
+  padding: 0px 4vw 20px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px; /* Decreased gap to fit everything vertically in viewport */
+  gap: 12px;
   overflow: hidden;
   font-family: "Nunito", sans-serif;
 }
@@ -45,51 +45,7 @@
   background: radial-gradient(circle, rgba(255,120,180,0.10), transparent 70%);
 }
 
-/* ── Section heading ──────────────────────────────────── */
-.ach-heading-wrap {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-}
-.ach-heading {
-  position: relative;
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  margin: 0;
-}
-.ach-heading-text {
-  font-family: "Orbitron", sans-serif;
-  font-size: clamp(2rem, 5vw, 3.4rem);
-  font-weight: 900;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  background: linear-gradient(120deg, #ff6bc8, #a259ff, #4d96ff, #6bcb77);
-  background-size: 300% 300%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: gradientShift 5s ease infinite;
-  filter: drop-shadow(0 0 16px rgba(162,89,255,0.55));
-}
-@keyframes gradientShift {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-.ach-heading-line {
-  display: block;
-  width: 60%;
-  height: 3px;
-  border-radius: 2px;
-  background: linear-gradient(90deg, transparent, #a259ff, #4d96ff, transparent);
-  animation: lineGlow 3s ease-in-out infinite alternate;
-}
-@keyframes lineGlow {
-  from { box-shadow: 0 0 6px #a259ff; }
-  to   { box-shadow: 0 0 18px #4d96ff; }
-}
+/* heading styles replaced by SectionHeading */
 
 /* ── Sub-label ────────────────────────────────────────── */
 .sub-label {

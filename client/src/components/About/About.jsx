@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import "./About.css";
+import SectionHeading from "../SectionHeading/SectionHeading";
 import profile from "../../assets/profile.png";
 
 // ── Animated counter hook ──────────────────────────────────────────────────
@@ -561,23 +562,7 @@ export default function About() {
     <section className="about-section" id="about">
 
       {/* ── Heading ──────────────────────────────────────────────────── */}
-      <div className="about-heading-row">
-        <div className="about-heading-decor">
-          <span className="ahd-line" />
-          <span className="ahd-diamond" />
-        </div>
-        <h2 className="about-heading">
-          <span className="ah-who">WHO</span>
-          <span className="ah-space"> </span>
-          <span className="ah-am">AM</span>
-          <span className="ah-space"> </span>
-          <span className="ah-i">I</span>
-        </h2>
-        <div className="about-heading-decor ah-decor-right">
-          <span className="ahd-diamond" />
-          <span className="ahd-line" />
-        </div>
-      </div>
+      <SectionHeading title="ABOUT ME" tagline="WHO AM I" />
 
       {/* ── Body Layout ──────────────────────────────────────────────── */}
       <div className="about-body">

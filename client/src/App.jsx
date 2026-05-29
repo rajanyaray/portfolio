@@ -21,7 +21,40 @@ export default function App() {
       setShowTop(window.scrollY > window.innerHeight * 0.8);
     };
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    // ── Intersection Observer for Scroll Reveal (Alternating Left/Right) ──
+    const observerOptions = {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0.12,
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("reveal-visible");
+        }
+      });
+    }, observerOptions);
+
+    const sections = document.querySelectorAll(
+      ".about-section, .skills-section, #projects, .achievements-section, .contact-section"
+    );
+
+    sections.forEach((section, index) => {
+      section.classList.add("scroll-reveal");
+      if (index % 2 === 0) {
+        section.classList.add("reveal-left"); // Left to Right
+      } else {
+        section.classList.add("reveal-right"); // Right to Left
+      }
+      observer.observe(section);
+    });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      observer.disconnect();
+    };
   }, []);
 
   const scrollToTop = () => {

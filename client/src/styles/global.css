@@ -250,3 +250,28 @@ html {
   40%  { box-shadow: 0 0 0 14px rgba(124,106,247,.0), 0 0 80px rgba(124,106,247,.65); }
   100% { box-shadow: 0 0 0 1px rgba(124,106,247,.4), 0 8px 32px rgba(124,106,247,.25); }
 }
+
+/* ─── SCROLL REVEAL ANIMATIONS ─── */
+.scroll-reveal {
+  opacity: 0;
+  will-change: transform, opacity;
+  transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+/* Left-to-Right starting state */
+.scroll-reveal.reveal-left {
+  transform: translateX(-100px);
+}
+
+/* Right-to-Left starting state */
+.scroll-reveal.reveal-right {
+  transform: translateX(100px);
+}
+
+/* Revealed fully visible state */
+.scroll-reveal.reveal-visible {
+  opacity: 1 !important;
+  transform: translateX(0) !important;
+  pointer-events: auto !important;
+}

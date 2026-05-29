@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import "./contact.css";
+import SectionHeading from "../SectionHeading/SectionHeading";
 
 export default function Contact() {
   const [email, setEmail] = useState("");
@@ -226,12 +227,7 @@ export default function Contact() {
 
       {/* Heading */}
       <div className="contact-heading-wrap">
-        <h2 className="contact-heading">
-          <span className="heading-connect">Connect</span>
-          <span className="heading-with"> With </span>
-          <span className="heading-me">Me</span>
-        </h2>
-        <div className="heading-underline" />
+        <SectionHeading title="CONNECT WITH ME" tagline="GET IN TOUCH" />
         <span className="available-badge">
           <span className="badge-dot" />
           Available for Internships &amp; Collabs

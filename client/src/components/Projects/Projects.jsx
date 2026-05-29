@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import "./Projects.css";
+import SectionHeading from "../SectionHeading/SectionHeading";
 
 // PORTFOLIO PANEL IMAGES
 import pw1 from "../../assets/pw1.jpeg";
@@ -427,14 +428,14 @@ export default function Projects() {
     return () => { document.body.style.overflow = ""; };
   }, [selected]);
 
-  // Auto-cycling disabled to prevent blinking/instability
-  // useEffect(() => {
-  //   if (isPaused) return;
-  //   const interval = setInterval(() => {
-  //     setExpanded((prev) => (prev + 1) % projects.length);
-  //   }, 2000);
-  //   return () => clearInterval(interval);
-  // }, [isPaused]);
+  // Auto-cycling accordion slides (pauses on hover, resumes on leave)
+  useEffect(() => {
+    if (isPaused) return;
+    const interval = setInterval(() => {
+      setExpanded((prev) => (prev + 1) % projects.length);
+    }, 2800);
+    return () => clearInterval(interval);
+  }, [isPaused]);
 
   const getWidth = (index) => (index === expanded ? "26rem" : "5rem");
 
@@ -443,16 +444,7 @@ export default function Projects() {
       {/* Floating paths background — added as per bgcomponents.txt */}
       <FloatingPathsBackground position={1} />
 
-      <div className="projects-header">
-        <div className="header-label">✦ SELECTED WORK</div>
-        <h1 className="header-title">
-          {"PROJECTS".split("").map((c, i) => (
-            <span key={i} className="h-char" style={{ "--i": i }}>{c}</span>
-          ))}
-        </h1>
-        <p className="header-sub">Things I've built. Things I'm building.</p>
-        <div className="header-line" />
-      </div>
+      <SectionHeading title="PROJECTS" tagline="SELECTED WORK" />
 
       <div className="expand-wrapper">
         <div className="expand-container">

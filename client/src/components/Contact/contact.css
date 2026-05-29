@@ -60,7 +60,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 72px 60px 16px;
+  padding: 0px 60px 16px;
   font-family: "DM Sans", sans-serif;
   color: var(--c-text);
   box-sizing: border-box;
@@ -120,57 +120,7 @@
   gap: 5px;
 }
 
-.contact-heading {
-  font-family: "Syne", sans-serif;
-  font-size: clamp(1.8rem, 4vw, 2.8rem);
-  font-weight: 800;
-  margin: 0;
-  line-height: 1;
-  letter-spacing: -0.02em;
-}
-
-.heading-connect {
-  background: linear-gradient(90deg, var(--c-accent1), var(--c-accent3), var(--c-accent1));
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: shimmerText 3s linear infinite;
-}
-.heading-with { color: var(--c-text); margin: 0 8px; }
-.heading-me {
-  background: linear-gradient(90deg, var(--c-accent3), var(--c-accent1));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-@keyframes shimmerText {
-  0% { background-position: 0% center; }
-  100% { background-position: 200% center; }
-}
-
-.heading-underline {
-  width: 80px;
-  height: 3px;
-  border-radius: 99px;
-  background: linear-gradient(90deg, var(--c-accent1), var(--c-accent3));
-  position: relative;
-  overflow: hidden;
-}
-.heading-underline::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: white;
-  opacity: 0.6;
-  transform: translateX(-100%);
-  animation: scanLine 2s ease-in-out infinite;
-}
-@keyframes scanLine {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(200%); }
-}
+/* contact heading style replaced by SectionHeading */
 
 .available-badge {
   display: flex;
