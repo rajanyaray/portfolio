@@ -101,7 +101,17 @@ const CERTS = [
 // ─────────────────────────────────────────────────────────────────────────────
 function AwardsCarousel() {
   const [active, setActive] = useState(0);
+  const [spacing, setSpacing] = useState(280);
   const total = AWARDS.length;
+
+  useEffect(() => {
+    const handleResize = () => {
+      setSpacing(window.innerWidth < 600 ? 120 : window.innerWidth < 900 ? 190 : 280);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const prev = () => setActive((a) => (a - 1 + total) % total);
   const next = () => setActive((a) => (a + 1) % total);
@@ -114,7 +124,7 @@ function AwardsCarousel() {
           const slot = offset <= 3 ? offset : offset - total;
           const absSlot = Math.abs(slot);
           const zIndex = 10 - absSlot;
-          const translateX = slot * 280;
+          const translateX = slot * spacing;
           const scale = absSlot === 0 ? 1 : absSlot === 1 ? 0.82 : 0.65;
           const opacity = absSlot <= 2 ? 1 - absSlot * 0.25 : 0;
           const rotateY = slot * -12;
@@ -187,6 +197,7 @@ function CertFolder() {
         className={`folder-wrapper ${hovered ? "open" : ""}`}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
+        onClick={() => setHovered(!hovered)}
       >
         {/* floating cards */}
         {CERTS.map((cert, i) => (
@@ -194,7 +205,12 @@ function CertFolder() {
             key={cert.id}
             className="cert-card"
             style={{ "--ci": i }}
-            onClick={() => hovered && setLightbox(i)}
+            onClick={(e) => {
+              if (hovered) {
+                e.stopPropagation();
+                setLightbox(i);
+              }
+            }}
           >
             <img src={cert.image} alt={cert.title} />
             <span>{cert.title}</span>
@@ -213,7 +229,7 @@ function CertFolder() {
         {/* Folder Label */}
         <div className="folder-label">
           <span className="folder-count">{CERTS.length} Certificates</span>
-          <span className="folder-hint">Hover to open folder</span>
+          <span className="folder-hint">Hover or tap to open folder</span>
         </div>
       </div>
 

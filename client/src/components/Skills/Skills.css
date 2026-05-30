@@ -715,6 +715,12 @@ body[data-theme="light"] .sk-boxes-container {
    RESPONSIVE
    ═══════════════════════════════════════════════════════ */
 @media (max-width: 900px) {
+  .skills-section {
+    height: auto !important;
+    min-height: 100vh !important;
+    overflow: visible !important;
+    padding: 80px 4vw 40px !important;
+  }
   .sk-tabs { width: 130px; }
   .sk-logo-grid { max-width: 340px; gap: 8px; padding: 12px; }
   .logo-slot { min-height: 62px; }
@@ -751,8 +757,9 @@ body[data-theme="light"] .sk-boxes-container {
 
 @media (max-width: 420px) {
   .sk-trait      { flex: 1 1 100%; }
-  .logo-slot     { min-height: 56px; }
-  .ls-icon       { width: 24px; height: 24px; }
+  .sk-logo-grid  { max-width: 100% !important; padding: 10px !important; gap: 8px !important; }
+  .logo-slot     { min-height: 52px !important; }
+  .ls-icon       { width: 22px !important; height: 22px !important; }
   .ls-name       { font-size: 0.5rem; }
 }
 

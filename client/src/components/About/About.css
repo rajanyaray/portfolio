@@ -1484,3 +1484,174 @@ body[data-theme="light"] .vertical-timeline-element-content-arrow {
     color: #333;
   }
 }
+
+/* ============================================================
+   ABOUT RESPONSIVE VIEWS
+   ============================================================ */
+@media (max-width: 900px) {
+  .about-section {
+    height: auto !important;
+    min-height: 100vh !important;
+    overflow: visible !important;
+    padding: 80px 4vw 32px !important;
+    gap: 24px !important;
+  }
+
+  .about-body-v2 {
+    overflow: visible !important;
+    height: auto !important;
+    gap: 32px !important;
+  }
+
+  .abox-wrap {
+    width: 92% !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    height: auto !important;
+  }
+
+  .abox-card {
+    position: relative !important;
+    inset: auto !important;
+    height: auto !important;
+    min-height: 0 !important;
+  }
+
+  .abox-content {
+    position: relative !important;
+    inset: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    grid-template-columns: none !important;
+    gap: 24px !important;
+    padding: 32px 20px !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+
+  .abox-photo-frame {
+    width: 110px !important;
+    height: 110px !important;
+  }
+
+  .abox-photo-circle {
+    width: 90px !important;
+    height: 90px !important;
+  }
+
+  .abox-orbit-1 { width: 122px !important; height: 122px !important; }
+  .abox-orbit-2 { width: 142px !important; height: 142px !important; }
+
+  .abox-bio {
+    gap: 16px !important;
+    align-items: center !important;
+  }
+
+  .abox-bio-text {
+    font-size: 0.9rem !important;
+    line-height: 1.55 !important;
+  }
+
+  .about-bottom-row-v2 {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+    height: auto !important;
+    width: 92% !important;
+  }
+
+  .about-bottom-left, 
+  .about-bottom-right {
+    justify-content: center !important;
+    width: 100% !important;
+  }
+
+  .about-bottom-left .card-time-cloud {
+    width: 100% !important;
+    max-width: 22rem !important;
+    margin: 0 auto !important;
+    height: 9.5em !important; /* Fix collapsed height on mobile */
+  }
+
+  .about-bottom-left .card-time-cloud:hover,
+  .about-bottom-left .card-time-cloud--hovered {
+    height: 15em !important; /* Allow detail expansion on hover/tap */
+  }
+
+  .about-bottom-right .weather-card {
+    width: 100% !important;
+    max-width: 22rem !important;
+    margin: 0 auto !important;
+    height: 12rem !important; /* Fix collapsed height on mobile */
+  }
+
+  .about-bottom-right .weather-card:hover {
+    width: 100% !important;
+    max-width: 22rem !important;
+  }
+
+  .stats-trio {
+    width: 100% !important;
+    justify-content: center !important;
+    gap: 12px !important;
+    margin: 0 auto !important;
+  }
+
+  .stat-circle-outer {
+    width: 80px !important;
+    height: 80px !important;
+  }
+
+  .stat-circle-svg {
+    width: 100px !important;
+    height: 100px !important;
+  }
+
+  .sc-num {
+    font-size: 0.85rem !important;
+  }
+
+  .sc-label {
+    font-size: 0.52rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-section {
+    padding: 72px 3vw 24px !important;
+  }
+
+  .abox-content {
+    padding: 24px 12px !important;
+    gap: 18px !important;
+  }
+
+  .abox-name {
+    font-size: 1.6rem !important;
+  }
+
+  .stats-trio {
+    gap: 8px !important;
+  }
+
+  .stat-circle-outer {
+    width: 72px !important;
+    height: 72px !important;
+  }
+
+  .stat-circle-svg {
+    width: 90px !important;
+    height: 90px !important;
+  }
+
+  .sc-glyph {
+    font-size: 0.85rem !important;
+  }
+
+  .sc-num {
+    font-size: 0.78rem !important;
+  }
+
+  .sc-label {
+    font-size: 0.48rem !important;
+  }
+}

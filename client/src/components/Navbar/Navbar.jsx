@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { ThemeContext } from "../../context/ThemeContext";
 import { motion } from "framer-motion";
-import { User, Code, Folder, Trophy, Mail } from "lucide-react";
+import { User, Code, Folder, Trophy, Mail, Menu, X } from "lucide-react";
 import "./Navbar.css";
 import useActiveSection from "../../hooks/useActiveSection";
 
@@ -137,6 +137,7 @@ function CosmosCanvas() {
 
 const Navbar = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);
+  const [isOpen, setIsOpen] = useState(false);
 
   const active = useActiveSection([
     "home",
@@ -157,8 +158,19 @@ const Navbar = () => {
     }
   };
 
+  // Close drawer if user clicks on a link or viewport resizes to desktop width
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 768) {
+        setIsOpen(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
-    <div className="navbar">
+    <div className={`navbar ${isOpen ? "mobile-expanded" : ""}`}>
       {/* Cosmos particles — clipped inside navbar */}
       <CosmosCanvas />
 
@@ -224,40 +236,79 @@ const Navbar = () => {
         })}
       </ul>
 
-      {/* Toggle */}
-      <div className="toggle-wrapper">
-        <label className="theme-switch">
-          <input
-            type="checkbox"
-            className="theme-switch__checkbox"
-            onChange={toggleTheme}
-            checked={theme === "dark"}
-          />
+      {/* Right controls: Theme Toggle + Mobile Toggle */}
+      <div className="nav-controls">
+        {/* Toggle */}
+        <div className="toggle-wrapper">
+          <label className="theme-switch">
+            <input
+              type="checkbox"
+              className="theme-switch__checkbox"
+              onChange={toggleTheme}
+              checked={theme === "dark"}
+            />
 
-          <div className="theme-switch__container">
-            <div className="theme-switch__clouds"></div>
+            <div className="theme-switch__container">
+              <div className="theme-switch__clouds"></div>
 
-            <div className="theme-switch__stars-container">
-              <svg viewBox="0 0 144 55" fill="none">
-                <path
-                  d="M135.831 3.00688C135.055 3.85027 134.111 4.29946 133 4.35447C134.111 4.40947 135.055 4.85867 135.831 5.71123C136.607 6.55462 136.996 7.56303 136.996 8.72727C136.996 7.95722 137.172 7.25134 137.525 6.59129C137.886 5.93124 138.372 5.39954 138.98 5.00535C139.598 4.60199 140.268 4.39114 141 4.35447Z"
-                  fill="currentColor"
-                />
-              </svg>
-            </div>
+              <div className="theme-switch__stars-container">
+                <svg viewBox="0 0 144 55" fill="none">
+                  <path
+                    d="M135.831 3.00688C135.055 3.85027 134.111 4.29946 133 4.35447C134.111 4.40947 135.055 4.85867 135.831 5.71123C136.607 6.55462 136.996 7.56303 136.996 8.72727C136.996 7.95722 137.172 7.25134 137.525 6.59129C137.886 5.93124 138.372 5.39954 138.98 5.00535C139.598 4.60199 140.268 4.39114 141 4.35447Z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </div>
 
-            <div className="theme-switch__circle-container">
-              <div className="theme-switch__sun-moon-container">
-                <div className="theme-switch__moon">
-                  <div className="theme-switch__spot"></div>
-                  <div className="theme-switch__spot"></div>
-                  <div className="theme-switch__spot"></div>
+              <div className="theme-switch__circle-container">
+                <div className="theme-switch__sun-moon-container">
+                  <div className="theme-switch__moon">
+                    <div className="theme-switch__spot"></div>
+                    <div className="theme-switch__spot"></div>
+                    <div className="theme-switch__spot"></div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </label>
+          </label>
+        </div>
+
+        {/* Mobile Hamburger menu toggle */}
+        <button
+          className={`mobile-menu-toggle ${isOpen ? "active" : ""}`}
+          onClick={() => setIsOpen(!isOpen)}
+          aria-label="Toggle navigation menu"
+        >
+          {isOpen ? <X size={22} /> : <Menu size={22} />}
+        </button>
       </div>
+
+      {/* Mobile navigation drawer */}
+      {isOpen && (
+        <div className="mobile-menu-drawer">
+          <ul className="mobile-nav-links">
+            {navItems.map((item, i) => {
+              const isActive = item.ids.some((id) => active === id);
+              return (
+                <li key={i} className={`mobile-nav-item ${isActive ? "active" : ""}`}>
+                  <a
+                    href={item.href}
+                    onClick={(e) => {
+                      handleNavClick(e, item.href);
+                      setIsOpen(false);
+                    }}
+                    className="mobile-nav-link"
+                    style={{ "--item-color": item.color }}
+                  >
+                    <span className="mobile-nav-icon">{item.icon}</span>
+                    <span className="mobile-nav-label">{item.label}</span>
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };

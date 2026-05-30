@@ -539,3 +539,159 @@ body[data-theme="dark"] .nav-item:hover .nav-label {
   align-items: center;
   justify-content: center;
 }
+
+/* ================= NAV CONTROLS (THEME SWITCH + MOBILE TOGGLE) ================= */
+.nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* ================= MOBILE TOGGLE BUTTON ================= */
+.mobile-menu-toggle {
+  display: none; /* hidden on desktop */
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  color: var(--av-text, #f0eeff);
+  padding: 8px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.mobile-menu-toggle:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: scale(1.05);
+}
+
+.mobile-menu-toggle:active {
+  transform: scale(0.95);
+}
+
+/* Light mode overrides for hamburger toggle */
+body[data-theme="light"] .mobile-menu-toggle {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: rgba(109, 40, 217, 0.15);
+  color: #1d0f3b;
+}
+body[data-theme="light"] .mobile-menu-toggle:hover {
+  background: rgba(109, 40, 217, 0.08);
+}
+
+/* ================= MOBILE NAVIGATION DRAWER ================= */
+.mobile-menu-drawer {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: rgba(13, 8, 38, 0.94);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border-radius: 0 0 20px 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 20px 24px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  animation: slideDownMobile 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+body[data-theme="light"] .mobile-menu-drawer {
+  background: rgba(255, 255, 255, 0.94);
+  border-top: 1px solid rgba(109, 40, 217, 0.15);
+  box-shadow: 0 15px 35px rgba(109, 40, 217, 0.08);
+}
+
+@keyframes slideDownMobile {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.mobile-nav-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0;
+  margin: 0;
+}
+
+.mobile-nav-item {
+  width: 100%;
+}
+
+.mobile-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-family: 'Syne', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--av-text, #f0eeff);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: all 0.3s ease;
+}
+
+body[data-theme="light"] .mobile-nav-link {
+  color: #1d0f3b;
+  background: rgba(109, 40, 217, 0.02);
+  border-color: rgba(109, 40, 217, 0.06);
+}
+
+.mobile-nav-link:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--item-color);
+  box-shadow: 0 4px 15px color-mix(in srgb, var(--item-color) 20%, transparent);
+}
+
+body[data-theme="light"] .mobile-nav-link:hover {
+  background: color-mix(in srgb, var(--item-color) 8%, white);
+  border-color: var(--item-color);
+}
+
+.mobile-nav-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--item-color);
+}
+
+.mobile-nav-item.active .mobile-nav-link {
+  background: color-mix(in srgb, var(--item-color) 12%, transparent);
+  border-color: var(--item-color);
+  font-weight: 700;
+  box-shadow: 0 4px 20px color-mix(in srgb, var(--item-color) 25%, transparent);
+}
+
+body[data-theme="light"] .mobile-nav-item.active .mobile-nav-link {
+  background: color-mix(in srgb, var(--item-color) 10%, white);
+}
+
+/* ================= MOBILE RESPONSIVE MEDIA QUERIES ================= */
+@media (max-width: 768px) {
+  .navbar {
+    top: 4%;
+    width: 92%;
+    padding: 8px 18px;
+    border-radius: 16px;
+  }
+  
+  .navbar.mobile-expanded {
+    border-radius: 16px 16px 0 0;
+  }
+
+  .nav-links {
+    display: none !important; /* Hide desktop nav items */
+  }
+
+  .mobile-menu-toggle {
+    display: flex; /* Show mobile hamburger toggle */
+  }
+}

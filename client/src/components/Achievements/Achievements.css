@@ -665,40 +665,105 @@ body[data-theme="light"] .lb-nav button {
 /* ── Responsive tweaks ── */
 @media (max-width: 900px) {
   .achievements-section {
-    height: auto;
-    overflow-y: auto;
-    padding: 20px 4vw;
+    height: auto !important;
+    overflow-y: visible !important;
+    padding: 80px 4vw 48px !important;
   }
   .awards-container-top, .certs-container-bottom {
-    width: 100%;
-    margin-top: 15px;
+    width: 100% !important;
+    margin-top: 15px !important;
   }
   .folder-wrapper {
-    width: 100%;
-    max-width: 320px;
-    height: 200px;
+    width: 100% !important;
+    max-width: 320px !important;
+    height: 200px !important;
   }
   .folder-back, .folder-front, .folder-shine {
-    width: 250px; height: 140px;
+    width: 250px !important;
+    height: 140px !important;
   }
   .folder-front, .folder-shine {
-    top: calc(50% - 70px + 10px);
+    top: calc(50% - 70px + 10px) !important;
   }
   .folder-tab {
-    width: 75px; height: 22px;
-    bottom: calc(50% + 45px);
-    left: calc(50% - 125px + 24px);
+    width: 75px !important;
+    height: 22px !important;
+    bottom: calc(50% + 45px) !important;
+    left: calc(50% - 125px + 24px) !important;
   }
   .folder-wrapper.open .cert-card:nth-child(1) {
-    transform: translateY(-98px) translateX(-110px) rotate(-22deg) scale(0.95);
+    transform: translateY(-98px) translateX(-110px) rotate(-22deg) scale(0.95) !important;
   }
   .folder-wrapper.open .cert-card:nth-child(2) {
-    transform: translateY(-118px) translateX(-35px) rotate(-7deg) scale(0.95);
+    transform: translateY(-118px) translateX(-35px) rotate(-7deg) scale(0.95) !important;
   }
   .folder-wrapper.open .cert-card:nth-child(3) {
-    transform: translateY(-118px) translateX(35px) rotate(7deg) scale(0.95);
+    transform: translateY(-118px) translateX(35px) rotate(7deg) scale(0.95) !important;
   }
   .folder-wrapper.open .cert-card:nth-child(4) {
-    transform: translateY(-98px) translateX(110px) rotate(22deg) scale(0.95);
+    transform: translateY(-98px) translateX(110px) rotate(22deg) scale(0.95) !important;
+  }
+}
+
+@media (max-width: 600px) {
+  /* Certificates folder fanning scale and translate limits for mobile */
+  .folder-wrapper.open .cert-card:nth-child(1) {
+    transform: translateY(-78px) translateX(-70px) rotate(-22deg) scale(0.8) !important;
+  }
+  .folder-wrapper.open .cert-card:nth-child(2) {
+    transform: translateY(-98px) translateX(-22px) rotate(-7deg) scale(0.8) !important;
+  }
+  .folder-wrapper.open .cert-card:nth-child(3) {
+    transform: translateY(-98px) translateX(22px) rotate(7deg) scale(0.8) !important;
+  }
+  .folder-wrapper.open .cert-card:nth-child(4) {
+    transform: translateY(-78px) translateX(70px) rotate(22deg) scale(0.8) !important;
+  }
+
+  .carousel-wrap {
+    height: 250px !important;
+  }
+  .carousel-stage {
+    height: 210px !important;
+  }
+  .award-card-outer {
+    width: 190px !important;
+    height: 200px !important;
+  }
+  .award-card-inner {
+    border-radius: 14px !important;
+    gap: 8px !important;
+  }
+  .award-icon {
+    font-size: 2.2rem !important;
+  }
+  .award-title {
+    font-size: 0.85rem !important;
+  }
+  .award-org {
+    font-size: 0.70rem !important;
+    line-height: 1.35 !important;
+    -webkit-line-clamp: 3 !important;
+  }
+  .carousel-btn {
+    width: 32px !important;
+    height: 32px !important;
+    font-size: 1.4rem !important;
+  }
+  .carousel-prev { left: 4px !important; }
+  .carousel-next { right: 4px !important; }
+  
+  .cert-lightbox-inner {
+    padding: 16px !important;
+    max-width: 310px !important;
+  }
+  .cert-lightbox-inner img {
+    max-height: 200px !important;
+  }
+  .cert-lightbox-inner p {
+    font-size: 0.85rem !important;
+  }
+  .lb-close {
+    font-size: 1.1rem !important;
   }
 }
