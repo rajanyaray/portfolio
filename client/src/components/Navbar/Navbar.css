@@ -44,9 +44,105 @@
   z-index: 1;
 }
 
-/* Logo */
-.logo img {
-  width: 40px;
+/* Logo styling */
+.logo {
+  cursor: pointer;
+}
+
+.logo-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  padding: 2px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 10;
+}
+
+.logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border: 2px solid transparent;
+}
+
+/* Neon Aura / Glow behind the logo */
+.logo-glow {
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #a78bfa, #818cf8, #c4b5fd);
+  opacity: 0;
+  filter: blur(8px);
+  z-index: -1;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* Rotating Gradient Ring surrounding the logo */
+.logo-ring {
+  position: absolute;
+  inset: -1px;
+  border-radius: 50%;
+  background: linear-gradient(to right, #a78bfa, #818cf8, #c4b5fd, #a78bfa);
+  background-size: 300% 100%;
+  opacity: 0;
+  z-index: -1;
+  pointer-events: none;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: destination-out;
+  padding: 1.5px;
+  transition: opacity 0.4s ease;
+}
+
+/* Hover effects */
+.logo:hover .logo-container {
+  transform: scale(1.18);
+  border-color: transparent;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+}
+
+.logo:hover .logo-img {
+  transform: rotate(360deg);
+}
+
+.logo:hover .logo-glow {
+  opacity: 0.85;
+  transform: scale(1.12);
+  animation: logoPulse 2s infinite alternate;
+}
+
+.logo:hover .logo-ring {
+  opacity: 1;
+  animation: logoRotate 3s linear infinite;
+}
+
+@keyframes logoPulse {
+  0% {
+    filter: blur(6px);
+    opacity: 0.65;
+  }
+  100% {
+    filter: blur(12px);
+    opacity: 0.95;
+  }
+}
+
+@keyframes logoRotate {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 300% 0%;
+  }
 }
 
 /* ================= NAV LINKS ================= */
@@ -63,18 +159,18 @@
 
 /* Active section — gradient on the label span (where text actually lives) */
 .nav-links li.active .nav-label {
-  background: linear-gradient(90deg, #f59e0b, #f97316);
+  background: linear-gradient(90deg, #a78bfa, #818cf8);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   font-weight: 700;
-  filter: drop-shadow(0 0 8px rgba(251,146,60,0.6));
+  filter: drop-shadow(0 0 8px rgba(167, 139, 250, 0.55));
 }
 
 /* Active icon colour */
 .nav-links li.active .nav-face svg {
-  color: #f97316;
-  stroke: #f97316;
+  color: #a78bfa;
+  stroke: #a78bfa;
 }
 
 /* MAIN LINK */
@@ -120,9 +216,9 @@
   background: linear-gradient(
     115deg,
     transparent 20%,
-    rgba(255,255,255,0.18) 40%,
-    rgba(251,191,36,0.22) 50%,
-    rgba(249,115,22,0.18) 60%,
+    rgba(255,255,255,0.14) 40%,
+    rgba(167,139,250,0.18) 50%,
+    rgba(129,140,248,0.14) 60%,
     transparent 80%
   );
   background-size: 300% 100%;
@@ -245,10 +341,10 @@
   content: '';
   position: absolute;
   bottom: 2px;
-  left: 14px; /* align with face padding */
+  left: 14px;
   right: 14px;
   height: 3px;
-  background: linear-gradient(90deg, #F1C40F, #E74C3C);
+  background: linear-gradient(90deg, #a78bfa, #818cf8);
   border-radius: 0;
   width: calc(100% - 28px);
   transform: scaleX(0);

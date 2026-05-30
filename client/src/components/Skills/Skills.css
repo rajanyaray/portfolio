@@ -6,38 +6,38 @@
 
 /* ── Tokens ── */
 :root {
-  --sk-bg:          #06040f;
-  --sk-surface:     rgba(18, 10, 42, 0.85);
-  --sk-border:      rgba(255, 255, 255, 0.08);
-  --sk-text-hi:     #f0e6ff;
-  --sk-text-lo:     rgba(200, 180, 255, 0.55);
-  --sk-glass:       rgba(255, 255, 255, 0.04);
+  --sk-bg:          #060410;
+  --sk-surface:     rgba(15, 10, 35, 0.88);
+  --sk-border:      rgba(167, 139, 250, 0.10);
+  --sk-text-hi:     #ede9fe;
+  --sk-text-lo:     rgba(196, 181, 253, 0.55);
+  --sk-glass:       rgba(167, 139, 250, 0.04);
   --sk-glass-blur:  blur(16px);
-  --sk-shadow:      0 25px 60px -15px rgba(0, 0, 0, 0.75), 0 0 35px -5px rgba(167, 139, 250, 0.03);
+  --sk-shadow:      0 25px 60px -15px rgba(0, 0, 0, 0.75), 0 0 35px -5px rgba(167, 139, 250, 0.04);
 }
 
 /* Explicit Dark Theme Variable Sheet */
 body[data-theme="dark"] {
-  --sk-bg:          #06040f;
-  --sk-surface:     rgba(18, 10, 42, 0.85);
-  --sk-border:      rgba(255, 255, 255, 0.08);
-  --sk-text-hi:     #f0e6ff;
-  --sk-text-lo:     rgba(200, 180, 255, 0.55);
-  --sk-glass:       rgba(255, 255, 255, 0.04);
+  --sk-bg:          #060410;
+  --sk-surface:     rgba(15, 10, 35, 0.88);
+  --sk-border:      rgba(167, 139, 250, 0.10);
+  --sk-text-hi:     #ede9fe;
+  --sk-text-lo:     rgba(196, 181, 253, 0.55);
+  --sk-glass:       rgba(167, 139, 250, 0.04);
   --sk-glass-blur:  blur(16px);
-  --sk-shadow:      0 25px 60px -15px rgba(0, 0, 0, 0.75), 0 0 35px -5px rgba(167, 139, 250, 0.03);
+  --sk-shadow:      0 25px 60px -15px rgba(0, 0, 0, 0.75), 0 0 35px -5px rgba(167, 139, 250, 0.04);
 }
 
 /* Explicit Light Theme Variable Sheet */
 body[data-theme="light"] {
   --sk-bg:          transparent;
-  --sk-surface:     rgba(255, 255, 255, 0.65); /* Frosted ice background */
-  --sk-border:      rgba(109, 40, 217, 0.16); /* Delicate violet border */
-  --sk-text-hi:     #1d0f3b; /* High-contrast plum-navy text */
-  --sk-text-lo:     rgba(29, 15, 59, 0.65);
-  --sk-glass:       rgba(255, 255, 255, 0.45);
+  --sk-surface:     rgba(248, 246, 255, 0.70);
+  --sk-border:      rgba(109, 40, 217, 0.13);
+  --sk-text-hi:     #1e1440;
+  --sk-text-lo:     rgba(30, 20, 64, 0.60);
+  --sk-glass:       rgba(255, 255, 255, 0.50);
   --sk-glass-blur:  blur(25px);
-  --sk-shadow:      0 20px 45px -10px rgba(109, 40, 217, 0.12), 0 0 25px -5px rgba(109, 40, 217, 0.04);
+  --sk-shadow:      0 20px 45px -10px rgba(109, 40, 217, 0.10), 0 0 25px -5px rgba(109, 40, 217, 0.03);
 }
 
 /* ═══════════════════════════════════════════════════════

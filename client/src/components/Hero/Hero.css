@@ -8,34 +8,34 @@
 
 /* ── CSS Variables ──────────────────────────────────────────── */
 :root {
-  /* Dark mode (default) — purple-to-blue bg assumed from app */
-  --hero-fg: #e2d9f3;
+  /* Refined palette: violet · indigo · slate */
+  --hero-fg: #ede9fe;
   --hero-fg-muted: #a89bc4;
-  --hero-accent-1: #c084fc; /* violet */
-  --hero-accent-2: #38bdf8; /* cyan */
-  --hero-accent-3: #fb7185; /* rose */
-  --hero-accent-4: #fbbf24; /* amber */
-  --hero-glow-1: rgba(192, 132, 252, 0.35);
-  --hero-glow-2: rgba(56, 189, 248, 0.25);
-  --hero-surface: rgba(255, 255, 255, 0.04);
-  --hero-border: rgba(192, 132, 252, 0.18);
-  --hero-shadow: 0 0 60px rgba(139, 92, 246, 0.4);
+  --hero-accent-1: #a78bfa; /* violet */
+  --hero-accent-2: #818cf8; /* indigo */
+  --hero-accent-3: #c4b5fd; /* lavender */
+  --hero-accent-4: #e2b96f; /* warm amber — single warm accent */
+  --hero-glow-1: rgba(167, 139, 250, 0.35);
+  --hero-glow-2: rgba(129, 140, 248, 0.25);
+  --hero-surface: rgba(255, 255, 255, 0.05);
+  --hero-border: rgba(167, 139, 250, 0.18);
+  --hero-shadow: 0 0 60px rgba(109, 40, 217, 0.4);
 }
 
 /* Light mode overrides */
 @media (prefers-color-scheme: light) {
   :root {
-    --hero-fg: #1e0a3c;
+    --hero-fg: #1e1440;
     --hero-fg-muted: #4c1d8f;
-    --hero-accent-1: #7c3aed;
-    --hero-accent-2: #0284c7;
-    --hero-accent-3: #e11d48;
-    --hero-accent-4: #d97706;
-    --hero-glow-1: rgba(124, 58, 237, 0.2);
-    --hero-glow-2: rgba(2, 132, 199, 0.15);
+    --hero-accent-1: #6d28d9; /* deep violet */
+    --hero-accent-2: #4f46e5; /* indigo */
+    --hero-accent-3: #7c3aed; /* purple */
+    --hero-accent-4: #b45309; /* warm amber */
+    --hero-glow-1: rgba(109, 40, 217, 0.20);
+    --hero-glow-2: rgba(79, 70, 229, 0.15);
     --hero-surface: rgba(255, 255, 255, 0.55);
-    --hero-border: rgba(124, 58, 237, 0.22);
-    --hero-shadow: 0 0 60px rgba(109, 40, 217, 0.2);
+    --hero-border: rgba(109, 40, 217, 0.22);
+    --hero-shadow: 0 0 60px rgba(109, 40, 217, 0.20);
   }
 }
 
@@ -210,16 +210,16 @@
 
 /* ── Shadow Dance & Typing Animation Integration ── */
 .shadow-dance-text {
-  text-shadow: 5px 5px 0 #ff8000, 10px 10px 0 #ff6f00;
+  text-shadow: 4px 4px 0 #4f46e5, 8px 8px 0 #818cf8;
   animation: shadow-dance 2s infinite;
 }
 
 @keyframes shadow-dance {
   0%, 100% {
-    text-shadow: 5px 5px 0 #ff005e, 10px 10px 0 #00d4ff;
+    text-shadow: 4px 4px 0 #6d28d9, 8px 8px 0 #818cf8;
   }
   50% {
-    text-shadow: -5px -5px 0 #00d4ff, -10px -10px 0 #ff005e;
+    text-shadow: -4px -4px 0 #818cf8, -8px -8px 0 #6d28d9;
   }
 }
 
@@ -301,7 +301,7 @@
 /* Expanding Portfolio word */
 .expanding-word {
   display: inline-block;
-  background: linear-gradient(90deg, #c084fc, #38bdf8, #fb7185, #c084fc);
+  background: linear-gradient(90deg, #a78bfa, #818cf8, #c4b5fd, #a78bfa);
   background-size: 200% 100%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -366,7 +366,7 @@
   font-style: bold;
   font-size: clamp(2rem, 3.5vw, 3rem);
   letter-spacing: 0.08em;
-  background: linear-gradient(135deg, #c084fc 0%, #38bdf8 50%, #c084fc, #ff7abf, #fd86ff 100%);
+  background: linear-gradient(135deg, #a78bfa 0%, #818cf8 40%, #c4b5fd 70%, #a78bfa 100%);
   background-size: 200% 100%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -374,12 +374,12 @@
   animation: gradientShift 3s linear infinite;
   cursor: pointer;
   transition: filter 0.5s ease;
-  filter: drop-shadow(0 0 10px rgba(192, 132, 252, 0.5));
+  filter: drop-shadow(0 0 10px rgba(167, 139, 250, 0.5));
 }
 
 .hero__name:hover {
-  filter: drop-shadow(0 0 20px rgba(0, 179, 255, 0.8))
-          drop-shadow(0 0 40px rgb(255, 0, 149));
+  filter: drop-shadow(0 0 20px rgba(129, 140, 248, 0.8))
+          drop-shadow(0 0 40px rgba(167, 139, 250, 0.5));
 }
 
 /* ── Morph text row ─────────────────────────────────────────── */
@@ -393,18 +393,18 @@
   margin-top: 0.1rem;
 }
 
-/* Color Themes for the 4 Distinct Phrases (Changes 'A' + Phrase Color) */
+/* Color Themes for the 4 Distinct Phrases */
 .phrase-theme-0 { 
-  --theme-color: #ff5100; /* Phrase 1: Bright Orange/Red */
+  --theme-color: #a78bfa; /* Phrase 1: Soft Violet */
 }
 .phrase-theme-1 { 
-  --theme-color: var(--hero-accent-2); /* Phrase 2: Cyan Blue (#38bdf8) */
+  --theme-color: #818cf8; /* Phrase 2: Indigo */
 }
 .phrase-theme-2 { 
-  --theme-color: #56e8ff; /* Phrase 3: Light Purple */
+  --theme-color: #c4b5fd; /* Phrase 3: Lavender */
 }
 .phrase-theme-3 { 
-  --theme-color: #4ade80; /* Phrase 4: Emerald Green */
+  --theme-color: #e2b96f; /* Phrase 4: Warm Amber — single warm accent */
 }
 
 .hero__morph-prefix,
@@ -517,23 +517,23 @@
   flex-wrap: wrap;
 }
  
-/* ── Resume button — uiverse Tsiangana ── */
+/* ── Resume button ── */
 .botao {
   position: relative;
   width: 125px;
   height: 45px;
   border-radius: 20px;
   border: none;
-  box-shadow: 1px 1px rgba(107,221,215,0.37);
+  box-shadow: 1px 1px rgba(167, 139, 250, 0.37);
   padding: 5px 10px;
-  background-color: rgb(255, 170, 0);
+  background-color: #6d28d9;
   color: #fff;
   font-family: var(--hero-font-body);
   font-weight: 600;
   font-size: 16px;
   line-height: 1;
   cursor: pointer;
-  filter: drop-shadow(0 0 10px rgba(119, 0, 0, 0.568));
+  filter: drop-shadow(0 0 10px rgba(109, 40, 217, 0.5));
   transition: width 0.5s linear, height 0.5s linear, border-radius 0.5s linear;
   display: inline-flex;
   align-items: center;
@@ -554,7 +554,7 @@
   position: absolute;
   width: 16px;
   height: 3px;
-  background-color: rgb(170, 0, 0);
+  background-color: #4f46e5;
   margin-left: -20px;
   animation: animateDown 0.9s linear infinite;
 }
@@ -579,12 +579,12 @@
   100% { transform: translateY(20px); }
 }
  
-/* ── GitHub button — uiverse charlie_4212 ── */
+/* ── GitHub button ── */
 .gh-btn {
   position: relative;
   width: 48px;
   height: 48px;
-  background: #ab66bb;
+  background: #5b4a8a;
   border-radius: 6px;
   color: #f9fafb;
   text-decoration: none;
@@ -599,7 +599,7 @@
 }
 .gh-btn:hover {
   width: 176px;
-  background: #343f4e;
+  background: #1e1b3a;
 }
 /* The rotated square "tail" */
 .gh-btn::before {

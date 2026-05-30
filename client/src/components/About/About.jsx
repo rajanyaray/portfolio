@@ -3,6 +3,8 @@ import "./About.css";
 import SectionHeading from "../SectionHeading/SectionHeading";
 import { VerticalTimeline, VerticalTimelineElement } from "../VerticalTimeline";
 import profile from "../../assets/profile.png";
+import WhoParticles from "./WhoParticles";
+import { Meteors } from "../ui/meteors";
 
 // ── Animated counter hook ──────────────────────────────────────────────────
 function useCounter(target, duration = 1800, start = false) {
@@ -58,14 +60,14 @@ function LiveClock() {
       <div className="card-time-cloud-back">
         <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
           <path
-            fill="#ed782a"
+            fill="#a78bfa"
             d="M39.1,-11.5C46.9,11.5,47,38.1,34.9,46.6C22.8,55.1,-1.6,45.4,-16.5,32.3C-31.3,19.2,-36.8,2.8,-32.4,-15.3C-28.1,-33.4,-14.1,-53,0.8,-53.3C15.6,-53.5,31.2,-34.4,39.1,-11.5Z"
             transform="translate(100 100)"
           />
         </svg>
         <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
           <path
-            fill="#ed782a"
+            fill="#818cf8"
             d="M39.1,-11.5C46.9,11.5,47,38.1,34.9,46.6C22.8,55.1,-1.6,45.4,-16.5,32.3C-31.3,19.2,-36.8,2.8,-32.4,-15.3C-28.1,-33.4,-14.1,-53,0.8,-53.3C15.6,-53.5,31.2,-34.4,39.1,-11.5Z"
             transform="translate(100 100)"
           />
@@ -90,22 +92,22 @@ function LiveClock() {
         {isDaytime ? (
           /* Sun SVG */
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="12" cy="12" r="5" stroke="#ed782a" strokeWidth="1.44" />
-            <path d="M12 2V3" stroke="#ed782a" strokeWidth="1.44" strokeLinecap="round" />
-            <path d="M12 21V22" stroke="#ed782a" strokeWidth="1.44" strokeLinecap="round" />
-            <path d="M22 12L21 12" stroke="#ed782a" strokeWidth="1.44" strokeLinecap="round" />
-            <path d="M3 12L2 12" stroke="#ed782a" strokeWidth="1.44" strokeLinecap="round" />
-            <path d="M19.0708 4.92969L18.678 5.32252" stroke="#ed782a" strokeWidth="1.44" strokeLinecap="round" />
-            <path d="M5.32178 5.32227L4.92894 4.92943" stroke="#ed782a" strokeWidth="1.44" strokeLinecap="round" />
-            <path d="M18.678 18.6777L19.0708 19.0706" stroke="#ed782a" strokeWidth="1.44" strokeLinecap="round" />
-            <path d="M4.92894 19.0706L5.32178 18.6777" stroke="#ed782a" strokeWidth="1.44" strokeLinecap="round" />
+            <circle cx="12" cy="12" r="5" stroke="#a78bfa" strokeWidth="1.44" />
+            <path d="M12 2V3" stroke="#a78bfa" strokeWidth="1.44" strokeLinecap="round" />
+            <path d="M12 21V22" stroke="#a78bfa" strokeWidth="1.44" strokeLinecap="round" />
+            <path d="M22 12L21 12" stroke="#a78bfa" strokeWidth="1.44" strokeLinecap="round" />
+            <path d="M3 12L2 12" stroke="#a78bfa" strokeWidth="1.44" strokeLinecap="round" />
+            <path d="M19.0708 4.92969L18.678 5.32252" stroke="#a78bfa" strokeWidth="1.44" strokeLinecap="round" />
+            <path d="M5.32178 5.32227L4.92894 4.92943" stroke="#a78bfa" strokeWidth="1.44" strokeLinecap="round" />
+            <path d="M18.678 18.6777L19.0708 19.0706" stroke="#a78bfa" strokeWidth="1.44" strokeLinecap="round" />
+            <path d="M4.92894 19.0706L5.32178 18.6777" stroke="#a78bfa" strokeWidth="1.44" strokeLinecap="round" />
           </svg>
         ) : (
           /* Moon SVG */
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
-              stroke="#ed782a"
+              stroke="#a78bfa"
               strokeWidth="1.44"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -179,9 +181,9 @@ function WeatherCard() {
               x1="16.5"
               id="b"
             >
-              <stop stopColor="#fbbf24" offset="0"></stop>
-              <stop stopColor="#fbbf24" offset=".45"></stop>
-              <stop stopColor="#f59e0b" offset="1"></stop>
+              <stop stopColor="#e2b96f" offset="0"></stop>
+              <stop stopColor="#e2b96f" offset=".45"></stop>
+              <stop stopColor="#c9943e" offset="1"></stop>
             </linearGradient>
             <linearGradient
               gradientUnits="userSpaceOnUse"
@@ -227,7 +229,7 @@ function WeatherCard() {
           <circle
             strokeWidth=".5"
             strokeMiterlimit="10"
-            stroke="#f8af18"
+            stroke="#e2b96f"
             fill="url(#b)"
             r="5"
             cy="24"
@@ -238,7 +240,7 @@ function WeatherCard() {
             strokeWidth="2"
             strokeMiterlimit="10"
             strokeLinecap="round"
-            stroke="#fbbf24"
+            stroke="#e2b96f"
             fill="none"
           >
             <animateTransform
@@ -521,6 +523,8 @@ const timelineEvents = [
   },
 ];
 
+
+
 // ── Main Component ─────────────────────────────────────────────────────────
 export default function About() {
   const [statsVisible, setStatsVisible] = useState(false);
@@ -547,9 +551,16 @@ export default function About() {
           SECTION 1 — About Me
       ══════════════════════════════════════════ */}
       <section className="about-section" id="about">
+        <WhoParticles />
+
+        {/* Animated Waves Background */}
+        <div className="air air1" />
+        <div className="air air2" />
+        <div className="air air3" />
+        <div className="air air4" />
 
         {/* ── Heading ──────────────────────────────────────────────────── */}
-        <SectionHeading title="ABOUT ME" tagline="WHO AM I" />
+        <SectionHeading title="Who Am I" tagline="Meet Rajanya" />
 
         {/* ── Body Layout ──────────────────────────────────────────────── */}
         <div className="about-body-v2">
@@ -586,8 +597,9 @@ export default function About() {
           SECTION 2 — My Journey (Timeline)
       ══════════════════════════════════════════ */}
       <section className="journey-section" id="journey">
+        <Meteors number={25} className="journey-meteor-canvas" />
 
-        <SectionHeading title="MY JOURNEY" tagline="HOW I GOT HERE" />
+        <SectionHeading title="My journey" tagline="The Road So Far" />
 
         <div className="journey-body">
           <VerticalTimeline lineColor="var(--vtl-line-color)">

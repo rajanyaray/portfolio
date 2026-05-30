@@ -5,83 +5,84 @@
 ═══════════════════════════════════════════ */
 :root {
   /* Default Theme Variables (Dark Mode by Default) */
-  --av1: #a78bfa;
-  --av2: #38bdf8;
-  --av3: #34d399;
-  --av4: #f472b6;
-  --av5: #fbbf24;
-  --color1: #f97316;
-  --skycolor: #1a1a2e;
+  /* Refined palette: violet · indigo · slate */
+  --av1: #a78bfa;   /* soft violet — primary accent */
+  --av2: #818cf8;   /* indigo-blue — secondary accent */
+  --av3: #94a3b8;   /* cool slate — tertiary / neutral */
+  --av4: #c4b5fd;   /* light lavender — highlight */
+  --av5: #e2b96f;   /* warm amber — intentional single warm accent */
+  --color1: #818cf8; /* indigo — used for stat circles, accent bars */
+  --skycolor: #0f0d1a;
 
   --av1-bg: rgba(167, 139, 250, 0.12);
-  --av2-bg: rgba(56, 189, 248, 0.12);
-  --av3-bg: rgba(52, 211, 153, 0.12);
-  --av4-bg: rgba(244, 114, 182, 0.12);
-  --av5-bg: rgba(251, 191, 36, 0.12);
-  --color1-bg: rgba(249, 115, 22, 0.12);
+  --av2-bg: rgba(129, 140, 248, 0.10);
+  --av3-bg: rgba(148, 163, 184, 0.10);
+  --av4-bg: rgba(196, 181, 253, 0.10);
+  --av5-bg: rgba(226, 185, 111, 0.10);
+  --color1-bg: rgba(129, 140, 248, 0.10);
 
-  --av-text: #f0eeff;
-  --av-muted: rgba(240, 238, 255, 0.55);
+  --av-text: #ede9fe;
+  --av-muted: rgba(237, 233, 254, 0.50);
   --av-card: rgba(255, 255, 255, 0.035);
-  --av-border: rgba(167, 139, 250, 0.2);
-  --av-glow: rgba(124, 58, 237, 0.15);
+  --av-border: rgba(167, 139, 250, 0.20);
+  --av-glow: rgba(109, 40, 217, 0.15);
   --av-card-blur: blur(18px);
-  --vtl-grid-color: rgba(255, 255, 255, 0.022);
-  --vtl-line-color: rgba(167, 139, 250, 0.4);
+  --vtl-grid-color: rgba(255, 255, 255, 0.018);
+  --vtl-line-color: rgba(167, 139, 250, 0.35);
 }
 
 /* Explicit Dark Theme Selector */
 body[data-theme="dark"] {
   --av1: #a78bfa;
-  --av2: #38bdf8;
-  --av3: #34d399;
-  --av4: #f472b6;
-  --av5: #fbbf24;
-  --color1: #f97316;
-  --skycolor: #1a1a2e;
+  --av2: #818cf8;
+  --av3: #94a3b8;
+  --av4: #c4b5fd;
+  --av5: #e2b96f;
+  --color1: #818cf8;
+  --skycolor: #0f0d1a;
 
   --av1-bg: rgba(167, 139, 250, 0.12);
-  --av2-bg: rgba(56, 189, 248, 0.12);
-  --av3-bg: rgba(52, 211, 153, 0.12);
-  --av4-bg: rgba(244, 114, 182, 0.12);
-  --av5-bg: rgba(251, 191, 36, 0.12);
-  --color1-bg: rgba(249, 115, 22, 0.12);
+  --av2-bg: rgba(129, 140, 248, 0.10);
+  --av3-bg: rgba(148, 163, 184, 0.10);
+  --av4-bg: rgba(196, 181, 253, 0.10);
+  --av5-bg: rgba(226, 185, 111, 0.10);
+  --color1-bg: rgba(129, 140, 248, 0.10);
 
-  --av-text: #f0eeff;
-  --av-muted: rgba(240, 238, 255, 0.55);
-  --av-card: rgba(255, 255, 255, 0.035);
-  --av-border: rgba(167, 139, 250, 0.2);
-  --av-glow: rgba(124, 58, 237, 0.15);
-  --av-card-blur: blur(18px);
-  --vtl-grid-color: rgba(255, 255, 255, 0.022);
-  --vtl-line-color: rgba(167, 139, 250, 0.4);
+  --av-text: #ede9fe;
+  --av-muted: rgba(237, 233, 254, 0.50);
+  --av-card: rgba(13, 10, 30, 0.82);
+  --av-border: rgba(167, 139, 250, 0.25);
+  --av-glow: rgba(109, 40, 217, 0.20);
+  --av-card-blur: blur(20px);
+  --vtl-grid-color: rgba(255, 255, 255, 0.018);
+  --vtl-line-color: rgba(167, 139, 250, 0.35);
 }
 
-/* Explicit Light Theme Selector (Rich-Contrast Color Palette) */
+/* Explicit Light Theme Selector */
 body[data-theme="light"] {
-  --av1: #6d28d9; /* Rich Deep Violet */
-  --av2: #0284c7; /* Vibrant Ocean Blue */
-  --av3: #059669; /* Rich Emerald */
-  --av4: #db2777; /* Saturated Rose Pink */
-  --av5: #b45309; /* Deep Amber Gold */
-  --color1: #ea580c; /* Deep Rust Orange */
-  --skycolor: #f5f3f9;
+  --av1: #6d28d9;   /* Deep violet */
+  --av2: #4f46e5;   /* Indigo */
+  --av3: #64748b;   /* Cool slate */
+  --av4: #7c3aed;   /* Violet-purple */
+  --av5: #b45309;   /* Warm amber (single warm accent) */
+  --color1: #4f46e5; /* Indigo */
+  --skycolor: #f5f3ff;
 
-  --av1-bg: rgba(109, 40, 217, 0.08);
-  --av2-bg: rgba(2, 132, 199, 0.08);
-  --av3-bg: rgba(5, 150, 105, 0.08);
-  --av4-bg: rgba(219, 39, 119, 0.08);
-  --av5-bg: rgba(180, 83, 9, 0.08);
-  --color1-bg: rgba(234, 88, 12, 0.08);
+  --av1-bg: rgba(109, 40, 217, 0.07);
+  --av2-bg: rgba(79, 70, 229, 0.07);
+  --av3-bg: rgba(100, 116, 139, 0.07);
+  --av4-bg: rgba(124, 58, 237, 0.07);
+  --av5-bg: rgba(180, 83, 9, 0.07);
+  --color1-bg: rgba(79, 70, 229, 0.07);
 
-  --av-text: #1d0f3b; /* Deep plum-navy text for extreme readability */
-  --av-muted: rgba(29, 15, 59, 0.65);
-  --av-card: rgba(255, 255, 255, 0.42); /* Frosted Ice glass */
-  --av-border: rgba(109, 40, 217, 0.16); /* Warm violet border */
+  --av-text: #1e1440;
+  --av-muted: rgba(30, 20, 64, 0.60);
+  --av-card: rgba(248, 246, 255, 0.90);
+  --av-border: rgba(109, 40, 217, 0.14);
   --av-glow: rgba(109, 40, 217, 0.04);
-  --av-card-blur: blur(25px);
-  --vtl-grid-color: rgba(109, 40, 217, 0.015);
-  --vtl-line-color: rgba(109, 40, 217, 0.7);
+  --av-card-blur: blur(20px);
+  --vtl-grid-color: rgba(109, 40, 217, 0.012);
+  --vtl-line-color: rgba(79, 70, 229, 0.60);
 }
 
 /* ═══════════════════════════════════════════
@@ -101,6 +102,83 @@ body[data-theme="light"] {
   box-sizing: border-box;
 }
 
+/* Ensure all other child elements stay cleanly on top of the waves background */
+.about-section > *:not(.air):not(.who-particles-container) {
+  position: relative;
+  z-index: 10;
+}
+
+/* Animated waves background styling */
+.about-section .air {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: linear-gradient(90deg, rgba(167, 139, 250, 0.65), rgba(129, 140, 248, 0.65), rgba(196, 181, 253, 0.65));
+  -webkit-mask-image: url(https://1.bp.blogspot.com/-xQUc-TovqDk/XdxogmMqIRI/AAAAAAAACvI/AizpnE509UMGBcTiLJ58BC6iViPYGYQfQCLcBGAsYHQ/s1600/wave.png);
+  mask-image: url(https://1.bp.blogspot.com/-xQUc-TovqDk/XdxogmMqIRI/AAAAAAAACvI/AizpnE509UMGBcTiLJ58BC6iViPYGYQfQCLcBGAsYHQ/s1600/wave.png);
+  -webkit-mask-size: 1000px 100px;
+  mask-size: 1000px 100px;
+  -webkit-mask-repeat: repeat;
+  mask-repeat: repeat;
+  pointer-events: none;
+}
+
+.about-section .air.air1 {
+  animation: wave 30s linear infinite;
+  z-index: 4;
+  opacity: 0.8;
+  animation-delay: 0s;
+  bottom: 0;
+}
+
+.about-section .air.air2 {
+  animation: wave2 15s linear infinite;
+  z-index: 3;
+  opacity: 0.5;
+  animation-delay: -5s;
+  bottom: 10px;
+}
+
+.about-section .air.air3 {
+  animation: wave 30s linear infinite;
+  z-index: 2;
+  opacity: 0.25;
+  animation-delay: -2s;
+  bottom: 15px;
+}
+
+.about-section .air.air4 {
+  animation: wave2 5s linear infinite;
+  z-index: 1;
+  opacity: 0.4;
+  animation-delay: -5s;
+  bottom: 20px;
+}
+
+@keyframes wave {
+  0% {
+    -webkit-mask-position-x: 0px; 
+    mask-position-x: 0px;
+  }
+  100% {
+    -webkit-mask-position-x: 1000px; 
+    mask-position-x: 1000px;
+  }
+}
+
+@keyframes wave2 {
+  0% {
+    -webkit-mask-position-x: 0px; 
+    mask-position-x: 0px;
+  }
+  100% {
+    -webkit-mask-position-x: -1000px; 
+    mask-position-x: -1000px;
+  }
+}
+
 .journey-section {
   font-family: 'Outfit', sans-serif;
   padding: 0 3vw 40px;
@@ -111,6 +189,50 @@ body[data-theme="light"] {
   color: var(--av-text);
   position: relative;
   box-sizing: border-box;
+  overflow: hidden; /* Prevent meteors from showing outside section borders */
+}
+
+/* Premium ambient space nebulous glowing orbs */
+.journey-section::before {
+  content: "";
+  position: absolute;
+  top: 15%;
+  left: -8%;
+  width: 450px;
+  height: 450px;
+  background: radial-gradient(circle, rgba(167, 139, 250, 0.18), transparent 70%);
+  filter: blur(100px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.journey-section::after {
+  content: "";
+  position: absolute;
+  bottom: 12%;
+  right: -8%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.16), transparent 70%);
+  filter: blur(110px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Meteor background canvas styling */
+.journey-meteor-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Ensure timeline content, header, and other children sit securely above canvas */
+.journey-section > *:not(.journey-meteor-canvas) {
+  position: relative;
+  z-index: 1;
 }
 
 body[data-theme="dark"] {
@@ -668,9 +790,9 @@ body[data-theme="light"] .vertical-timeline-element-content-arrow {
   position: absolute;
   width: 6px; height: 6px; border-radius: 50%; z-index: 3;
 }
-.abox-orbd-0 { background: #ec4899; box-shadow: 0 0 8px #ec4899; top: 4px;  right: 18px; animation: dotBob 6s ease-in-out infinite; }
-.abox-orbd-1 { background: #38bdf8; box-shadow: 0 0 8px #38bdf8; bottom: 8px; left: 10px;  animation: dotBob 8s ease-in-out infinite reverse; }
-.abox-orbd-2 { background: #f59e0b; box-shadow: 0 0 8px #f59e0b; top: 46%;  right: -4px;    animation: dotBob 7s ease-in-out infinite 1.5s; }
+.abox-orbd-0 { background: #a78bfa; box-shadow: 0 0 8px #a78bfa; top: 4px;  right: 18px; animation: dotBob 6s ease-in-out infinite; }
+.abox-orbd-1 { background: #818cf8; box-shadow: 0 0 8px #818cf8; bottom: 8px; left: 10px;  animation: dotBob 8s ease-in-out infinite reverse; }
+.abox-orbd-2 { background: #e2b96f; box-shadow: 0 0 8px #e2b96f; top: 46%;  right: -4px;    animation: dotBob 7s ease-in-out infinite 1.5s; }
 @keyframes dotBob { 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-5px); } }
 
 /* Bio column */
@@ -695,7 +817,7 @@ body[data-theme="light"] .vertical-timeline-element-content-arrow {
   display: inline-block;
   font-size: 1.85rem;
   font-weight: 800;
-  background: linear-gradient(90deg, #ec4899, #f472b6, #db2777, #ec4899);
+  background: linear-gradient(90deg, #a78bfa, #818cf8, #c4b5fd, #a78bfa);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -756,14 +878,17 @@ body[data-theme="light"] .vertical-timeline-element-content-arrow {
   box-shadow: 0em 0em rgba(0, 0, 0, 0.25);
   overflow: hidden;
   cursor: pointer;
-  --color1: rgba(255, 31, 166, 0.641);
-  --skycolor: #ffdde8;
+  --color1: #a78bfa;
+  --skycolor: rgba(30, 27, 75, 0.4);
 }
 
 .card-time-cloud-front {
   width: 20em;
   height: 12.5em;
-  background: rgb(255, 255, 255);
+  background: linear-gradient(180deg, rgba(30, 27, 75, 0.9), rgba(15, 23, 42, 0.98));
+  border: 1px solid rgba(167, 139, 250, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-radius: 1em;
   position: absolute;
   z-index: 2;
@@ -796,7 +921,7 @@ body[data-theme="light"] .vertical-timeline-element-content-arrow {
 .card-time-cloud--hovered {
   height: 15em;
   margin-bottom: 1em;
-  box-shadow: 0em 1em rgba(218, 0, 105, 0.5);
+  box-shadow: 0 8px 30px rgba(167, 139, 250, 0.35);
 }
 
 .card-time-cloud:hover .card-time-cloud-front,
@@ -940,7 +1065,7 @@ body[data-theme="light"] .vertical-timeline-element-content-arrow {
 .ctc-location {
   font-family: 'Space Mono', monospace;
   font-size: 0.72rem;
-  color: #4a4b55;
+  color: #94a3b8;
   font-weight: 700;
   margin: 0;
   opacity: 0;
@@ -957,7 +1082,7 @@ body[data-theme="light"] .vertical-timeline-element-content-arrow {
 /* Moon tint override — purple/blue for night */
 .ctc-moon svg circle,
 .ctc-moon svg path {
-  stroke: #6a004c !important;
+  stroke: #c4b5fd !important;
 }
 
 
@@ -1390,7 +1515,13 @@ body[data-theme="light"] .vertical-timeline-element-content-arrow {
   position: relative;
   width: 12rem;
   height: 12rem;
-  background-color: #b9849f;
+  background: linear-gradient(135deg, rgba(167, 139, 250, 0.08), rgba(129, 140, 248, 0.04));
+  border: 1px solid rgba(167, 139, 250, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 
+    0 8px 32px 0 rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
   border-radius: 1.5rem;
   padding: 1rem;
   overflow: hidden;
@@ -1404,7 +1535,11 @@ body[data-theme="light"] .vertical-timeline-element-content-arrow {
 
 .weather-card:hover {
   width: 20rem;
-  background-color: #973fd6;
+  background: linear-gradient(135deg, rgba(167, 139, 250, 0.2), rgba(129, 140, 248, 0.1));
+  border-color: rgba(167, 139, 250, 0.35);
+  box-shadow: 
+    0 12px 40px 0 rgba(167, 139, 250, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .weather-card-title {

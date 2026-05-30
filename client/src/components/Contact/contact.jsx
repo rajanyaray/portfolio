@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import "./contact.css";
 import SectionHeading from "../SectionHeading/SectionHeading";
+import BeamGridBackground from "./BeamGridBackground";
 
 export default function Contact() {
   const [email, setEmail] = useState("");
@@ -208,6 +209,8 @@ export default function Contact() {
 
   return (
     <section className="contact-section" ref={sectionRef} id="contact">
+      <BeamGridBackground zIndex={0} />
+
       {/* Dotted surface canvas */}
       <div className="dotted-canvas" ref={canvasRef} />
 
@@ -222,12 +225,11 @@ export default function Contact() {
         ))}
       </div>
 
-      {/* Grid lines bg */}
-      <div className="grid-overlay" />
+
 
       {/* Heading */}
       <div className="contact-heading-wrap">
-        <SectionHeading title="CONNECT WITH ME" tagline="GET IN TOUCH" />
+        <SectionHeading title="Connect With Me" tagline="Get In Touch" />
         <span className="available-badge">
           <span className="badge-dot" />
           Available for Internships &amp; Collabs

@@ -97,7 +97,7 @@ function FloatingPaths({ position }) {
     <div className="fp-svg-layer">
       <svg
         className="fp-svg"
-        style={{ opacity: 0.2 }}
+        style={{ opacity: 0.48 }}
         viewBox="0 0 696 316"
         fill="none"
       >
@@ -108,11 +108,11 @@ function FloatingPaths({ position }) {
             d={path.d}
             stroke="currentColor"
             strokeWidth={path.width}
-            strokeOpacity={0.1 + path.id * 0.03}
-            initial={{ pathLength: 0.3, opacity: 0.6 }}
+            strokeOpacity={0.15 + path.id * 0.03}
+            initial={{ pathLength: 0.3, opacity: 0.85 }}
             animate={{
               pathLength: 1,
-              opacity: [0.3, 0.6, 0.3],
+              opacity: [0.45, 0.85, 0.45],
               pathOffset: [0, 1, 0],
             }}
             transition={{
@@ -462,7 +462,7 @@ export default function Projects() {
         <FloatingPaths position={-1} />
       </div>
 
-      <SectionHeading title="PROJECTS" tagline="SELECTED WORK" />
+      <SectionHeading title="Projects" tagline="Best of My Builds" />
 
       <div className="expand-wrapper">
         <div className="expand-container">

@@ -3,6 +3,7 @@ import { ThemeContext } from "../../context/ThemeContext";
 import { motion } from "framer-motion";
 import { User, Code, Folder, Trophy, Mail, Menu, X } from "lucide-react";
 import "./Navbar.css";
+import logoJpg from "../../assets/logo.jpg";
 import useActiveSection from "../../hooks/useActiveSection";
 
 const navItems = [
@@ -11,35 +12,35 @@ const navItems = [
     label: "About",
     href: "#about",
     ids: ["about", "journey"],
-    color: "#2563eb",
+    color: "#a78bfa",   /* soft violet */
   },
   {
     icon: <Code />,
     label: "Skills",
     href: "#skills",
     ids: ["skills"],
-    color: "#f59e42",
+    color: "#818cf8",   /* indigo */
   },
   {
     icon: <Folder />,
     label: "Projects",
     href: "#projects",
     ids: ["projects"],
-    color: "#20c997",
+    color: "#c4b5fd",   /* lavender */
   },
   {
     icon: <Trophy />,
     label: "Achievements",
     href: "#achievements",
     ids: ["achievements"],
-    color: "#fde047",
+    color: "#6d28d9",   /* deep violet */
   },
   {
     icon: <Mail />,
     label: "Contact",
     href: "#contact",
     ids: ["contact"],
-    color: "#ec4899",
+    color: "#e2b96f",   /* warm amber — single warm accent */
   },
 ];
 
@@ -135,7 +136,7 @@ function CosmosCanvas() {
 
 // ─────────────────────────────────────────────────────────────────────────────
 
-const Navbar = () => {
+const Navbar = ({ isIntroActive }) => {
   const { theme, toggleTheme } = useContext(ThemeContext);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -158,6 +159,16 @@ const Navbar = () => {
     }
   };
 
+  const handleLogoClick = (e) => {
+    e.preventDefault();
+    const targetElement = document.getElementById("hero");
+    if (targetElement) {
+      targetElement.scrollIntoView({ behavior: "smooth" });
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
   // Close drawer if user clicks on a link or viewport resizes to desktop width
   useEffect(() => {
     const handleResize = () => {
@@ -175,8 +186,20 @@ const Navbar = () => {
       <CosmosCanvas />
 
       {/* Logo */}
-      <div className="logo">
-        <img src="/src/assets/logo.png" alt="logo" />
+      <div
+        className="logo"
+        onClick={handleLogoClick}
+        style={{
+          opacity: isIntroActive ? 0 : 1,
+          pointerEvents: isIntroActive ? "none" : "auto",
+          transition: "opacity 0.3s ease-in-out",
+        }}
+      >
+        <div className="logo-container">
+          <div className="logo-glow" />
+          <div className="logo-ring" />
+          <img src={logoJpg} alt="logo" className="logo-img" />
+        </div>
       </div>
 
       {/* NAV ITEMS */}

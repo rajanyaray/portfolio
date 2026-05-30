@@ -12,9 +12,22 @@ import Footer from "./components/Footer/Footer";
 import "./styles/global.css";
 import "./styles/background.css";
 import Cursor from "./components/Cursor/Cursor";
+import IntroLoader from "./components/IntroLoader/IntroLoader";
 
 export default function App() {
   const [showTop, setShowTop] = useState(false);
+  const [introState, setIntroState] = useState("playing"); // "playing" | "shrinking" | "done"
+
+  useEffect(() => {
+    if (introState !== "done") {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [introState]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -65,29 +78,45 @@ export default function App() {
     <>
       <Cursor />
       
-      {/* 🔝 NAVBAR (fixed throughout) */}
-      <Navbar />
+      {introState !== "done" && (
+        <IntroLoader
+          state={introState}
+          onVideoEnded={() => setIntroState("shrinking")}
+          onShrinkDone={() => setIntroState("done")}
+        />
+      )}
 
-      {/* 🧠 HERO */}
-      <Hero />
+      <div
+        className="portfolio-main-content"
+        style={{
+          opacity: introState === "playing" ? 0 : 1,
+          transition: "opacity 1.2s ease-in-out",
+          pointerEvents: introState === "playing" ? "none" : "auto",
+        }}
+      >
+        {/* 🔝 NAVBAR (fixed throughout) */}
+        <Navbar isIntroActive={introState !== "done"} />
 
-      {/* 👤 ABOUT (contains 2 sections internally) */}
-      <About />
+        {/* 🧠 HERO */}
+        <Hero />
 
-      {/* ⚡ SKILLS */}
-      <Skills />
+        {/* 👤 ABOUT (contains 2 sections internally) */}
+        <About />
 
-      {/* 🚀 PROJECTS */}
-      <Projects />
+        {/* ⚡ SKILLS */}
+        <Skills />
 
-      {/* 🏆 ACHIEVEMENTS */}
-      <Achievements />
+        {/* 🚀 PROJECTS */}
+        <Projects />
 
-      {/* 📬 CONTACT (REAL COMPONENT NOW) */}
-      <Contact />
+        {/* 🏆 ACHIEVEMENTS */}
+        <Achievements />
 
-      {/* 🏃 FOOTER */}
-      <Footer />
+        {/* 📬 CONTACT (REAL COMPONENT NOW) */}
+        <Contact />
+
+        {/* 🏃 FOOTER */}
+        <Footer />
 
       {/* ⬆️ SCROLL TO TOP */}
       <div
@@ -137,6 +166,7 @@ export default function App() {
 
         {/* Tooltip */}
         <div className="stt-tip" aria-hidden="true">Back to top</div>
+      </div>
       </div>
     </>
   );

@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import "./Achievements.css";
 import SectionHeading from "../SectionHeading/SectionHeading";
+import ParticlesBackground from "./ParticlesBackground";
 
 // ── Import local certificates from assets ────────────────────────────────────
 import cert1 from "../../assets/cert1.jpg";
@@ -15,60 +16,60 @@ const AWARDS = [
     title: "Winner - SIH 2025",
     org: "Smart India Hackathon — Winner under Ministry of Power. Built an AI-driven grid optimization system.",
     icon: "🏆",
-    color: "#ff6b6b",
-    border: "#ff6b6b",
-    glow: "rgba(255,107,107,0.45)",
-    bg: "#321111",
+    color: "#a78bfa",
+    border: "#a78bfa",
+    glow: "rgba(167,139,250,0.45)",
+    bg: "#160d2e",
   },
   {
     id: 2,
     title: "Runner-Up",
     org: "Cognizant Technoverse 2026 — Developed a scalable Web3 healthcare dApp on Ethereum.",
     icon: "🥈",
-    color: "#4d96ff",
-    border: "#4d96ff",
-    glow: "rgba(77,150,255,0.45)",
-    bg: "#111d32",
+    color: "#818cf8",
+    border: "#818cf8",
+    glow: "rgba(129,140,248,0.45)",
+    bg: "#111228",
   },
   {
     id: 3,
     title: "4th Place - SBH 2025",
     org: "Smart Bengal Hackathon — Engineered an offline emergency communication mesh network.",
     icon: "🏅",
-    color: "#ffd93d",
-    border: "#ffd93d",
-    glow: "rgba(255,217,61,0.45)",
-    bg: "#322b11",
+    color: "#94a3b8",
+    border: "#94a3b8",
+    glow: "rgba(148,163,184,0.45)",
+    bg: "#131820",
   },
   {
     id: 4,
     title: "Finalist - SCMIM 2025",
     org: "Springer International Conference — MCKV Institute collab with Yuan Ze University & EIT-Australia.",
     icon: "📄",
-    color: "#c77dff",
-    border: "#c77dff",
-    glow: "rgba(199,125,255,0.45)",
-    bg: "#251132",
+    color: "#c4b5fd",
+    border: "#c4b5fd",
+    glow: "rgba(196,181,253,0.45)",
+    bg: "#1c1235",
   },
   {
     id: 5,
     title: "Finalist - IISc Bangalore",
     org: "Artpark Codeforge Hackathon — IISc Bangalore. Designed high-performance drone routing algorithms.",
     icon: "🚀",
-    color: "#34d399",
-    border: "#34d399",
-    glow: "rgba(52,211,153,0.45)",
-    bg: "#113216",
+    color: "#6d28d9",
+    border: "#6d28d9",
+    glow: "rgba(109,40,217,0.45)",
+    bg: "#120d22",
   },
   {
     id: 6,
     title: "Internal Round Winner",
     org: "Smart India Hackathon 2024 — Championed the internal collegiate round with a crop monitoring system.",
     icon: "⭐",
-    color: "#ff9f43",
-    border: "#ff9f43",
-    glow: "rgba(255,159,67,0.45)",
-    bg: "#322011",
+    color: "#e2b96f",
+    border: "#e2b96f",
+    glow: "rgba(226,185,111,0.45)",
+    bg: "#231a0e",
   },
 ];
 
@@ -104,6 +105,10 @@ function AwardsCarousel() {
   const [spacing, setSpacing] = useState(280);
   const total = AWARDS.length;
 
+  const timerRef = useRef(null);
+  const resumeTimeoutRef = useRef(null);
+  const [isHovered, setIsHovered] = useState(false);
+
   useEffect(() => {
     const handleResize = () => {
       setSpacing(window.innerWidth < 600 ? 120 : window.innerWidth < 900 ? 190 : 280);
@@ -116,8 +121,58 @@ function AwardsCarousel() {
   const prev = () => setActive((a) => (a - 1 + total) % total);
   const next = () => setActive((a) => (a + 1) % total);
 
+  // Autoplay cycle
+  useEffect(() => {
+    if (isHovered) {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+        timerRef.current = null;
+      }
+      return;
+    }
+
+    timerRef.current = setInterval(() => {
+      setActive((a) => (a + 1) % total);
+    }, 3000); // cycles every 3 seconds
+
+    return () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+      }
+    };
+  }, [isHovered, total]);
+
+  const handleMouseEnter = () => {
+    if (resumeTimeoutRef.current) {
+      clearTimeout(resumeTimeoutRef.current);
+      resumeTimeoutRef.current = null;
+    }
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    if (resumeTimeoutRef.current) {
+      clearTimeout(resumeTimeoutRef.current);
+    }
+    resumeTimeoutRef.current = setTimeout(() => {
+      setIsHovered(false);
+    }, 3000); // wait 3 seconds before resuming
+  };
+
+  useEffect(() => {
+    return () => {
+      if (resumeTimeoutRef.current) {
+        clearTimeout(resumeTimeoutRef.current);
+      }
+    };
+  }, []);
+
   return (
-    <div className="carousel-wrap">
+    <div
+      className="carousel-wrap"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       <div className="carousel-stage">
         {AWARDS.map((award, i) => {
           const offset = ((i - active + total) % total);
@@ -313,7 +368,7 @@ export default function Achievements() {
       angleMax = -Math.PI / 2;
     }
 
-    const colors = ["#a78bfa", "#38bdf8", "#34d399", "#f472b6", "#fbbf24", "#ea580c"];
+    const colors = ["#a78bfa", "#818cf8", "#c4b5fd", "#6d28d9", "#4f46e5", "#94a3b8"];
     
     for (let i = 0; i < 95; i++) {
       const angle = angleMin + Math.random() * (angleMax - angleMin);
@@ -386,6 +441,8 @@ export default function Achievements() {
 
   return (
     <section className="achievements-section" id="achievements">
+      <ParticlesBackground height="100%" zIndex={0} />
+
       {/* Decorative background orbs */}
       <div className="orb orb1" />
       <div className="orb orb2" />
@@ -401,7 +458,7 @@ export default function Achievements() {
       <button className="celebration-btn cb-br" onClick={triggerConfetti} aria-label="Celebrate">✨</button>
 
       {/* Heading */}
-      <SectionHeading title="ACHIEVEMENTS" tagline="AWARDS & CERTS" />
+      <SectionHeading title="Achievements" tagline="Milestones & Wins" />
 
       {/* TOP HALF: Awards Carousel */}
       <div className="awards-container-top">

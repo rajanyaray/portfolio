@@ -46,8 +46,8 @@ const DIVISIONS = [
     title: "Frontend Development",
     description: "Responsive, interactive UIs.",
     level: "Advanced",
-    color: "#38bdf8",
-    glow: "rgba(56,189,248,0.5)",
+    color: "#818cf8",
+    glow: "rgba(129,140,248,0.5)",
     skills: [
       { name: "HTML5",        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" },
       { name: "CSS3",         icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" },
@@ -63,8 +63,8 @@ const DIVISIONS = [
     title: "Backend & Databases",
     description: "Scalable server-side solutions.",
     level: "Proficient",
-    color: "#34d399",
-    glow: "rgba(52,211,153,0.5)",
+    color: "#94a3b8",
+    glow: "rgba(148,163,184,0.45)",
     skills: [
       { name: "Node.js",    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
       { name: "Express.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" },
@@ -80,8 +80,8 @@ const DIVISIONS = [
     title: "Tools & Platforms",
     description: "Industry-standard dev tools.",
     level: "Proficient",
-    color: "#fbbf24",
-    glow: "rgba(251,191,36,0.5)",
+    color: "#c4b5fd",
+    glow: "rgba(196,181,253,0.5)",
     skills: [
       { name: "Git",      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
       { name: "GitHub",   icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" },
@@ -97,8 +97,8 @@ const DIVISIONS = [
     title: "Currently Exploring",
     description: "Blockchain, AI & ML frontiers.",
     level: "Learning",
-    color: "#f472b6",
-    glow: "rgba(244,114,182,0.5)",
+    color: "#e2b96f",
+    glow: "rgba(226,185,111,0.5)",
     skills: [
       { name: "Blockchain",      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/solidity/solidity-original.svg" },
       { name: "Ethereum",        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/solidity/solidity-original.svg" },
@@ -114,10 +114,10 @@ const DIVISIONS = [
    TRAIT CARDS
 ───────────────────────────────────────────────── */
 const TRAITS = [
-  { icon: "⚡", title: "Always Learning",     desc: "Exploring new technologies",   accent: "#f59e0b" },
-  { icon: "</>", title: "Problem Solver",     desc: "Breaking down complex problems", accent: "#6366f1" },
-  { icon: "🚀", title: "Performance First",   desc: "Fast, optimised applications",  accent: "#10b981" },
-  { icon: "🤝", title: "Team Player",         desc: "Collaborating & sharing knowledge", accent: "#ec4899" },
+  { icon: "⚡", title: "Always Learning",     desc: "Exploring new technologies",   accent: "#e2b96f" },
+  { icon: "</>", title: "Problem Solver",     desc: "Breaking down complex problems", accent: "#818cf8" },
+  { icon: "🚀", title: "Performance First",   desc: "Fast, optimised applications",  accent: "#a78bfa" },
+  { icon: "🤝", title: "Team Player",         desc: "Collaborating & sharing knowledge", accent: "#c4b5fd" },
 ];
 
 /* ─────────────────────────────────────────────────
@@ -184,10 +184,10 @@ function BackgroundBoxes({ color }) {
   const neonColors = [
     color,
     "#a78bfa",
-    "#38bdf8",
-    "#34d399",
-    "#ec4899",
-    "#fbbf24",
+    "#818cf8",
+    "#c4b5fd",
+    "#6d28d9",
+    "#4f46e5",
   ];
 
   const handleMouseEnter = (e) => {
@@ -239,9 +239,9 @@ function ConstellationBg() {
     
     let animationFrameId;
     let particles = [];
-    const maxParticles = 65; 
-    const connectionDist = 110; 
-    let mouse = { x: null, y: null, radius: 120 };
+    const maxParticles = 80; 
+    const connectionDist = 140; 
+    let mouse = { x: null, y: null, radius: 160 };
 
     const resizeCanvas = () => {
       canvas.width = canvas.parentElement.offsetWidth || window.innerWidth;
@@ -273,7 +273,7 @@ function ConstellationBg() {
         this.y = Math.random() * canvas.height;
         this.vx = (Math.random() - 0.5) * 0.45; 
         this.vy = (Math.random() - 0.5) * 0.45;
-        this.radius = Math.random() * 1.5 + 1; 
+        this.radius = Math.random() * 2.0 + 1.2; 
       }
 
       update() {
@@ -288,8 +288,8 @@ function ConstellationBg() {
             const dirX = dx / dist;
             const dirY = dy / dist;
             
-            this.x += dirX * force * 1.8;
-            this.y += dirY * force * 1.8;
+            this.x += dirX * force * 2.2;
+            this.y += dirY * force * 2.2;
           }
         }
 
@@ -316,8 +316,19 @@ function ConstellationBg() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       const isLightMode = document.body.getAttribute('data-theme') === 'light';
-      const particleColor = isLightMode ? 'rgba(109, 40, 217, 0.22)' : 'rgba(255, 255, 255, 0.45)';
+      const particleColor = isLightMode ? 'rgba(109, 40, 217, 0.58)' : 'rgba(255, 255, 255, 0.82)';
       
+      // Draw interactive glowing mouse gravitational halo
+      if (mouse.x !== null && mouse.y !== null) {
+        ctx.beginPath();
+        const mouseGlow = ctx.createRadialGradient(mouse.x, mouse.y, 2, mouse.x, mouse.y, 50);
+        mouseGlow.addColorStop(0, isLightMode ? 'rgba(109, 40, 217, 0.22)' : 'rgba(56, 189, 248, 0.26)');
+        mouseGlow.addColorStop(1, 'rgba(0, 0, 0, 0)');
+        ctx.fillStyle = mouseGlow;
+        ctx.arc(mouse.x, mouse.y, 50, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
       particles.forEach((p) => {
         p.update();
         p.draw(particleColor);
@@ -331,14 +342,14 @@ function ConstellationBg() {
           const dist = Math.sqrt(dx * dx + dy * dy);
 
           if (dist < connectionDist) {
-            const alpha = (1 - dist / connectionDist) * (isLightMode ? 0.08 : 0.16);
+            const alpha = (1 - dist / connectionDist) * (isLightMode ? 0.24 : 0.45);
             ctx.beginPath();
             ctx.moveTo(mouse.x, mouse.y);
             ctx.lineTo(p.x, p.y);
             ctx.strokeStyle = isLightMode 
               ? `rgba(109, 40, 217, ${alpha})` 
               : `rgba(255, 255, 255, ${alpha})`;
-            ctx.lineWidth = 0.9;
+            ctx.lineWidth = 1.2;
             ctx.stroke();
           }
         });
@@ -352,14 +363,14 @@ function ConstellationBg() {
           const dist = Math.sqrt(dx * dx + dy * dy);
 
           if (dist < connectionDist) {
-            const alpha = (1 - dist / connectionDist) * (isLightMode ? 0.06 : 0.12);
+            const alpha = (1 - dist / connectionDist) * (isLightMode ? 0.18 : 0.32);
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
             ctx.strokeStyle = isLightMode 
               ? `rgba(109, 40, 217, ${alpha})` 
               : `rgba(255, 255, 255, ${alpha})`;
-            ctx.lineWidth = 0.8;
+            ctx.lineWidth = 1.0;
             ctx.stroke();
           }
         }
@@ -448,7 +459,7 @@ export default function Skills() {
       <ConstellationBg />
 
       {/* Heading */}
-      <SectionHeading title="SKILLS" tagline="WHAT I USE" />
+      <SectionHeading title="Skills" tagline="Tools of My Craft" />
 
       {/* Main 3-column layout */}
       <div className="sk-body">

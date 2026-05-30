@@ -1,0 +1,46 @@
+.intro-loader-overlay {
+  position: fixed;
+  z-index: 999999;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: all 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+  box-sizing: border-box;
+  pointer-events: none;
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+}
+
+.intro-loader-overlay.playing {
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  border-radius: 0px;
+  pointer-events: auto; /* Prevent clicking background during loader */
+}
+
+.intro-loader-overlay.shrinking {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25), 0 0 15px rgba(167, 139, 250, 0.3);
+  border: 1px solid rgba(167, 139, 250, 0.2);
+}
+
+.intro-video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background-color: #ffffff;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.intro-logo-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  transition: opacity 0.5s ease-in-out;
+}

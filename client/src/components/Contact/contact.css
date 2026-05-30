@@ -11,43 +11,43 @@
   --c-bg: #0d0a1e;
   --c-surface: rgba(255, 255, 255, 0.04);
   --c-surface2: rgba(255, 255, 255, 0.08);
-  --c-border: rgba(255, 255, 255, 0.1);
+  --c-border: rgba(255, 255, 255, 0.10);
   --c-border2: rgba(255, 255, 255, 0.18);
-  --c-text: #f0eeff;
-  --c-sub: rgba(240, 238, 255, 0.55);
-  --c-accent1: #a855f7;
-  --c-accent2: #6366f1;
-  --c-accent3: #38bdf8;
-  --c-glow1: rgba(168, 85, 247, 0.35);
-  --c-glow2: rgba(99, 102, 241, 0.25);
-  --grid-color: rgba(168, 85, 247, 0.06);
+  --c-text: #ede9fe;
+  --c-sub: rgba(237, 233, 254, 0.55);
+  --c-accent1: #a78bfa;   /* violet — primary */
+  --c-accent2: #818cf8;   /* indigo — secondary */
+  --c-accent3: #c4b5fd;   /* lavender — tertiary */
+  --c-glow1: rgba(167, 139, 250, 0.30);
+  --c-glow2: rgba(129, 140, 248, 0.20);
+  --grid-color: rgba(167, 139, 250, 0.05);
   --badge-bg: rgba(74, 222, 128, 0.12);
   --badge-dot: #4ade80;
   --badge-text: #4ade80;
-  --mail-bg: rgba(30, 12, 60, 0.82);
-  --mail-border: rgba(168, 85, 247, 0.4);
+  --mail-bg: rgba(18, 10, 40, 0.85);
+  --mail-border: rgba(167, 139, 250, 0.35);
 }
 
 @media (prefers-color-scheme: light) {
   :root {
     --c-bg: #fafaff;
-    --c-surface: rgba(120, 80, 220, 0.055);
-    --c-surface2: rgba(120, 80, 220, 0.1);
-    --c-border: rgba(120, 80, 220, 0.15);
-    --c-border2: rgba(120, 80, 220, 0.28);
-    --c-text: #1a0d33;
-    --c-sub: rgba(26, 13, 51, 0.55);
-    --c-accent1: #7c3aed;
-    --c-accent2: #4f46e5;
-    --c-accent3: #0284c7;
-    --c-glow1: rgba(124, 58, 237, 0.18);
-    --c-glow2: rgba(79, 70, 229, 0.12);
-    --grid-color: rgba(124, 58, 237, 0.05);
-    --badge-bg: rgba(16, 185, 129, 0.1);
+    --c-surface: rgba(109, 40, 217, 0.045);
+    --c-surface2: rgba(109, 40, 217, 0.09);
+    --c-border: rgba(109, 40, 217, 0.13);
+    --c-border2: rgba(109, 40, 217, 0.25);
+    --c-text: #1e1440;
+    --c-sub: rgba(30, 20, 64, 0.55);
+    --c-accent1: #6d28d9; /* deep violet */
+    --c-accent2: #4f46e5; /* indigo */
+    --c-accent3: #7c3aed; /* violet-purple */
+    --c-glow1: rgba(109, 40, 217, 0.16);
+    --c-glow2: rgba(79, 70, 229, 0.10);
+    --grid-color: rgba(109, 40, 217, 0.04);
+    --badge-bg: rgba(16, 185, 129, 0.10);
     --badge-dot: #10b981;
     --badge-text: #059669;
-    --mail-bg: rgba(240, 230, 255, 0.85);
-    --mail-border: rgba(124, 58, 237, 0.35);
+    --mail-bg: rgba(242, 238, 255, 0.88);
+    --mail-border: rgba(109, 40, 217, 0.30);
   }
 }
 
@@ -72,6 +72,7 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
+  color: white;
   z-index: 0;
   opacity: 0.55;
 }
@@ -81,17 +82,6 @@
 }
 
 /* ── Grid overlay ── */
-.grid-overlay {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background-image:
-    linear-gradient(var(--grid-color) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-  background-size: 48px 48px;
-  mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 30%, transparent 100%);
-}
 
 /* ── Ambient orbs ── */
 .ambient-orbs { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
@@ -419,10 +409,10 @@
   margin-top: 2px;
   border-radius: 18px;
   padding: 1.5px;
-  background: linear-gradient(135deg, #a855f7, #38bdf8, #6366f1);
+  background: linear-gradient(135deg, #a78bfa, #818cf8, #c4b5fd);
   background-size: 300% 300%;
   animation: borderRotate 5s linear infinite;
-  box-shadow: 0 8px 32px rgba(168,85,247,0.25), 0 2px 8px rgba(56,189,248,0.15);
+  box-shadow: 0 8px 32px rgba(167,139,250,0.20), 0 2px 8px rgba(129,140,248,0.12);
 }
 @keyframes borderRotate {
   0% { background-position: 0% 50%; }
@@ -464,7 +454,7 @@
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 .mail-input::placeholder { color: var(--c-sub); }
-.mail-input:focus { border-color: var(--c-accent1); box-shadow: 0 0 0 3px rgba(168,85,247,0.2); }
+.mail-input:focus { border-color: var(--c-accent1); box-shadow: 0 0 0 3px rgba(167,139,250,0.18); }
 .mail-send-btn {
   display: flex; align-items: center; gap: 7px;
   padding: 8px 16px;
@@ -551,10 +541,10 @@
   animation: shimmerText 4s linear infinite;
 }
 
-/* Hover: spaced out letters, color flip to orange-pink */
+/* Hover: spaced out letters, color shift */
 .tagline-remarkable:hover {
   letter-spacing: 0.15em;
-  background: linear-gradient(90deg, #ff6a00, #ee0979, #a855f7, #38bdf8, #ff6a00);
+  background: linear-gradient(90deg, #a78bfa, #818cf8, #c4b5fd, #6d28d9, #a78bfa);
   background-size: 300% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

@@ -125,8 +125,8 @@ const ORBITS = [
   {
     rx: 170, ry: 145,
     speed: 26,
-    color: "#38bdf8",
-    glow: "#0ea5e9",
+    color: "#818cf8",
+    glow: "#6366f1",
     dashArray: "8 6",
     icons: [
       { src: reactIcon, label: "React" },
@@ -137,8 +137,8 @@ const ORBITS = [
   {
     rx: 245, ry: 210,
     speed: 38,
-    color: "#fb7185",
-    glow: "#e11d48",
+    color: "#c4b5fd",
+    glow: "#7c3aed",
     dashArray: "10 7",
     icons: [
       { src: cIcon,       label: "C"       },
