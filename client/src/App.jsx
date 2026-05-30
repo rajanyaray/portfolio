@@ -38,7 +38,7 @@ export default function App() {
     }, observerOptions);
 
     const sections = document.querySelectorAll(
-      ".about-section, .skills-section, #projects, .achievements-section, .contact-section"
+      ".about-section, .journey-section, .skills-section, #projects, .achievements-section, .contact-section"
     );
 
     sections.forEach((section, index) => {

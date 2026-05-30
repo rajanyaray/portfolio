@@ -10,7 +10,7 @@ const navItems = [
     icon: <User />,
     label: "About",
     href: "#about",
-    ids: ["about"],
+    ids: ["about", "journey"],
     color: "#2563eb",
   },
   {
@@ -141,6 +141,7 @@ const Navbar = () => {
   const active = useActiveSection([
     "home",
     "about",
+    "journey",
     "skills",
     "projects",
     "achievements",

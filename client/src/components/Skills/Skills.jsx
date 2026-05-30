@@ -174,8 +174,217 @@ function DomainTab({ division, isActive, onClick, side }) {
 }
 
 /* ─────────────────────────────────────────────────
-   MAIN COMPONENT
+   ACETERNITY BACKGROUND BOXES COMPONENT
+   Highly optimized 60fps dynamic grid structure
 ───────────────────────────────────────────────── */
+function BackgroundBoxes({ color }) {
+  const cols = 24;
+  const rows = 16;
+  
+  const neonColors = [
+    color,
+    "#a78bfa",
+    "#38bdf8",
+    "#34d399",
+    "#ec4899",
+    "#fbbf24",
+  ];
+
+  const handleMouseEnter = (e) => {
+    const randomColor = neonColors[Math.floor(Math.random() * neonColors.length)];
+    e.target.style.backgroundColor = randomColor;
+    e.target.style.boxShadow = `0 0 20px ${randomColor}, inset 0 0 10px ${randomColor}`;
+    e.target.style.borderColor = randomColor;
+    e.target.style.transition = "none";
+  };
+
+  const handleMouseLeave = (e) => {
+    e.target.style.transition = "background-color 1.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 1.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 1.2s cubic-bezier(0.16, 1, 0.3, 1)";
+    e.target.style.backgroundColor = "transparent";
+    e.target.style.boxShadow = "none";
+    e.target.style.borderColor = "var(--sk-border)";
+  };
+
+  return (
+    <div className="sk-boxes-container">
+      <div className="sk-boxes-grid">
+        {Array.from({ length: rows }).map((_, r) => (
+          <div key={r} className="sk-boxes-row">
+            {Array.from({ length: cols }).map((_, c) => (
+              <div
+                key={c}
+                className="sk-box-cell"
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              />
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────────
+   CONSTELLATION PARTICLES COMPONENT
+   High-performance canvas animation loop
+───────────────────────────────────────────────── */
+function ConstellationBg() {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    
+    let animationFrameId;
+    let particles = [];
+    const maxParticles = 65; 
+    const connectionDist = 110; 
+    let mouse = { x: null, y: null, radius: 120 };
+
+    const resizeCanvas = () => {
+      canvas.width = canvas.parentElement.offsetWidth || window.innerWidth;
+      canvas.height = canvas.parentElement.offsetHeight || window.innerHeight;
+    };
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    const handleMouseMove = (e) => {
+      const rect = canvas.getBoundingClientRect();
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
+    };
+
+    const handleMouseLeave = () => {
+      mouse.x = null;
+      mouse.y = null;
+    };
+
+    const parent = canvas.parentElement;
+    if (parent) {
+      parent.addEventListener('mousemove', handleMouseMove);
+      parent.addEventListener('mouseleave', handleMouseLeave);
+    }
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.vx = (Math.random() - 0.5) * 0.45; 
+        this.vy = (Math.random() - 0.5) * 0.45;
+        this.radius = Math.random() * 1.5 + 1; 
+      }
+
+      update() {
+        // Dynamic mouse repulsion logic
+        if (mouse.x !== null && mouse.y !== null) {
+          const dx = this.x - mouse.x;
+          const dy = this.y - mouse.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          
+          if (dist < mouse.radius) {
+            const force = (mouse.radius - dist) / mouse.radius; 
+            const dirX = dx / dist;
+            const dirY = dy / dist;
+            
+            this.x += dirX * force * 1.8;
+            this.y += dirY * force * 1.8;
+          }
+        }
+
+        this.x += this.vx;
+        this.y += this.vy;
+
+        if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+      }
+
+      draw(color) {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = color;
+        ctx.fill();
+      }
+    }
+
+    for (let i = 0; i < maxParticles; i++) {
+      particles.push(new Particle());
+    }
+
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const isLightMode = document.body.getAttribute('data-theme') === 'light';
+      const particleColor = isLightMode ? 'rgba(109, 40, 217, 0.22)' : 'rgba(255, 255, 255, 0.45)';
+      
+      particles.forEach((p) => {
+        p.update();
+        p.draw(particleColor);
+      });
+
+      // Draw interactive connections from mouse cursor
+      if (mouse.x !== null && mouse.y !== null) {
+        particles.forEach((p) => {
+          const dx = p.x - mouse.x;
+          const dy = p.y - mouse.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < connectionDist) {
+            const alpha = (1 - dist / connectionDist) * (isLightMode ? 0.08 : 0.16);
+            ctx.beginPath();
+            ctx.moveTo(mouse.x, mouse.y);
+            ctx.lineTo(p.x, p.y);
+            ctx.strokeStyle = isLightMode 
+              ? `rgba(109, 40, 217, ${alpha})` 
+              : `rgba(255, 255, 255, ${alpha})`;
+            ctx.lineWidth = 0.9;
+            ctx.stroke();
+          }
+        });
+      }
+
+      // Draw background constellation link lines
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < connectionDist) {
+            const alpha = (1 - dist / connectionDist) * (isLightMode ? 0.06 : 0.12);
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = isLightMode 
+              ? `rgba(109, 40, 217, ${alpha})` 
+              : `rgba(255, 255, 255, ${alpha})`;
+            ctx.lineWidth = 0.8;
+            ctx.stroke();
+          }
+        }
+      }
+
+      animationFrameId = requestAnimationFrame(animate);
+    };
+    animate();
+
+    return () => {
+      window.removeEventListener('resize', resizeCanvas);
+      if (parent) {
+        parent.removeEventListener('mousemove', handleMouseMove);
+        parent.removeEventListener('mouseleave', handleMouseLeave);
+      }
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
+
+  return <canvas ref={canvasRef} className="sk-constellation-canvas" />;
+}
+
+/* ─────────────────────────────────────────────────
+   MAIN COMPONENT
+   ───────────────────────────────────────────────── */
 export default function Skills() {
   const [active, setActive]           = useState(0);
   const [displayed, setDisplayed]     = useState(0);  // what's currently shown
@@ -232,11 +441,11 @@ export default function Skills() {
 
   return (
     <section className="skills-section" id="skills">
-      {/* BG decorations */}
-      <div className="sk-blob sk-blob1" />
-      <div className="sk-blob sk-blob2" />
-      <div className="sk-blob sk-blob3" />
-      <div className="sk-grid-overlay" />
+      {/* Interactive Aceternity Background Boxes */}
+      <BackgroundBoxes color={div.color} />
+      
+      {/* Constellation Particle Background */}
+      <ConstellationBg />
 
       {/* Heading */}
       <SectionHeading title="SKILLS" tagline="WHAT I USE" />

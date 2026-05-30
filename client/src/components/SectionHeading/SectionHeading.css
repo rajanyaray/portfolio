@@ -1,10 +1,18 @@
+:root {
+  --c-text: #ffffff; /* Default text color for dark theme */
+}
+
+body[data-theme="light"] {
+  --c-text: #111111; /* Default text color for light theme */
+}
+
 .section-heading-container {
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
   width: 100%;
-  margin-top: 65px;
+  margin-top: 120px;
   margin-bottom: 1rem;
   z-index: 10;
   pointer-events: auto;

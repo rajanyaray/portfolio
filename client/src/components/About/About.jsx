@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import "./About.css";
 import SectionHeading from "../SectionHeading/SectionHeading";
+import { VerticalTimeline, VerticalTimelineElement } from "../VerticalTimeline";
 import profile from "../../assets/profile.png";
 
 // ── Animated counter hook ──────────────────────────────────────────────────
@@ -453,90 +454,72 @@ function AboutBox() {
   );
 }
 
-// ── Currently Working On ───────────────────────────────────────────────────
-function CurrentProject() {
-  const techStack = ["React", "Flask", "MySQL", "CSS"];
-  return (
-    <div className="cp-card">
-      <div className="cp-back">
-        <div className="cp-back-ring" />
-        <div className="cp-back-ring cp-back-ring-2" />
-        <div className="cp-back-inner">
-          <div className="cp-code-icon">&lt;/&gt;</div>
-          <span className="cp-hover-label">Hover to Explore</span>
-        </div>
-      </div>
-      <div className="cp-front">
-        <div className="cp-front-shimmer" />
-        <div className="cp-header">
-          <span className="cp-header-label">⌨ CURRENTLY BUILDING</span>
-          <span className="cp-status">
-            <span className="cp-dot" />
-            Active
-          </span>
-        </div>
-        <div className="cp-divider" />
-        <div className="cp-body">
-          <div className="cp-icon">&lt;/&gt;</div>
-          <div>
-            <p className="cp-title">Online Library Management System</p>
-            <p className="cp-desc">
-              Web app for books, members, issue/return records and admin operations.
-            </p>
-          </div>
-        </div>
-        <div className="cp-stack">
-          {techStack.map(t => <span key={t} className="cp-chip">{t}</span>)}
-        </div>
-        <div className="cp-corners">
-          <span /><span /><span /><span />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ── Vertical Timeline Node ─────────────────────────────────────────────────
+// ── Timeline Data ──────────────────────────────────────────────────────────
 const timelineEvents = [
-  { year: "2008", icon: "🎒", title: "School", sub: "St. Xavier's", color: "#a78bfa" },
-  { year: "2020", icon: "📚", title: "High School", sub: "CBSE Board", color: "#38bdf8" },
-  { year: "2022", icon: "🎓", title: "College", sub: "TMSL, CSE IoT", color: "#34d399" },
-  { year: "2024", icon: "📄", title: "Paper", sub: "Published", color: "#fbbf24" },
-  { year: "May '25", icon: "🏆", title: "SBH", sub: "4th Place", color: "#f97316" },
-  { year: "Dec '25", icon: "🥇", title: "SIH", sub: "Winner", color: "#f472b6" },
-  { year: "2026", icon: "🚀", title: "Technoverse", sub: "Runner-up", color: "#c084fc" },
+  {
+    year: "2008",
+    icon: "🎒",
+    title: "School",
+    subtitle: "St. Xavier's Institution",
+    desc: "Started my academic journey, building a strong foundation in science and mathematics.",
+    color: "var(--av1)",
+    bg: "var(--av1-bg)",
+  },
+  {
+    year: "2020",
+    icon: "📚",
+    title: "Higher Secondary",
+    subtitle: "CBSE Board — Science Stream",
+    desc: "Completed 10+2 with focus on Physics, Chemistry and Mathematics. Developed early interest in programming.",
+    color: "var(--av2)",
+    bg: "var(--av2-bg)",
+  },
+  {
+    year: "2022",
+    icon: "🎓",
+    title: "B.Tech — CSE (IoT)",
+    subtitle: "Techno Main Salt Lake",
+    desc: "Pursuing Computer Science & Engineering with a specialisation in Internet of Things. Exploring full-stack dev, AI and embedded systems.",
+    color: "var(--av1)",
+    bg: "var(--av1-bg)",
+  },
+  {
+    year: "2024",
+    icon: "📄",
+    title: "Research Paper Published",
+    subtitle: "Academic Publication",
+    desc: "Co-authored and published a research paper, contributing new findings to the academic community.",
+    color: "var(--av2)",
+    bg: "var(--av2-bg)",
+  },
+  {
+    year: "May 2025",
+    icon: "🏆",
+    title: "Smart Bengal Hackathon",
+    subtitle: "4th Place — State Level",
+    desc: "Competed among top teams across West Bengal, securing 4th place with an innovative IoT-based solution.",
+    color: "var(--av1)",
+    bg: "var(--av1-bg)",
+  },
+  {
+    year: "Dec 2025",
+    icon: "🥇",
+    title: "Smart India Hackathon",
+    subtitle: "National Winner",
+    desc: "Won the prestigious Smart India Hackathon at the national level, beating hundreds of teams across India.",
+    color: "var(--av2)",
+    bg: "var(--av2-bg)",
+  },
+  {
+    year: "2026",
+    icon: "🚀",
+    title: "Technoverse",
+    subtitle: "Runner-up",
+    desc: "Achieved runner-up position at Technoverse, showcasing advanced full-stack and AI integration skills.",
+    color: "var(--av1)",
+    bg: "var(--av1-bg)",
+  },
 ];
-
-function TimelineVertNode({ item, index }) {
-  const [hovered, setHovered] = useState(false);
-
-  return (
-    <div
-      className={`tlv-item ${hovered ? "tlv-item--hovered" : ""} ${index % 2 === 0 ? "tlv-left" : "tlv-right"}`}
-      style={{ "--tlv-color": item.color, "--tlv-delay": `${index * 0.1}s` }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
-      <div className="tlv-card">
-        <div className="tlv-card-glow" />
-        <span className="tlv-year">{item.year}</span>
-        <div className="tlv-title-row">
-          <span className="tlv-icon">{item.icon}</span>
-          <p className="tlv-title">{item.title}</p>
-        </div>
-        <p className="tlv-sub">{item.sub}</p>
-        <div className="tlv-card-corner" />
-      </div>
-      <div className="tlv-connector" />
-      <div className="tlv-node">
-        <div className="tlv-node-ring" />
-        <div className="tlv-node-core" />
-        <div className={`tlv-node-arc tlv-node-arc--${index % 2 === 0 ? "right" : "left"}`} />
-        {hovered && <div className="tlv-node-burst" />}
-      </div>
-    </div>
-  );
-}
 
 // ── Main Component ─────────────────────────────────────────────────────────
 export default function About() {
@@ -553,57 +536,108 @@ export default function About() {
   }, []);
 
   const stats = [
-    { value: 5, suffix: "+", label: "Hackathons", color: "#a78bfa", glyph: "🏆", delay: 0 },
-    { value: 10, suffix: "+", label: "Skills", color: "#38bdf8", glyph: "⚙️", delay: 0.2 },
-    { value: 10, suffix: "+", label: "Projects", color: "#34d399", glyph: "💼", delay: 0.4 },
+    { value: 5, suffix: "+", label: "Hackathons", color: "var(--av1)", glyph: "🏆", delay: 0 },
+    { value: 10, suffix: "+", label: "Skills", color: "var(--av2)", glyph: "⚙️", delay: 0.2 },
+    { value: 10, suffix: "+", label: "Projects", color: "var(--av1)", glyph: "💼", delay: 0.4 },
   ];
 
   return (
-    <section className="about-section" id="about">
+    <>
+      {/* ══════════════════════════════════════════
+          SECTION 1 — About Me
+      ══════════════════════════════════════════ */}
+      <section className="about-section" id="about">
 
-      {/* ── Heading ──────────────────────────────────────────────────── */}
-      <SectionHeading title="ABOUT ME" tagline="WHO AM I" />
+        {/* ── Heading ──────────────────────────────────────────────────── */}
+        <SectionHeading title="ABOUT ME" tagline="WHO AM I" />
 
-      {/* ── Body Layout ──────────────────────────────────────────────── */}
-      <div className="about-body">
+        {/* ── Body Layout ──────────────────────────────────────────────── */}
+        <div className="about-body-v2">
 
-        {/* LEFT: About box + bottom row */}
-        <div className="about-left-col">
-
+          {/* About box — centered, full width */}
           <AboutBox />
 
-          <div className="about-bottom-row">
-            <div className="about-left-bottom-stack">
+          {/* Bottom row: Time | Stats | Weather */}
+          <div className="about-bottom-row-v2" ref={statsRef}>
+
+            {/* LEFT — Time card */}
+            <div className="about-bottom-left">
               <LiveClock />
-              <WeatherCard />
             </div>
 
-            <div className="stats-trio" ref={statsRef}>
+            {/* CENTRE — Stat circles */}
+            <div className="stats-trio">
               {stats.map((s, i) => (
                 <StatCircle key={i} {...s} animate={statsVisible} />
               ))}
             </div>
 
-            <CurrentProject />
+            {/* RIGHT — Weather card */}
+            <div className="about-bottom-right">
+              <WeatherCard />
+            </div>
+
           </div>
         </div>
 
-        {/* RIGHT: Timeline */}
-        <div className="about-right-col">
-          <div className="timeline-wrap">
-            <div className="timeline-header-vertical">
-              <span className="tlhv-label">MY JOURNEY</span>
-              <div className="tlhv-line" />
-            </div>
-            <div className="timeline-vertical">
-              {timelineEvents.map((item, i) => (
-                <TimelineVertNode key={i} item={item} index={i} total={timelineEvents.length} />
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
+      </section>
 
-    </section>
+      {/* ══════════════════════════════════════════
+          SECTION 2 — My Journey (Timeline)
+      ══════════════════════════════════════════ */}
+      <section className="journey-section" id="journey">
+
+        <SectionHeading title="MY JOURNEY" tagline="HOW I GOT HERE" />
+
+        <div className="journey-body">
+          <VerticalTimeline lineColor="var(--vtl-line-color)">
+            {timelineEvents.map((item, i) => (
+              <VerticalTimelineElement
+                key={i}
+                date={item.year}
+                dateClassName="vtl-date"
+                iconStyle={{
+                  background: item.bg,
+                  border: `2px solid ${item.color}`,
+                  boxShadow: `0 0 0 4px rgba(0,0,0,0.2), 0 0 16px ${item.color}55`,
+                  fontSize: "1.4rem",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+                icon={<span>{item.icon}</span>}
+                contentStyle={{
+                  background: "rgba(255,255,255,0.03)",
+                  backdropFilter: "blur(16px)",
+                  WebkitBackdropFilter: "blur(16px)",
+                  border: `1px solid ${item.color}40`,
+                  borderRadius: "14px",
+                  boxShadow: `0 4px 30px rgba(0,0,0,0.3), 0 0 20px ${item.color}15`,
+                  color: "#f0eeff",
+                  padding: "18px 22px",
+                }}
+                contentArrowStyle={{
+                  borderRight: `8px solid ${item.color}40`,
+                }}
+              >
+                <div className="vtl-card-inner" style={{ "--vtl-color": item.color }}>
+                  <div className="vtl-card-top">
+                    <span className="vtl-badge" style={{ background: item.bg, color: item.color, borderColor: `${item.color}50` }}>
+                      {item.year}
+                    </span>
+                  </div>
+                  <h3 className="vtl-title" style={{ color: item.color }}>{item.title}</h3>
+                  <h4 className="vtl-subtitle">{item.subtitle}</h4>
+                  <p className="vtl-desc">{item.desc}</p>
+                  <div className="vtl-corner-br" style={{ borderColor: item.color }} />
+                  <div className="vtl-corner-tl" style={{ borderColor: item.color }} />
+                </div>
+              </VerticalTimelineElement>
+            ))}
+          </VerticalTimeline>
+        </div>
+
+      </section>
+    </>
   );
 }
