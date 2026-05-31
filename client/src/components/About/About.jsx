@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import "./About.css";
 import SectionHeading from "../SectionHeading/SectionHeading";
 import { VerticalTimeline, VerticalTimelineElement } from "../VerticalTimeline";
-import profile from "../../assets/profile.png";
+import profile from "../../assets/about.jpg";
 import WhoParticles from "./WhoParticles";
 import { Meteors } from "../ui/meteors";
 
@@ -442,7 +442,6 @@ function AboutBox() {
           <div className="abox-photo-col">
             <div className="abox-photo-frame">
               <div className="abox-orbit abox-orbit-1" />
-              <div className="abox-orbit abox-orbit-2" />
               <div className="abox-photo-glow" />
               <div className="abox-photo-circle">
                 <div className="abox-photo-bg">

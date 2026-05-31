@@ -28,27 +28,25 @@
   --mail-border: rgba(167, 139, 250, 0.35);
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    --c-bg: #fafaff;
-    --c-surface: rgba(109, 40, 217, 0.045);
-    --c-surface2: rgba(109, 40, 217, 0.09);
-    --c-border: rgba(109, 40, 217, 0.13);
-    --c-border2: rgba(109, 40, 217, 0.25);
-    --c-text: #1e1440;
-    --c-sub: rgba(30, 20, 64, 0.55);
-    --c-accent1: #6d28d9; /* deep violet */
-    --c-accent2: #4f46e5; /* indigo */
-    --c-accent3: #7c3aed; /* violet-purple */
-    --c-glow1: rgba(109, 40, 217, 0.16);
-    --c-glow2: rgba(79, 70, 229, 0.10);
-    --grid-color: rgba(109, 40, 217, 0.04);
-    --badge-bg: rgba(16, 185, 129, 0.10);
-    --badge-dot: #10b981;
-    --badge-text: #059669;
-    --mail-bg: rgba(242, 238, 255, 0.88);
-    --mail-border: rgba(109, 40, 217, 0.30);
-  }
+body[data-theme="light"] {
+  --c-bg: #fafaff;
+  --c-surface: rgba(109, 40, 217, 0.045);
+  --c-surface2: rgba(109, 40, 217, 0.09);
+  --c-border: rgba(109, 40, 217, 0.13);
+  --c-border2: rgba(109, 40, 217, 0.25);
+  --c-text: #1e1440;
+  --c-sub: rgba(30, 20, 64, 0.55);
+  --c-accent1: #6d28d9; /* deep violet */
+  --c-accent2: #4f46e5; /* indigo */
+  --c-accent3: #7c3aed; /* violet-purple */
+  --c-glow1: rgba(109, 40, 217, 0.16);
+  --c-glow2: rgba(79, 70, 229, 0.10);
+  --grid-color: rgba(109, 40, 217, 0.04);
+  --badge-bg: rgba(16, 185, 129, 0.10);
+  --badge-dot: #10b981;
+  --badge-text: #059669;
+  --mail-bg: rgba(242, 238, 255, 0.88);
+  --mail-border: rgba(109, 40, 217, 0.30);
 }
 
 /* ── Section wrapper ── */
@@ -534,11 +532,17 @@
 /* Default: outlined/stroke look with gradient fill */
 .tagline-remarkable {
   background: linear-gradient(90deg, #fff 0%, var(--c-accent3) 40%, var(--c-accent1) 70%, #fff 100%);
-  background-size: 300% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   animation: shimmerText 4s linear infinite;
+}
+
+body[data-theme="light"] .tagline-remarkable {
+  background: linear-gradient(90deg, var(--c-text) 0%, var(--c-accent3) 40%, var(--c-accent1) 70%, var(--c-text) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 /* Hover: spaced out letters, color shift */

@@ -1,5 +1,6 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
 import { createPortal } from "react-dom";
+import { ThemeContext } from "../../context/ThemeContext";
 import "./Achievements.css";
 import SectionHeading from "../SectionHeading/SectionHeading";
 import ParticlesBackground from "./ParticlesBackground";
@@ -21,6 +22,10 @@ const AWARDS = [
     border: "#a78bfa",
     glow: "rgba(167,139,250,0.45)",
     bg: "#160d2e",
+    colorLight: "#6d28d9",
+    borderLight: "#6d28d9",
+    glowLight: "rgba(109, 40, 217, 0.18)",
+    bgLight: "#f5f3ff",
   },
   {
     id: 2,
@@ -31,6 +36,10 @@ const AWARDS = [
     border: "#818cf8",
     glow: "rgba(129,140,248,0.45)",
     bg: "#111228",
+    colorLight: "#4f46e5",
+    borderLight: "#4f46e5",
+    glowLight: "rgba(79, 70, 229, 0.18)",
+    bgLight: "#eef2ff",
   },
   {
     id: 3,
@@ -41,6 +50,10 @@ const AWARDS = [
     border: "#94a3b8",
     glow: "rgba(148,163,184,0.45)",
     bg: "#131820",
+    colorLight: "#475569",
+    borderLight: "#475569",
+    glowLight: "rgba(71, 85, 105, 0.15)",
+    bgLight: "#f8fafc",
   },
   {
     id: 4,
@@ -51,6 +64,10 @@ const AWARDS = [
     border: "#c4b5fd",
     glow: "rgba(196,181,253,0.45)",
     bg: "#1c1235",
+    colorLight: "#7c3aed",
+    borderLight: "#7c3aed",
+    glowLight: "rgba(124, 58, 237, 0.18)",
+    bgLight: "#f5f3ff",
   },
   {
     id: 5,
@@ -61,6 +78,10 @@ const AWARDS = [
     border: "#6d28d9",
     glow: "rgba(109,40,217,0.45)",
     bg: "#120d22",
+    colorLight: "#6d28d9",
+    borderLight: "#6d28d9",
+    glowLight: "rgba(109, 40, 217, 0.18)",
+    bgLight: "#f5f3ff",
   },
   {
     id: 6,
@@ -71,6 +92,10 @@ const AWARDS = [
     border: "#e2b96f",
     glow: "rgba(226,185,111,0.45)",
     bg: "#231a0e",
+    colorLight: "#b45309",
+    borderLight: "#b45309",
+    glowLight: "rgba(180, 83, 9, 0.18)",
+    bgLight: "#fffbeb",
   },
 ];
 
@@ -102,6 +127,8 @@ const CERTS = [
 //  Award Carousel
 // ─────────────────────────────────────────────────────────────────────────────
 function AwardsCarousel() {
+  const { theme } = useContext(ThemeContext);
+  const isLight = theme === "light";
   const [active, setActive] = useState(0);
   const [spacing, setSpacing] = useState(280);
   const total = AWARDS.length;
@@ -186,6 +213,13 @@ function AwardsCarousel() {
           const rotateY = slot * -12;
           const isCenter = slot === 0;
 
+          const activeColor = isLight ? (award.colorLight || award.color) : award.color;
+          const activeBorder = isLight ? (award.borderLight || award.border) : award.border;
+          const activeGlow = isLight ? (award.glowLight || award.glow) : award.glow;
+          const activeBgGrad = isLight 
+            ? `linear-gradient(135deg, ${award.bgLight || "#ffffff"}, #ebe8ff)` 
+            : `linear-gradient(135deg, ${award.bg}, #090514)`;
+
           return (
             <div
               key={award.id}
@@ -194,10 +228,10 @@ function AwardsCarousel() {
                 transform: `translateX(${translateX}px) scale(${scale}) rotateY(${rotateY}deg)`,
                 zIndex,
                 opacity,
-                "--card-color": award.color,
-                "--card-border": award.border,
-                "--card-glow": award.glow,
-                "--card-bg-solid": `linear-gradient(135deg, ${award.bg}, #090514)`,
+                "--card-color": activeColor,
+                "--card-border": activeBorder,
+                "--card-glow": activeGlow,
+                "--card-bg-solid": activeBgGrad,
               }}
               onClick={() => !isCenter && setActive(i)}
             >

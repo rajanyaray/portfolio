@@ -1,0 +1,86 @@
+Projects List:
+1) Name-Krishi Drishti
+Line Below Topic Name- Real time tracking of utilization of machines for Crop Residue Management machines
+Desc- KrishiDrishti is scalable AI and IoT platform for crop residue management. Integrates machine learning and real-time data pipelines to track agricultural machinery, boosting operational efficiency by 70%.
+Key Features- ✅ Real-Time Machine Tracking – Live location and status monitoring (Active, Idle, Maintenance).
+
+✅ Machine Management System – Complete CRUD operations for agricultural machinery.
+
+✅ Smart Utilization Analytics – Dashboard with KPI metrics, runtime analysis, and usage insights.
+
+✅ Automated Alert Management – Instant notifications for idle machines and low utilization.
+
+✅ CHC Management Portal – Centralized portal with multiple modules for CHC operations.
+
+✅ Transparency & Insight Reports – Public transparency portal with auto-generated reports for decision-makers.
+
+Website Link: https://krishidrishti.vercel.app/
+
+2) Name-TrialGo
+Line Below Topic Name- End-to-end clinical trial automation platform powered by AI
+Desc- TrialGo is an AI-powered platform that streamlines the clinical trial ecosystem by connecting patients, researchers, and sponsors, making trial discovery, participation, and management faster and more accessible.
+Key Features- ✅ AI-Powered Patient Discovery – Finds eligible participants based on medical profiles.
+
+✅ 15+ Specialized AI Agents – Automate sourcing, screening, matching, and trial coordination.
+
+✅ Intelligent Trial Matching – Connects patients with the most relevant clinical trials.
+
+✅ Automated Candidate Recruitment – Scans global registries and healthcare platforms to identify candidates.
+
+✅ Real-Time Monitoring & Retention – Tracks engagement and predicts participant dropouts.
+
+✅ Unified Clinical Trial Platform – Manages discovery, recruitment, consent, and retention in one ecosystem.
+
+Website Link: N/A right now
+
+3) Name-StegoChain
+Line Below Topic Name- Blockchain-backed steganographic communication system.
+Desc- StegoChain is a blockchain-powered secure communication platform that hides encrypted messages inside images and audio using advanced steganography techniques. 
+Key Features- ✅ Steganographic Message Hiding – Securely hides encrypted messages inside images and audio files.
+
+✅ AES-256-GCM Encryption – Military-grade encryption ensures confidentiality and data integrity.
+
+✅ Ethereum Blockchain Integration – Stores communication records on-chain for tamper-proof verification.
+
+✅ IPFS Decentralized Storage – Distributes encrypted files across a decentralized storage network.
+
+✅ ECC-Based Cryptography – Uses Elliptic Curve Cryptography for secure key generation and exchange.
+
+✅ AI-Powered Threat Monitoring – Graph Neural Networks analyze patterns to detect suspicious activities and enhance security.
+
+Website Link: https://stegochain.vercel.app/
+
+4) Name-TruthScope
+Line Below Topic Name- AI-powered Chrome extension for real-time fact-checking and misinformation detection
+Desc- TruthScope is an AI-powered browser extension that detects fake news, misinformation, and media bias in real time using credibility scoring and fact-checking analysis.
+Key Features- ✅ AI-Powered Fake News Detection – Identifies misleading and false information in real time.
+
+✅ Deepfake & Media Verification – Detects manipulated images and videos using AI analysis.
+
+✅ Real-Time Fact Checking – Instantly verifies online content through the browser extension.
+
+✅ Source Credibility Analysis – Evaluates and scores the trustworthiness of news sources.
+
+✅ Media Bias Detection – Identifies political or ideological bias within articles.
+
+✅ Multi-Language Support – Performs fact-checking and verification across different languages.
+
+Website Link: https://truthscopee.vercel.app/
+
+5) Name-BharatTrack
+Line Below Topic Name- Smart railway track inspection and analytics platform
+Desc- BharatTrack is an AI-powered indigenous railway track monitoring system that analyzes track geometry, rail wear, and dynamic stability in real time at speeds up to 200 km/h.
+Key Features- ✅ Real-Time Track Monitoring – Continuously analyzes track geometry, rail wear, and stability.
+
+✅ High-Speed Inspection – Operates accurately at speeds up to 200 km/h.
+
+✅ AI-Powered Defect Detection – Uses computer vision and machine learning to identify track anomalies.
+
+✅ Modular Sensor Architecture – Plug-and-play subsystems for easy upgrades and maintenance.
+
+✅ Synchronized Video Analytics – Combines sensor data with onboard video for comprehensive inspection.
+
+✅ Predictive Maintenance Dashboard – Generates actionable insights to prevent failures and improve safety.
+
+Website Link: https://bharattrack.vercel.app/
+

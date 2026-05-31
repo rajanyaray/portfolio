@@ -36,6 +36,7 @@
   pointer-events: none;
   z-index: 0;
   border-radius: inherit;
+  opacity: 0.6;
 }
 
 /* keep all navbar children above canvas */

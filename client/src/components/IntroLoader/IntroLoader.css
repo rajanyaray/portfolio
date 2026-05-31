@@ -1,7 +1,7 @@
 .intro-loader-overlay {
   position: fixed;
   z-index: 999999;
-  background-color: #ffffff;
+  background-color: #000000; /* Start black */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -12,6 +12,18 @@
   box-shadow: 0 0 0 rgba(0, 0, 0, 0);
 }
 
+@keyframes bgChange {
+  0% {
+    background-color: #000000;
+  }
+  30% {
+    background-color: #000000;
+  }
+  100% {
+    background-color: #4c1d95; /* Elegant deep violet space bg */
+  }
+}
+
 .intro-loader-overlay.playing {
   top: 0;
   left: 0;
@@ -19,9 +31,11 @@
   height: 100vh;
   border-radius: 0px;
   pointer-events: auto; /* Prevent clicking background during loader */
+  animation: bgChange 4.5s forwards cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .intro-loader-overlay.shrinking {
+  background-color: #6d28d9; /* Violet color matching the logo accent */
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25), 0 0 15px rgba(167, 139, 250, 0.3);
   border: 1px solid rgba(167, 139, 250, 0.2);
 }
@@ -29,8 +43,9 @@
 .intro-video {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  background-color: #ffffff;
+  object-fit: cover;
+  transform: scale(1.25); /* Zoom in to crop outer margins and keep only the subject */
+  mix-blend-mode: multiply; /* Blends white video background to transparency */
   transition: opacity 0.5s ease-in-out;
 }
 

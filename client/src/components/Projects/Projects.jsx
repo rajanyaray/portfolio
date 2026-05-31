@@ -8,162 +8,106 @@ import pw1 from "../../assets/pw1.jpeg";
 import pw2 from "../../assets/pw2.jpeg";
 import pw3 from "../../assets/pw3.jpeg";
 import pw4 from "../../assets/pw4.jpeg";
-import pw6 from "../../assets/pw6.jpeg";
+import pw5 from "../../assets/pw5.jpeg";
+
+// CAROUSEL PICTURES
+import p1 from "../../assets/p1.png";
+import p2 from "../../assets/p2.png";
+import p3 from "../../assets/p3.png";
+import p4 from "../../assets/p4.png";
+import p5 from "../../assets/p5.png";
 
 const projects = [
   {
     title: "KrishiDrishti",
-    tagline: "Personal developer showcase",
-    img: pw1,
+    tagline: "Real time tracking of utilization of machines for Crop Residue Management machines",
+    img: p1,
     panelImg: pw1,
     ribbon: ["FULL STACK", "REACT", "PORTFOLIO", "UI/UX", "ANIMATIONS", "FRAMER MOTION", "RESPONSIVE", "CREATIVE"],
-    desc: "A sleek and interactive portfolio website designed to showcase skills, projects, and experience with smooth animations and engaging UI.",
-    features: ["Smooth page transitions", "Interactive project cards", "Dark/Light mode", "Responsive design", "Custom animations"],
-    tech: ["Next.js",
-  "TypeScript",
-  "Tailwind CSS",
-  "Python",
-  "TensorFlow",
-  "Scikit-Learn",
-  "OpenCV",
-  "FastAPI",
-  "Node.js",
-  "MongoDB",
-  "PostgreSQL",
-  "ESP32",
-  "MQTT",
-  "AWS",
-  "Docker"],
-    involvement: "Full Stack Development",
-    images: [pw1],
+    desc: "KrishiDrishti is scalable AI and IoT platform for crop residue management. Integrates machine learning and real-time data pipelines to track agricultural machinery, boosting operational efficiency by 70%.",
+    features: [
+      "Real-Time Machine Tracking – Live location and status monitoring (Active, Idle, Maintenance).",
+      "Machine Management System – Complete CRUD operations for agricultural machinery.",
+      "Smart Utilization Analytics – Dashboard with KPI metrics, runtime analysis, and usage insights.",
+      "Automated Alert Management – Instant notifications for idle machines and low utilization.",
+      "CHC Management Portal – Centralized portal with multiple modules for CHC operations.",
+      "Transparency & Insight Reports – Public transparency portal with auto-generated reports for decision-makers."
+    ],
+    tech: ["Next.js", "TypeScript", "Tailwind CSS", "Python", "TensorFlow", "Scikit-Learn", "OpenCV", "FastAPI", "Node.js", "MongoDB", "PostgreSQL", "ESP32", "MQTT", "AWS", "Docker"],
+    url: "https://krishidrishti.vercel.app/",
   },
   {
     title: "TrialGo",
-    tagline: "Task manager with clean UI",
-    img: pw2,
+    tagline: "End-to-end clinical trial automation platform powered by AI",
+    img: p2,
     panelImg: pw2,
     ribbon: ["PRODUCTIVITY", "REACT", "CRUD", "LOCAL STORAGE", "CLEAN UI", "MINIMALIST", "FAST", "INTUITIVE"],
-    desc: "A beautifully designed task manager app with real-time updates, priority sorting, and persistent local storage integration.",
-    features: ["Drag & drop tasks", "Priority labels", "Due date reminders", "Local persistence", "Category filters"],
-    tech: [
-  "Next.js",
-  "React",
-  "TypeScript",
-  "Tailwind CSS",
-  "Python",
-  "FastAPI",
-  "PostgreSQL",
-  "Amazon RDS",
-  "AWS S3",
-  "Redis",
-  "Celery",
-  "LangChain",
-  "Hugging Face",
-  "WebSockets",
-  "JWT",
-  "FHIR R4",
-  "Twilio",
-  "SendGrid",
-  "Scrapy",
-  "Docker"
-],
-    involvement: "Frontend Development",
-    images: [pw2],
+    desc: "TrialGo is an AI-powered platform that streamlines the clinical trial ecosystem by connecting patients, researchers, and sponsors, making trial discovery, participation, and management faster and more accessible.",
+    features: [
+      "AI-Powered Patient Discovery – Finds eligible participants based on medical profiles.",
+      "15+ Specialized AI Agents – Automate sourcing, screening, matching, and trial coordination.",
+      "Intelligent Trial Matching – Connects patients with the most relevant clinical trials.",
+      "Automated Candidate Recruitment – Scans global registries and healthcare platforms to identify candidates.",
+      "Real-Time Monitoring & Retention – Tracks engagement and predicts participant dropouts.",
+      "Unified Clinical Trial Platform – Manages discovery, recruitment, consent, and retention in one ecosystem."
+    ],
+    tech: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Python", "FastAPI", "PostgreSQL", "Amazon RDS", "AWS S3", "Redis", "Celery", "LangChain", "Hugging Face", "WebSockets", "JWT", "FHIR R4", "Twilio", "SendGrid", "Scrapy", "Docker"],
+    url: "N/A right now",
   },
   {
     title: "StegoChain",
-    tagline: "Smart agriculture assistant",
-    img: pw3,
+    tagline: "Blockchain-backed steganographic communication system.",
+    img: p3,
     panelImg: pw3,
     ribbon: ["AI/ML", "AGRICULTURE", "PYTHON", "COMPUTER VISION", "DEEP LEARNING", "CROP DETECTION", "IOT", "SMART FARMING"],
-    desc: "An AI-powered agriculture assistant that leverages computer vision and machine learning to detect crop diseases and recommend treatments.",
-    features: ["Disease detection", "Crop health analysis", "Treatment suggestions", "Weather integration", "Multilingual support"],
-    tech: [ "React",
-  "TypeScript",
-  "Tailwind CSS",
-  "Python",
-  "FastAPI",
-  "OpenCV",
-  "Cryptography",
-  "AES Encryption",
-  "Steganography",
-  "Solidity",
-  "Ethereum",
-  "Sepolia",
-  "MetaMask",
-  "Ethers.js",
-  "MongoDB",
-  "IPFS",
-  "Web3"],
-    involvement: "ML Engineering",
-    images: [pw3],
+    desc: "StegoChain is a blockchain-powered secure communication platform that hides encrypted messages inside images and audio using advanced steganography techniques.",
+    features: [
+      "Steganographic Message Hiding – Securely hides encrypted messages inside images and audio files.",
+      "AES-256-GCM Encryption – Military-grade encryption ensures confidentiality and data integrity.",
+      "Ethereum Blockchain Integration – Stores communication records on-chain for tamper-proof verification.",
+      "IPFS Decentralized Storage – Distributes encrypted files across a decentralized storage network.",
+      "ECC-Based Cryptography – Uses Elliptic Curve Cryptography for secure key generation and exchange.",
+      "AI-Powered Threat Monitoring – Graph Neural Networks analyze patterns to detect suspicious activities and enhance security."
+    ],
+    tech: ["React", "TypeScript", "Tailwind CSS", "Python", "FastAPI", "OpenCV", "Cryptography", "AES Encryption", "Steganography", "Solidity", "Ethereum", "Sepolia", "MetaMask", "Ethers.js", "MongoDB", "IPFS", "Web3"],
+    url: "https://stegochain.vercel.app/",
   },
   {
     title: "TruthScope",
-    tagline: "Fake news detection system",
-    img: pw4,
+    tagline: "AI-powered Chrome extension for real-time fact-checking and misinformation detection",
+    img: p4,
     panelImg: pw4,
     ribbon: ["NLP", "FAKE NEWS", "BERT", "PYTHON", "AI", "CLASSIFICATION", "DEEP LEARNING", "SOCIAL IMPACT"],
-    desc: "A sophisticated fake news detection system using NLP and transformer models to classify news articles with high accuracy.",
-    features: ["BERT classification", "Real-time analysis", "Source credibility", "Confidence scoring", "Browser extension"],
-    tech: [ "Next.js",
-  "React",
-  "TypeScript",
-  "Tailwind CSS",
-  "Python",
-  "FastAPI",
-  "Tavily API",
-  "Hugging Face",
-  "Chrome Extension",
-  "Google OAuth",
-  "JavaScript",
-  "REST API"
-          ],
-    involvement: "NLP Engineering",
-    images: [pw4],
+    desc: "TruthScope is an AI-powered browser extension that detects fake news, misinformation, and media bias in real time using credibility scoring and fact-checking analysis.",
+    features: [
+      "AI-Powered Fake News Detection – Identifies misleading and false information in real time.",
+      "Deepfake & Media Verification – Detects manipulated images and videos using AI analysis.",
+      "Real-Time Fact Checking – Instantly verifies online content through the browser extension.",
+      "Source Credibility Analysis – Evaluates and scores the trustworthiness of news sources.",
+      "Media Bias Detection – Identifies political or ideological bias within articles.",
+      "Multi-Language Support – Performs fact-checking and verification across different languages."
+    ],
+    tech: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Python", "FastAPI", "Tavily API", "Hugging Face", "Chrome Extension", "Google OAuth", "JavaScript", "REST API"],
+    url: "https://truthscopee.vercel.app/",
   },
   {
     title: "BharatTrack",
-    tagline: "Community service platform",
-    img: pw6,
-    panelImg: pw6,
+    tagline: "Smart railway track inspection and analytics platform",
+    img: p5,
+    panelImg: pw5,
     ribbon: ["SOCIAL IMPACT", "FULL STACK", "COMMUNITY", "NODE.JS", "MONGODB", "MAPS API", "VOLUNTEER", "NGO"],
-    desc: "A community service platform connecting volunteers with NGOs and social causes, featuring real-time tracking and impact metrics.",
-    features: ["Volunteer matching", "Real-time tracking", "Impact dashboard", "Event management", "Certificate generation"],
-    tech: ["React",
-  "Next.js",
-  "TypeScript",
-  "Tailwind CSS",
-  "Node.js",
-  "Express.js",
-  "Python",
-  "OpenCV",
-  "NumPy",
-  "Pandas",
-  "ESP32",
-  "Arduino UNO",
-  "VL53L0X",
-  "MPU6050",
-  "GPS Module",
-  "MQTT",
-  "Socket.io",
-  "MongoDB",
-  "PostgreSQL"],
-    involvement: "Full Stack Development",
-    images: [pw6],
-  },
-  {
-    title: "BharatTrack",
-    tagline: "Cybersecurity-based game",
-    img: pw6,
-    panelImg: pw6,
-    ribbon: ["GAME DEV", "CYBERSECURITY", "CTF", "JAVASCRIPT", "PUZZLES", "ENCRYPTION", "HACKING", "INTERACTIVE"],
-    desc: "An immersive cybersecurity-themed game where players solve encryption puzzles and hacking challenges in a race against time.",
-    features: ["Progressive difficulty", "Real crypto concepts", "Leaderboard system", "Time challenges", "Hint system"],
-    tech: ["JavaScript", "Canvas API", "Node.js", "WebSockets", "CSS3"],
-    involvement: "Game Development",
-    images: [pw6],
-  },
+    desc: "BharatTrack is an AI-powered indigenous railway track monitoring system that analyzes track geometry, rail wear, and dynamic stability in real time at speeds up to 200 km/h.",
+    features: [
+      "Real-Time Track Monitoring – Continuously analyzes track geometry, rail wear, and stability.",
+      "High-Speed Inspection – Operates accurately at speeds up to 200 km/h.",
+      "AI-Powered Defect Detection – Uses computer vision and machine learning to identify track anomalies.",
+      "Modular Sensor Architecture – Plug-and-play subsystems for easy upgrades and maintenance.",
+      "Synchronized Video Analytics – Combines sensor data with onboard video for comprehensive inspection.",
+      "Predictive Maintenance Dashboard – Generates actionable insights to prevent failures and improve safety."
+    ],
+    tech: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Node.js", "Express.js", "Python", "OpenCV", "NumPy", "Pandas", "ESP32", "Arduino UNO", "VL53L0X", "MPU6050", "GPS Module", "MQTT", "Socket.io", "MongoDB", "PostgreSQL"],
+    url: "https://bharattrack.vercel.app/",
+  }
 ];
 
 // ── Floating Paths Background (Dynamic Framer Motion) ───────────────────────
@@ -301,102 +245,7 @@ function TechChip({ label }) {
   );
 }
 
-// ── Involvement Flip Card (UNCHANGED) ────────────────────────────────────────
-function InvolvementCard({ text }) {
-  return (
-    <div className="inv-card">
-      <div className="inv-inner">
-        <div className="inv-front">
-          <span>MY INVOLVEMENT</span>
-          <div className="inv-corner tl" /><div className="inv-corner tr" />
-          <div className="inv-corner bl" /><div className="inv-corner br" />
-        </div>
-        <div className="inv-back">
-          <div className="inv-back-glow" />
-          <span>{text}</span>
-        </div>
-      </div>
-    </div>
-  );
-}
 
-// ── Carousel (UNCHANGED) ─────────────────────────────────────────────────────
-function Carousel({ images }) {
-  const [active, setActive] = useState(0);
-  const [dragging, setDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const timerRef = useRef(null);
-
-  const resetTimer = () => {
-    clearInterval(timerRef.current);
-    timerRef.current = setInterval(() => setActive((p) => (p + 1) % images.length), 3000);
-  };
-
-  useEffect(() => {
-    timerRef.current = setInterval(() => setActive((p) => (p + 1) % images.length), 3000);
-    return () => clearInterval(timerRef.current);
-  }, [images.length]);
-
-  const prev = () => { setActive((p) => (p - 1 + images.length) % images.length); resetTimer(); };
-  const next = () => { setActive((p) => (p + 1) % images.length); resetTimer(); };
-
-  const onDragStart = (e) => { setDragging(true); setStartX(e.touches ? e.touches[0].clientX : e.clientX); };
-  const onDragEnd = (e) => {
-    if (!dragging) return;
-    const endX = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
-    if (startX - endX > 50) next();
-    else if (endX - startX > 50) prev();
-    setDragging(false);
-  };
-
-  return (
-    <div className="carousel-wrap">
-      <div
-        className="carousel-stage"
-        onMouseDown={onDragStart}
-        onMouseUp={onDragEnd}
-        onTouchStart={onDragStart}
-        onTouchEnd={onDragEnd}
-      >
-        {images.map((img, i) => {
-          const offset = (i - active + images.length) % images.length;
-          let cls = "carousel-slide";
-          if (offset === 0) cls += " car-active";
-          else if (offset === 1 || offset === images.length - 1) cls += " car-side";
-          else cls += " car-hidden";
-          const isLeft = offset === images.length - 1;
-          return (
-            <div
-              key={i}
-              className={cls}
-              style={{ "--dir": isLeft ? -1 : 1 }}
-              onClick={() => { if (offset !== 0) { offset < images.length / 2 ? next() : prev(); } }}
-            >
-              <img src={img} alt="" />
-              <div className="car-glare" />
-            </div>
-          );
-        })}
-      </div>
-
-      <div className="carousel-nav">
-        <button className="car-btn" onClick={prev}>‹</button>
-        <div className="car-dots">
-          {images.map((_, i) => (
-            <button
-              key={i}
-              className={`car-dot ${i === active ? "active" : ""}`}
-              onClick={() => { setActive(i); resetTimer(); }}
-            />
-          ))}
-        </div>
-        <button className="car-btn" onClick={next}>›</button>
-      </div>
-
-      <div className="carousel-counter">{active + 1} / {images.length}</div>
-    </div>
-  );
-}
 
 // ── Panel image with hover effects ──────────────────────────────────────────
 function PanelImage({ src, alt }) {
@@ -422,9 +271,17 @@ function PanelImage({ src, alt }) {
 }
 
 // ── Website button (from website.txt) ───────────────────────────────────────
-function WebsiteButton() {
+function WebsiteButton({ url }) {
+  if (!url || url === "N/A right now") return null;
+
   return (
-    <div className="ws-group">
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="ws-group"
+      style={{ textDecoration: "none" }}
+    >
       <div className="ws-tooltip">
         <div className="ws-tooltip-inner">
           <svg fill="none" viewBox="0 0 24 24" height="20px" width="20px" className="ws-globe">
@@ -450,7 +307,7 @@ function WebsiteButton() {
         </svg>
         <span className="ws-label">View Live Website</span>
       </div>
-    </div>
+    </a>
   );
 }
 
@@ -504,7 +361,7 @@ function ProjectPanel({ proj, onClose }) {
 
         {/* BOTTOM: Center premium sliding Website Button */}
         <div className="panel-bottom-action">
-          <WebsiteButton />
+          <WebsiteButton url={proj.url} />
         </div>
       </div>
     </div>

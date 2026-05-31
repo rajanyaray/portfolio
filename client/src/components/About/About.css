@@ -453,17 +453,31 @@ body[data-theme="light"] {
 
 /* 4. Light Mode Timeline Contrast Enhancement (Frosted Ice Pop) */
 body[data-theme="light"] .vertical-timeline-element-content {
-  background: rgba(255, 255, 255, 0.72) !important; /* Frosted white glass card sheet */
+  background: rgba(255, 255, 255, 0.85) !important; /* Frosted white glass card sheet */
   backdrop-filter: blur(25px) !important;
   -webkit-backdrop-filter: blur(25px) !important;
   border-color: rgba(109, 40, 217, 0.28) !important; /* Highly defined violet border */
   box-shadow: 
     0 12px 35px rgba(109, 40, 217, 0.06), 
     0 0 20px rgba(109, 40, 217, 0.04) !important;
+  color: #1e1440 !important;
 }
 
 body[data-theme="light"] .vertical-timeline-element-content-arrow {
-  border-right: 8px solid rgba(255, 255, 255, 0.72) !important; /* Matches card background seamlessly */
+  border-right: 8px solid rgba(255, 255, 255, 0.85) !important; /* Matches card background seamlessly */
+}
+
+body[data-theme="light"] .vtl-subtitle {
+  color: rgba(30, 20, 64, 0.7) !important; /* Highly visible slate-indigo */
+}
+
+body[data-theme="light"] .vtl-desc {
+  color: rgba(30, 20, 64, 0.88) !important; /* Super readable deep violet-charcoal */
+}
+
+body[data-theme="light"] .vertical-timeline-element-date {
+  color: #4c1d8f !important; /* Visible deep purple date */
+  opacity: 0.9 !important;
 }
 
 .vtl-title {
@@ -723,7 +737,7 @@ body[data-theme="light"] .vertical-timeline-element-content-arrow {
 .abox-content {
   position: absolute; inset: 0; z-index: 5;
   display: grid;
-  grid-template-columns: 170px 1fr;
+  grid-template-columns: 200px 1fr; /* Increased to 200px for larger profile size */
   gap: 0 20px;
   padding: 12px 24px;
   align-items: center;
@@ -739,7 +753,7 @@ body[data-theme="light"] .vertical-timeline-element-content-arrow {
 
 .abox-photo-frame {
   position: relative;
-  width: 124px; height: 124px;
+  width: 158px; height: 158px; /* Increased from 124px */
   flex-shrink: 0;
 }
 
@@ -749,14 +763,14 @@ body[data-theme="light"] .vertical-timeline-element-content-arrow {
   transform: translate(-50%, -50%);
   border-style: dashed;
 }
-.abox-orbit-1 { width: 140px;  height: 140px;  border: 1.5px dashed rgba(167,139,250,0.5); animation: orbitSpin 10s linear infinite; }
+.abox-orbit-1 { width: 176px;  height: 176px;  border: 1.5px dashed rgba(167,139,250,0.5); animation: orbitSpin 10s linear infinite; }
 .abox-orbit-2 { width: 162px; height: 162px; border: 1px dashed rgba(56,189,248,0.3);    animation: orbitSpin 16s linear infinite reverse; }
 @keyframes orbitSpin { to { transform: translate(-50%, -50%) rotate(360deg); } }
 
 .abox-photo-glow {
   position: absolute; top: 50%; left: 50%;
   transform: translate(-50%, -50%);
-  width: 115px; height: 115px; border-radius: 50%;
+  width: 148px; height: 148px; border-radius: 50%; /* Increased from 115px */
   background: radial-gradient(circle, rgba(167,139,250,0.4), transparent 70%);
   filter: blur(8px);
   animation: glowPulse 3.5s ease-in-out infinite;
@@ -769,7 +783,7 @@ body[data-theme="light"] .vertical-timeline-element-content-arrow {
 .abox-photo-circle {
   position: absolute; top: 50%; left: 50%;
   transform: translate(-50%, -50%);
-  width: 102px; height: 102px;
+  width: 132px; height: 132px; /* Increased from 102px */
   border-radius: 50%; overflow: hidden;
   border: 2.5px solid rgba(236, 72, 153, 0.85);
   box-shadow: 0 0 24px rgba(236, 72, 153, 0.4), inset 0 0 12px rgba(0,0,0,0.15);
@@ -788,9 +802,7 @@ body[data-theme="light"] .vertical-timeline-element-content-arrow {
   display: block;
 }
 
-@media (prefers-color-scheme: light) {
-  .abox-photo-bg { background: #ffffff; }
-}
+body[data-theme="light"] .abox-photo-bg { background: #ffffff; }
 
 .abox-orb-dot {
   position: absolute;
@@ -1054,9 +1066,7 @@ body[data-theme="light"] .vertical-timeline-element-content-arrow {
 }
 
 /* Light mode override styling */
-@media (prefers-color-scheme: light) {
-  .card-time-cloud-back { background: #fff8f2; }
-}
+body[data-theme="light"] .card-time-cloud-back { background: #fff8f2; }
 
 .ctc-greeting {
   font-family: 'Syne', sans-serif;
@@ -1481,28 +1491,38 @@ body[data-theme="light"] .vertical-timeline-element-content-arrow {
 /* ═══════════════════════════════════════════
    LIGHT MODE OVERRIDES
 ═══════════════════════════════════════════ */
-@media (prefers-color-scheme: light) {
-  .cp-back   { background: #f5f3ff; }
-  .cp-back-inner { 
-    background: rgba(245, 243, 255, 0.75); 
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    color: #1a0533; 
-  }
-  .cp-front {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.4));
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    box-shadow: 
-      0 15px 35px rgba(0, 0, 0, 0.1),
-      inset 0 1px 0 rgba(255, 255, 255, 0.6),
-      0 0 25px rgba(245, 158, 11, 0.15);
-  }
-  .abox-tag  { background: rgba(124,58,237,0.05); border-color: rgba(124,58,237,0.15); }
-  .abox-badge { background: rgba(124,58,237,0.06); border-color: rgba(124,58,237,0.18); }
-  .card-time-cloud-back { background: #fff8f2; }
-  .ctc-location { color: #333; }
+body[data-theme="light"] .cp-back   { background: #f5f3ff; }
+body[data-theme="light"] .cp-back-inner { 
+  background: rgba(245, 243, 255, 0.75); 
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  color: #1a0533; 
+}
+body[data-theme="light"] .cp-front {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.4));
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 
+    0 15px 35px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    0 0 25px rgba(245, 158, 11, 0.15);
+}
+body[data-theme="light"] .abox-tag  { background: rgba(124,58,237,0.05); border-color: rgba(124,58,237,0.15); }
+body[data-theme="light"] .abox-badge { background: rgba(124,58,237,0.06); border-color: rgba(124,58,237,0.18); }
+body[data-theme="light"] .card-time-cloud-back { background: #fff8f2; }
+body[data-theme="light"] .ctc-location { color: #333; }
+
+/* Cloud card theme modifications */
+body[data-theme="light"] .card-time-cloud {
+  --color1: #6d28d9; /* Deep violet text and borders */
+  --skycolor: rgba(224, 231, 255, 0.5); /* Soft lavender-blue sky */
+  box-shadow: 0 8px 30px rgba(109, 40, 217, 0.1);
+}
+body[data-theme="light"] .card-time-cloud-front {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(245, 243, 255, 0.95));
+  border: 1px solid rgba(109, 40, 217, 0.2);
+  color: #1e1440;
 }
 
 /* ═══════════════════════════════════════════
@@ -1607,23 +1627,21 @@ body[data-theme="light"] .vertical-timeline-element-content-arrow {
 }
 
 /* Light mode overrides for weather card */
-@media (prefers-color-scheme: light) {
-  .weather-card {
-    background-color: #DCDFE4;
-    color: #333;
-  }
-  .weather-card:hover {
-    background-color: #bfdbfe;
-  }
-  .weather-card-title {
-    color: #333;
-  }
-  .weather-card-temp {
-    color: #333;
-  }
-  .weather-card-details {
-    color: #333;
-  }
+body[data-theme="light"] .weather-card {
+  background-color: #DCDFE4;
+  color: #333;
+}
+body[data-theme="light"] .weather-card:hover {
+  background-color: #bfdbfe;
+}
+body[data-theme="light"] .weather-card-title {
+  color: #333;
+}
+body[data-theme="light"] .weather-card-temp {
+  color: #333;
+}
+body[data-theme="light"] .weather-card-details {
+  color: #333;
 }
 
 /* ============================================================

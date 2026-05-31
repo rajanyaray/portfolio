@@ -3,7 +3,7 @@ import { ThemeContext } from "../../context/ThemeContext";
 import { motion } from "framer-motion";
 import { User, Code, Folder, Trophy, Mail, Menu, X } from "lucide-react";
 import "./Navbar.css";
-import logoJpg from "../../assets/logo.jpg";
+import logoPng from "../../assets/logo.png";
 import useActiveSection from "../../hooks/useActiveSection";
 
 const navItems = [
@@ -83,7 +83,7 @@ function CosmosCanvas() {
       r: Math.random() * 1.8 + 0.5,          // radius 0.5–2.3
       speedX: (Math.random() - 0.5) * 0.35,
       speedY: (Math.random() - 0.5) * 0.25,
-      alpha: Math.random() * 0.6 + 0.3,       // 0.3–0.9
+      alpha: Math.random() * 0.25 + 0.1,      // 0.1–0.35 (softer background particles)
       pulse: Math.random() * Math.PI * 2,     // phase offset for pulsing
     }));
 
@@ -198,7 +198,7 @@ const Navbar = ({ isIntroActive }) => {
         <div className="logo-container">
           <div className="logo-glow" />
           <div className="logo-ring" />
-          <img src={logoJpg} alt="logo" className="logo-img" />
+          <img src={logoPng} alt="logo" className="logo-img" />
         </div>
       </div>
 

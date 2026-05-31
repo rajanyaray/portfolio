@@ -3,6 +3,7 @@ import * as THREE from "three";
 import "./contact.css";
 import SectionHeading from "../SectionHeading/SectionHeading";
 import BeamGridBackground from "./BeamGridBackground";
+import contactImg from "../../assets/contact.jpg";
 
 export default function Contact() {
   const [email, setEmail] = useState("");
@@ -253,7 +254,7 @@ export default function Contact() {
             <div className="photo-corner c4" />
             <div className="photo-scan-line" />
             <div className="photo-glow-ring" />
-            <img src="connect.png" alt="Profile" className="profile-photo" />
+            <img src={contactImg} alt="Profile" className="profile-photo" />
             <div className="photo-overlay-gradient" />
           </div>
 

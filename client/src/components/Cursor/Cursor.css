@@ -28,8 +28,7 @@
   --cur-ring-transition: 0.38s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-[data-theme="light"],
-.light {
+body[data-theme="light"] {
   --cur-dot-color: #6b1a4a;
   --cur-ring-color: rgba(190, 100, 140, 0.13);
   --cur-ring-border: rgba(190, 100, 150, 0.45);
@@ -38,19 +37,6 @@
   --cur-trail-border: rgba(190, 130, 180, 0.28);
   --cur-spark-color: #c4719a;
   --cur-mix-mode: multiply;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    --cur-dot-color: #6b1a4a;
-    --cur-ring-color: rgba(190, 100, 140, 0.13);
-    --cur-ring-border: rgba(190, 100, 150, 0.45);
-    --cur-glow: rgba(210, 110, 150, 0.38);
-    --cur-trail-color: rgba(200, 160, 200, 0.1);
-    --cur-trail-border: rgba(190, 130, 180, 0.28);
-    --cur-spark-color: #c4719a;
-    --cur-mix-mode: multiply;
-  }
 }
 
 /* ── Core Dot ──────────────────────────────── */

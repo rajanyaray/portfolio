@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./IntroLoader.css";
 import introVideo from "../../assets/intro.mp4";
-import logoImg from "../../assets/logo.jpg";
+import logoImg from "../../assets/logo.png";
 
 export default function IntroLoader({ state, onVideoEnded, onShrinkDone }) {
   const videoRef = useRef(null);
