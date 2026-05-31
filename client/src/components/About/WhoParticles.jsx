@@ -64,7 +64,7 @@ export default function WhoParticles() {
         position: absolute;
         top: 0;
         left: 0;
-        opacity: ${isDarkMode ? 0.65 : 0.38};
+        opacity: ${isDarkMode ? 0.15 : 0.08};
         transform-origin: top;
         transition: all 5s linear 0s;
         pointer-events: none;

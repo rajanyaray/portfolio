@@ -119,12 +119,184 @@ function LiveClock() {
   );
 }
 
+// ── Weather Icon (Dynamic & Animated SVG) ───────────────────────────────────
+function WeatherIcon({ code }) {
+  // Clear Sky
+  if (code === 0) {
+    return (
+      <svg viewBox="0 0 64 64" className="weather-card-svg">
+        <defs>
+          <linearGradient id="sun-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#ffb300" />
+            <stop offset="100%" stopColor="#f57c00" />
+          </linearGradient>
+        </defs>
+        <g>
+          <animateTransform
+            attributeName="transform"
+            type="rotate"
+            from="0 32 32"
+            to="360 32 32"
+            dur="25s"
+            repeatCount="indefinite"
+          />
+          <circle cx="32" cy="32" r="12" fill="url(#sun-grad)" />
+          {[...Array(8)].map((_, i) => (
+            <g key={i} transform={`rotate(${i * 45} 32 32)`}>
+              <line
+                x1="32" y1="16" x2="32" y2="4"
+                stroke="#ffb300" strokeWidth="3" strokeLinecap="round"
+                style={{ animation: "weatherPulse 2s ease-in-out infinite", animationDelay: `${i * 0.25}s` }}
+              />
+            </g>
+          ))}
+        </g>
+      </svg>
+    );
+  }
+
+  // Cloudy / Overcast
+  if (code === 1 || code === 2 || code === 3) {
+    return (
+      <svg viewBox="0 0 64 64" className="weather-card-svg" style={{ animation: "weatherFloat 4s ease-in-out infinite" }}>
+        <defs>
+          <linearGradient id="cloud-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#f3f7fe" />
+            <stop offset="100%" stopColor="#deeafb" />
+          </linearGradient>
+          <linearGradient id="sun-grad-cloud" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#ffb300" />
+            <stop offset="100%" stopColor="#f57c00" />
+          </linearGradient>
+        </defs>
+        <circle cx="22" cy="22" r="8" fill="url(#sun-grad-cloud)" />
+        <path
+          d="M46.5 31.5h-.32a10.49 10.49 0 00-19.11-8 7 7 0 00-10.57 6 7.21 7.21 0 00.1 1.14A7.5 7.5 0 0018 45.5a4.19 4.19 0 00.5 0v0h28a7 7 0 000-14z"
+          fill="url(#cloud-grad)"
+          stroke="#e6effc"
+          strokeWidth="0.5"
+        />
+      </svg>
+    );
+  }
+
+  // Fog
+  if (code === 45 || code === 48) {
+    return (
+      <svg viewBox="0 0 64 64" className="weather-card-svg" style={{ animation: "weatherFloat 4s ease-in-out infinite" }}>
+        <defs>
+          <linearGradient id="cloud-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#f3f7fe" />
+            <stop offset="100%" stopColor="#deeafb" />
+          </linearGradient>
+        </defs>
+        <path
+          d="M46.5 31.5h-.32a10.49 10.49 0 00-19.11-8 7 7 0 00-10.57 6 7.21 7.21 0 00.1 1.14A7.5 7.5 0 0018 45.5a4.19 4.19 0 00.5 0v0h28a7 7 0 000-14z"
+          fill="url(#cloud-grad)"
+          stroke="#e6effc"
+          strokeWidth="0.5"
+        />
+        <line x1="20" y1="48" x2="44" y2="48" stroke="#cfd8dc" strokeWidth="2" strokeLinecap="round" style={{ animation: "weatherFog 3s ease-in-out infinite" }} />
+        <line x1="24" y1="52" x2="40" y2="52" stroke="#cfd8dc" strokeWidth="2" strokeLinecap="round" style={{ animation: "weatherFog 3s ease-in-out infinite", animationDelay: "1.5s" }} />
+      </svg>
+    );
+  }
+
+  // Drizzle / Light Rain
+  if (code >= 51 && code <= 57) {
+    return (
+      <svg viewBox="0 0 64 64" className="weather-card-svg" style={{ animation: "weatherFloat 4s ease-in-out infinite" }}>
+        <defs>
+          <linearGradient id="cloud-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#f3f7fe" />
+            <stop offset="100%" stopColor="#deeafb" />
+          </linearGradient>
+        </defs>
+        <path
+          d="M46.5 31.5h-.32a10.49 10.49 0 00-19.11-8 7 7 0 00-10.57 6 7.21 7.21 0 00.1 1.14A7.5 7.5 0 0018 45.5a4.19 4.19 0 00.5 0v0h28a7 7 0 000-14z"
+          fill="url(#cloud-grad)"
+          stroke="#e6effc"
+          strokeWidth="0.5"
+        />
+        {[...Array(3)].map((_, i) => (
+          <line
+            key={i}
+            x1={24 + i * 8} y1="46" x2={22 + i * 8} y2="54"
+            stroke="#90caf9" strokeWidth="2.5" strokeLinecap="round"
+            style={{
+              animation: "weatherRain 1.4s linear infinite",
+              animationDelay: `${i * 0.45}s`
+            }}
+          />
+        ))}
+      </svg>
+    );
+  }
+
+  // Thunderstorm
+  if (code >= 95) {
+    return (
+      <svg viewBox="0 0 64 64" className="weather-card-svg" style={{ animation: "weatherFloat 4s ease-in-out infinite" }}>
+        <defs>
+          <linearGradient id="dark-cloud" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#90a4ae" />
+            <stop offset="100%" stopColor="#37474f" />
+          </linearGradient>
+        </defs>
+        <path
+          d="M46.5 31.5h-.32a10.49 10.49 0 00-19.11-8 7 7 0 00-10.57 6 7.21 7.21 0 00.1 1.14A7.5 7.5 0 0018 45.5a4.19 4.19 0 00.5 0v0h28a7 7 0 000-14z"
+          fill="url(#dark-cloud)"
+          stroke="#b0bec5"
+          strokeWidth="0.5"
+        />
+        <polygon
+          points="32,44 27,51 31,51 28,59 37,49 33,49"
+          fill="#ffd53e"
+          style={{
+            animation: "weatherLightning 1.6s linear infinite"
+          }}
+        />
+      </svg>
+    );
+  }
+
+  // Heavy Rain / Default Fallback
+  return (
+    <svg viewBox="0 0 64 64" className="weather-card-svg" style={{ animation: "weatherFloat 4s ease-in-out infinite" }}>
+      <defs>
+        <linearGradient id="cloud-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#f3f7fe" />
+          <stop offset="100%" stopColor="#deeafb" />
+        </linearGradient>
+      </defs>
+      <path
+        d="M46.5 31.5h-.32a10.49 10.49 0 00-19.11-8 7 7 0 00-10.57 6 7.21 7.21 0 00.1 1.14A7.5 7.5 0 0018 45.5a4.19 4.19 0 00.5 0v0h28a7 7 0 000-14z"
+        fill="url(#cloud-grad)"
+        stroke="#e6effc"
+        strokeWidth="0.5"
+      />
+      {[...Array(3)].map((_, i) => (
+        <line
+          key={i}
+          x1={24 + i * 8} y1="46" x2={22 + i * 8} y2="54"
+          stroke="#4286ee" strokeWidth="2.5" strokeLinecap="round"
+          style={{
+            animation: "weatherRain 1s linear infinite",
+            animationDelay: `${i * 0.3}s`
+          }}
+        />
+      ))}
+    </svg>
+  );
+}
+
 // ── Weather Card (Kolkata real-time weather) ────────────────────────────────
 function WeatherCard() {
   const [weather, setWeather] = useState({
     temp: "--°",
     desc: "Fetching...",
-    humidity: "--% humidity"
+    humidity: "--% humidity",
+    code: null
   });
 
   useEffect(() => {
@@ -148,7 +320,8 @@ function WeatherCard() {
           setWeather({
             temp: `${tempVal}°`,
             desc: descVal,
-            humidity: `${humidityVal}% humidity`
+            humidity: `${humidityVal}% humidity`,
+            code: code
           });
         }
       })
@@ -157,7 +330,8 @@ function WeatherCard() {
         setWeather({
           temp: "31°",
           desc: "Cloudy",
-          humidity: "62% humidity"
+          humidity: "62% humidity",
+          code: 2
         });
       });
   }, []);
@@ -166,151 +340,9 @@ function WeatherCard() {
     <div className="weather-card">
       <h3 className="weather-card-title">Kolkata</h3>
       <div className="weather-card-body">
-        <svg
-          viewBox="0 0 64 64"
-          xmlnsXlink="http://www.w3.org/1999/xlink"
-          xmlns="http://www.w3.org/2000/svg"
-          className="weather-card-svg"
-        >
-          <defs>
-            <linearGradient
-              gradientUnits="userSpaceOnUse"
-              y2="28.33"
-              y1="19.67"
-              x2="21.5"
-              x1="16.5"
-              id="b"
-            >
-              <stop stopColor="#e2b96f" offset="0"></stop>
-              <stop stopColor="#e2b96f" offset=".45"></stop>
-              <stop stopColor="#c9943e" offset="1"></stop>
-            </linearGradient>
-            <linearGradient
-              gradientUnits="userSpaceOnUse"
-              y2="50.8"
-              y1="21.96"
-              x2="39.2"
-              x1="22.56"
-              id="c"
-            >
-              <stop stopColor="#f3f7fe" offset="0"></stop>
-              <stop stopColor="#f3f7fe" offset=".45"></stop>
-              <stop stopColor="#deeafb" offset="1"></stop>
-            </linearGradient>
-            <linearGradient
-              gradientUnits="userSpaceOnUse"
-              y2="48.05"
-              y1="42.95"
-              x2="25.47"
-              x1="22.53"
-              id="a"
-            >
-              <stop stopColor="#4286ee" offset="0"></stop>
-              <stop stopColor="#4286ee" offset=".45"></stop>
-              <stop stopColor="#0950bc" offset="1"></stop>
-            </linearGradient>
-            <linearGradient
-              xlinkHref="#a"
-              y2="48.05"
-              y1="42.95"
-              x2="32.47"
-              x1="29.53"
-              id="d"
-            ></linearGradient>
-            <linearGradient
-              xlinkHref="#a"
-              y2="48.05"
-              y1="42.95"
-              x2="39.47"
-              x1="36.53"
-              id="e"
-            ></linearGradient>
-          </defs>
-          <circle
-            strokeWidth=".5"
-            strokeMiterlimit="10"
-            stroke="#e2b96f"
-            fill="url(#b)"
-            r="5"
-            cy="24"
-            cx="19"
-          ></circle>
-          <path
-            d="M19 15.67V12.5m0 23v-3.17m5.89-14.22l2.24-2.24M10.87 32.13l2.24-2.24m0-11.78l-2.24-2.24m16.26 16.26l-2.24-2.24M7.5 24h3.17m19.83 0h-3.17"
-            strokeWidth="2"
-            strokeMiterlimit="10"
-            strokeLinecap="round"
-            stroke="#e2b96f"
-            fill="none"
-          >
-            <animateTransform
-              values="0 19 24; 360 19 24"
-              type="rotate"
-              repeatCount="indefinite"
-              dur="45s"
-              attributeName="transform"
-            ></animateTransform>
-          </path>
-          <path
-            d="M46.5 31.5h-.32a10.49 10.49 0 00-19.11-8 7 7 0 00-10.57 6 7.21 7.21 0 00.1 1.14A7.5 7.5 0 0018 45.5a4.19 4.19 0 00.5 0v0h28a7 7 0 000-14z"
-            strokeWidth=".5"
-            strokeMiterlimit="10"
-            stroke="#e6effc"
-            fill="url(#c)"
-          ></path>
-          <path
-            d="M24.39 43.03l-.78 4.94"
-            strokeWidth="2"
-            strokeMiterlimit="10"
-            strokeLinecap="round"
-            stroke="url(#a)"
-            fill="none"
-          >
-            <animateTransform
-              values="1 -5; -2 10"
-              type="translate"
-              repeatCount="indefinite"
-              dur="0.7s"
-              attributeName="transform"
-            ></animateTransform>
-          </path>
-          <path
-            d="M31.39 43.03l-.78 4.94"
-            strokeWidth="2"
-            strokeMiterlimit="10"
-            strokeLinecap="round"
-            stroke="url(#d)"
-            fill="none"
-          >
-            <animateTransform
-              values="1 -5; -2 10"
-              type="translate"
-              repeatCount="indefinite"
-              dur="0.7s"
-              begin="-0.4s"
-              attributeName="transform"
-            ></animateTransform>
-          </path>
-          <path
-            d="M38.39 43.03l-.78 4.94"
-            strokeWidth="2"
-            strokeMiterlimit="10"
-            strokeLinecap="round"
-            stroke="url(#e)"
-            fill="none"
-          >
-            <animateTransform
-              values="1 -5; -2 10"
-              type="translate"
-              repeatCount="indefinite"
-              dur="0.7s"
-              begin="-0.2s"
-              attributeName="transform"
-            ></animateTransform>
-          </path>
-        </svg>
-        <h4 className="weather-card-temp">{weather.temp}</h4>
+        <WeatherIcon code={weather.code} />
       </div>
+      <h4 className="weather-card-temp">{weather.temp}</h4>
       <div className="weather-card-details">
         <p>Today</p>
         <p>{weather.desc}</p>
@@ -346,8 +378,6 @@ function StatCircle({ value, suffix, label, color, glyph, animate, delay }) {
               transition: `stroke-dashoffset 2s cubic-bezier(.4,0,.2,1) ${delay}s`,
             }}
           />
-          {/* outer deco ring */}
-          <circle cx="50" cy="50" r="46" className="sc-deco-ring" style={{ stroke: color }} />
         </svg>
 
         {/* Orbiting dot */}

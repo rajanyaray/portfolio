@@ -70,7 +70,7 @@ export default function Contact() {
       size: 6,
       vertexColors: true,
       transparent: true,
-      opacity: 0.5,
+      opacity: 0.95,
       sizeAttenuation: true,
     });
 
@@ -209,7 +209,7 @@ export default function Contact() {
 
   return (
     <section className="contact-section" ref={sectionRef} id="contact">
-      <BeamGridBackground zIndex={0} />
+      <BeamGridBackground zIndex={0} interactive={false} />
 
       {/* Dotted surface canvas */}
       <div className="dotted-canvas" ref={canvasRef} />

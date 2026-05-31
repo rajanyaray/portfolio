@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { createPortal } from "react-dom";
 import "./Achievements.css";
 import SectionHeading from "../SectionHeading/SectionHeading";
 import ParticlesBackground from "./ParticlesBackground";
@@ -78,22 +79,22 @@ const CERTS = [
   {
     id: "c1",
     image: cert1,
-    title: "Google Cloud Certificate",
+    title: "Machine Learning and Artificial Intelligence",
   },
   {
     id: "c2",
     image: cert2,
-    title: "AWS Solutions Architect",
+    title: "Spring Framework for Java",
   },
   {
     id: "c3",
     image: cert3,
-    title: "Full Stack Development",
+    title: "Full Stack Web Development",
   },
   {
     id: "c4",
     image: cert4,
-    title: "AI & Machine Learning",
+    title: "Cloud Computing",
   },
 ];
 
@@ -288,8 +289,8 @@ function CertFolder() {
         </div>
       </div>
 
-      {/* Lightbox */}
-      {lightbox !== null && (
+      {/* Lightbox rendered via Portal directly into document.body to secure absolute viewport centering */}
+      {lightbox !== null && createPortal(
         <div className="cert-lightbox" onClick={() => setLightbox(null)}>
           <div className="cert-lightbox-inner" onClick={(e) => e.stopPropagation()}>
             <button className="lb-close" onClick={() => setLightbox(null)}>✕</button>
@@ -300,7 +301,8 @@ function CertFolder() {
               <button onClick={() => setLightbox((lightbox + 1) % CERTS.length)}>›</button>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );
@@ -451,11 +453,26 @@ export default function Achievements() {
       {/* Confetti Overlay Canvas */}
       <canvas ref={canvasRef} className="achievements-confetti-canvas" />
 
-      {/* 4 Corner Celebration Floating Buttons */}
-      <button className="celebration-btn cb-tl" onClick={triggerConfetti} aria-label="Celebrate">🎉</button>
-      <button className="celebration-btn cb-tr" onClick={triggerConfetti} aria-label="Celebrate">🥳</button>
-      <button className="celebration-btn cb-bl" onClick={triggerConfetti} aria-label="Celebrate">🏆</button>
-      <button className="celebration-btn cb-br" onClick={triggerConfetti} aria-label="Celebrate">✨</button>
+      {/* 4 Corner Celebration Floating Buttons with custom visual hints */}
+      <div className="celebration-btn-container cb-tl">
+        <button className="celebration-btn" onClick={triggerConfetti} aria-label="Celebrate">🎉</button>
+        <span className="celebration-hint hint-left">← Click to celebrate!</span>
+      </div>
+      
+      <div className="celebration-btn-container cb-tr">
+        <span className="celebration-hint hint-right">Click to celebrate! →</span>
+        <button className="celebration-btn" onClick={triggerConfetti} aria-label="Celebrate">🥳</button>
+      </div>
+
+      <div className="celebration-btn-container cb-bl">
+        <button className="celebration-btn" onClick={triggerConfetti} aria-label="Celebrate">🏆</button>
+        <span className="celebration-hint hint-left">← Click to celebrate!</span>
+      </div>
+
+      <div className="celebration-btn-container cb-br">
+        <span className="celebration-hint hint-right">Click to celebrate! →</span>
+        <button className="celebration-btn" onClick={triggerConfetti} aria-label="Celebrate">✨</button>
+      </div>
 
       {/* Heading */}
       <SectionHeading title="Achievements" tagline="Milestones & Wins" />

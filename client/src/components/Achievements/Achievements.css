@@ -112,6 +112,27 @@ body[data-theme="light"] .sub-label {
   transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
   animation: floatBtn 4s ease-in-out infinite alternate;
 }
+
+/* Pulsing ring beacon cue to click emojis */
+.celebration-btn::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border: 1.5px solid rgba(162, 89, 255, 0.45);
+  border-radius: 50%;
+  animation: btnRingPing 2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+  pointer-events: none;
+}
+
+body[data-theme="light"] .celebration-btn::before {
+  border-color: rgba(109, 40, 217, 0.45);
+}
+
+@keyframes btnRingPing {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.4); opacity: 0; }
+}
+
 .celebration-btn:hover {
   transform: scale(1.22) rotate(12deg) !important;
   background: rgba(255, 255, 255, 0.15);
@@ -124,10 +145,72 @@ body[data-theme="light"] .sub-label {
   transform: scale(0.92) !important;
 }
 
-.cb-tl { top: 24px; left: 24px; animation-delay: 0s; }
-.cb-tr { top: 24px; right: 24px; animation-delay: 0.5s; }
-.cb-bl { bottom: 24px; left: 24px; animation-delay: 1s; }
-.cb-br { bottom: 24px; right: 24px; animation-delay: 1.5s; }
+/* Celebration container wrappers for layout and hint placement */
+.celebration-btn-container {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 100;
+}
+.celebration-btn-container .celebration-btn {
+  position: relative; /* override absolute so it flows in flex */
+}
+
+/* Float containers in the corners */
+.celebration-btn-container.cb-tl {
+  top: 24px;
+  left: 24px;
+}
+.celebration-btn-container.cb-tr {
+  top: 24px;
+  right: 24px;
+}
+.celebration-btn-container.cb-bl {
+  bottom: 24px;
+  left: 24px;
+}
+.celebration-btn-container.cb-br {
+  bottom: 24px;
+  right: 24px;
+}
+
+/* Stagger floating delays on buttons inside containers */
+.cb-tl .celebration-btn { animation-delay: 0s; }
+.cb-tr .celebration-btn { animation-delay: 0.5s; }
+.cb-bl .celebration-btn { animation-delay: 1s; }
+.cb-br .celebration-btn { animation-delay: 1.5s; }
+
+/* Interactive Instruction Tags */
+.celebration-hint {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #a259ff;
+  background: rgba(162, 89, 255, 0.08);
+  border: 1px solid rgba(162, 89, 255, 0.25);
+  padding: 6px 12px;
+  border-radius: 8px;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: 0 4px 15px rgba(162, 89, 255, 0.1);
+  pointer-events: none;
+  white-space: nowrap;
+  opacity: 0.95;
+  animation: hintPulse 2s ease-in-out infinite alternate;
+}
+
+body[data-theme="light"] .celebration-hint {
+  color: #6d28d9;
+  background: rgba(109, 40, 217, 0.06);
+  border-color: rgba(109, 40, 217, 0.2);
+  box-shadow: 0 4px 12px rgba(109, 40, 217, 0.05);
+}
+
+@keyframes hintPulse {
+  0% { transform: translateY(0px) scale(0.98); opacity: 0.85; box-shadow: 0 2px 8px rgba(162, 89, 255, 0.08); }
+  100% { transform: translateY(-3px) scale(1.02); opacity: 1; box-shadow: 0 6px 16px rgba(162, 89, 255, 0.18); }
+}
 
 @keyframes floatBtn {
   0% { transform: translateY(0px) rotate(0deg); }
@@ -581,24 +664,33 @@ body[data-theme="light"] .folder-hint  { color: rgba(109, 40, 217, 0.6); }
 .cert-lightbox-inner {
   position: relative;
   background: #140825;
-  border: 1px solid rgba(162,89,255,0.45);
-  border-radius: 16px;
-  padding: 24px;
-  max-width: 480px;
-  width: 90%;
+  border: 2px solid rgba(162,89,255,0.45);
+  border-radius: 20px;
+  padding: 28px;
+  max-width: 800px; /* ENLARGED: 480px to 800px */
+  width: 92%;
   text-align: center;
-  box-shadow: 0 0 40px rgba(162,89,255,0.25);
+  box-shadow: 0 0 50px rgba(162,89,255,0.35);
+  animation: scaleInLightbox 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
+
+@keyframes scaleInLightbox {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
 .cert-lightbox-inner img {
   width: 100%;
-  border-radius: 10px;
-  object-fit: cover;
-  max-height: 300px;
+  height: auto;
+  border-radius: 12px;
+  object-fit: contain;
+  max-height: 520px; /* ENLARGED: 300px to 520px */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.65);
 }
 .cert-lightbox-inner p {
   color: #e0d0ff;
   font-weight: 700;
-  margin: 12px 0 0;
+  margin: 14px 0 0;
 }
 .lb-close {
   position: absolute;
@@ -758,12 +850,17 @@ body[data-theme="light"] .lb-nav button {
     max-width: 310px !important;
   }
   .cert-lightbox-inner img {
-    max-height: 200px !important;
+    max-height: 240px !important;
   }
   .cert-lightbox-inner p {
     font-size: 0.85rem !important;
   }
   .lb-close {
     font-size: 1.1rem !important;
+  }
+  
+  /* Hide instruction hints on small screens to avoid clutter */
+  .celebration-hint {
+    display: none !important;
   }
 }

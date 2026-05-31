@@ -157,7 +157,7 @@ function ellipsePoint(rx, ry, angleDeg) {
 }
 
 // Continuous rAF angle for a single icon
-function useOrbitAngle(startAngle, speed) {
+function useOrbitAngle(startAngle, speed, isPaused) {
   const [angle, setAngle] = useState(startAngle);
   const rafRef  = useRef(null);
   const lastRef = useRef(null);
@@ -166,20 +166,22 @@ function useOrbitAngle(startAngle, speed) {
       if (lastRef.current === null) lastRef.current = ts;
       const dt = ts - lastRef.current;
       lastRef.current = ts;
-      setAngle((a) => (a + (360 / (speed * 1000)) * dt) % 360);
+      if (!isPaused) {
+        setAngle((a) => (a + (360 / (speed * 1000)) * dt) % 360);
+      }
       rafRef.current = requestAnimationFrame(step);
     };
     rafRef.current = requestAnimationFrame(step);
     return () => cancelAnimationFrame(rafRef.current);
-  }, [speed]);
+  }, [speed, isPaused]);
   return angle;
 }
 
 // One orbiting icon chip.
 // scaleX/scaleY: container-pixels per viewBox-unit on each axis
 // dyOffset: how many container-pixels the SVG centre is above/below the container centre
-function OrbitIcon({ src, label, rx, ry, startAngle, speed, color, scaleX, scaleY, dyOffset }) {
-  const angle = useOrbitAngle(startAngle, speed);
+function OrbitIcon({ src, label, rx, ry, startAngle, speed, color, scaleX, scaleY, dyOffset, isParentHovered, onMouseEnter, onMouseLeave }) {
+  const angle = useOrbitAngle(startAngle, speed, isParentHovered);
   const pt    = ellipsePoint(rx, ry, angle);
 
   const pixelX = pt.x * scaleX;
@@ -187,13 +189,15 @@ function OrbitIcon({ src, label, rx, ry, startAngle, speed, color, scaleX, scale
 
   return (
     <div
-      className="orbit-icon"
+      className={`orbit-icon ${isParentHovered ? "parent-hovered" : ""}`}
       style={{
         "--orbit-color": color,
         position: "absolute",
         left: `calc(50% + ${pixelX}px - 22px)`,
         top:  `calc(50% + ${pixelY}px - 22px)`,
       }}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
     >
       <img src={src} alt={label} draggable="false" />
       <span className="orbit-tooltip">{label}</span>
@@ -266,13 +270,14 @@ function OrbitSystem() {
             key={i}
             cx={cx} cy={cy}
             rx={o.rx} ry={o.ry}
+            className={`orbit-ring ${hovered === i ? "hovered" : ""}`}
             fill="none"
             stroke={o.color}
-            strokeWidth={hovered === i ? 2 : 1.2}
+            strokeWidth={hovered === i ? 2.2 : 1.2}
             strokeDasharray={o.dashArray}
             opacity={hovered === i ? 0.95 : 0.38}
             filter={`url(#glow${i})`}
-            style={{ transition: "opacity 0.3s, stroke-width 0.3s" }}
+            style={{ transition: "opacity 0.4s, stroke-width 0.4s" }}
           />
         ))}
       </svg>
@@ -306,6 +311,9 @@ function OrbitSystem() {
             scaleX={scaleX}
             scaleY={scaleY}
             dyOffset={dyOffset}
+            isParentHovered={hovered === oi}
+            onMouseEnter={() => setHovered(oi)}
+            onMouseLeave={() => setHovered(null)}
           />
         ))
       )}

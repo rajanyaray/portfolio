@@ -4,7 +4,7 @@ import SectionHeading from "../SectionHeading/SectionHeading";
 
 /* ─────────────────────────────────────────────────
    DATA
-───────────────────────────────────────────────── */
+   ───────────────────────────────────────────────── */
 const DIVISIONS = [
   {
     id: "prog",
@@ -111,18 +111,8 @@ const DIVISIONS = [
 ];
 
 /* ─────────────────────────────────────────────────
-   TRAIT CARDS
-───────────────────────────────────────────────── */
-const TRAITS = [
-  { icon: "⚡", title: "Always Learning",     desc: "Exploring new technologies",   accent: "#e2b96f" },
-  { icon: "</>", title: "Problem Solver",     desc: "Breaking down complex problems", accent: "#818cf8" },
-  { icon: "🚀", title: "Performance First",   desc: "Fast, optimised applications",  accent: "#a78bfa" },
-  { icon: "🤝", title: "Team Player",         desc: "Collaborating & sharing knowledge", accent: "#c4b5fd" },
-];
-
-/* ─────────────────────────────────────────────────
    LOGO SLOT — smooth crossfade between skills
-───────────────────────────────────────────────── */
+ ───────────────────────────────────────────────── */
 function LogoSlot({ currentSkill, prevSkill, transitioning, color, index }) {
   return (
     <div
@@ -148,16 +138,13 @@ function LogoSlot({ currentSkill, prevSkill, transitioning, color, index }) {
         <img src={currentSkill.icon} alt={currentSkill.name} className="ls-icon" onError={e => { e.target.style.display = "none"; }} />
         <span className="ls-name">{currentSkill.name}</span>
       </div>
-
-      {/* Slot glow overlay */}
-      <div className="ls-glow" />
     </div>
   );
 }
 
 /* ─────────────────────────────────────────────────
    DOMAIN TAB BUTTON
-───────────────────────────────────────────────── */
+ ───────────────────────────────────────────────── */
 function DomainTab({ division, isActive, onClick, side }) {
   return (
     <button
@@ -176,7 +163,7 @@ function DomainTab({ division, isActive, onClick, side }) {
 /* ─────────────────────────────────────────────────
    ACETERNITY BACKGROUND BOXES COMPONENT
    Highly optimized 60fps dynamic grid structure
-───────────────────────────────────────────────── */
+ ───────────────────────────────────────────────── */
 function BackgroundBoxes({ color }) {
   const cols = 24;
   const rows = 16;
@@ -223,174 +210,6 @@ function BackgroundBoxes({ color }) {
       </div>
     </div>
   );
-}
-
-/* ─────────────────────────────────────────────────
-   CONSTELLATION PARTICLES COMPONENT
-   High-performance canvas animation loop
-───────────────────────────────────────────────── */
-function ConstellationBg() {
-  const canvasRef = useRef(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    
-    let animationFrameId;
-    let particles = [];
-    const maxParticles = 80; 
-    const connectionDist = 140; 
-    let mouse = { x: null, y: null, radius: 160 };
-
-    const resizeCanvas = () => {
-      canvas.width = canvas.parentElement.offsetWidth || window.innerWidth;
-      canvas.height = canvas.parentElement.offsetHeight || window.innerHeight;
-    };
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-
-    const handleMouseMove = (e) => {
-      const rect = canvas.getBoundingClientRect();
-      mouse.x = e.clientX - rect.left;
-      mouse.y = e.clientY - rect.top;
-    };
-
-    const handleMouseLeave = () => {
-      mouse.x = null;
-      mouse.y = null;
-    };
-
-    const parent = canvas.parentElement;
-    if (parent) {
-      parent.addEventListener('mousemove', handleMouseMove);
-      parent.addEventListener('mouseleave', handleMouseLeave);
-    }
-
-    class Particle {
-      constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.vx = (Math.random() - 0.5) * 0.45; 
-        this.vy = (Math.random() - 0.5) * 0.45;
-        this.radius = Math.random() * 2.0 + 1.2; 
-      }
-
-      update() {
-        // Dynamic mouse repulsion logic
-        if (mouse.x !== null && mouse.y !== null) {
-          const dx = this.x - mouse.x;
-          const dy = this.y - mouse.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          
-          if (dist < mouse.radius) {
-            const force = (mouse.radius - dist) / mouse.radius; 
-            const dirX = dx / dist;
-            const dirY = dy / dist;
-            
-            this.x += dirX * force * 2.2;
-            this.y += dirY * force * 2.2;
-          }
-        }
-
-        this.x += this.vx;
-        this.y += this.vy;
-
-        if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-        if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-      }
-
-      draw(color) {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = color;
-        ctx.fill();
-      }
-    }
-
-    for (let i = 0; i < maxParticles; i++) {
-      particles.push(new Particle());
-    }
-
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      const isLightMode = document.body.getAttribute('data-theme') === 'light';
-      const particleColor = isLightMode ? 'rgba(109, 40, 217, 0.58)' : 'rgba(255, 255, 255, 0.82)';
-      
-      // Draw interactive glowing mouse gravitational halo
-      if (mouse.x !== null && mouse.y !== null) {
-        ctx.beginPath();
-        const mouseGlow = ctx.createRadialGradient(mouse.x, mouse.y, 2, mouse.x, mouse.y, 50);
-        mouseGlow.addColorStop(0, isLightMode ? 'rgba(109, 40, 217, 0.22)' : 'rgba(56, 189, 248, 0.26)');
-        mouseGlow.addColorStop(1, 'rgba(0, 0, 0, 0)');
-        ctx.fillStyle = mouseGlow;
-        ctx.arc(mouse.x, mouse.y, 50, 0, Math.PI * 2);
-        ctx.fill();
-      }
-
-      particles.forEach((p) => {
-        p.update();
-        p.draw(particleColor);
-      });
-
-      // Draw interactive connections from mouse cursor
-      if (mouse.x !== null && mouse.y !== null) {
-        particles.forEach((p) => {
-          const dx = p.x - mouse.x;
-          const dy = p.y - mouse.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          if (dist < connectionDist) {
-            const alpha = (1 - dist / connectionDist) * (isLightMode ? 0.24 : 0.45);
-            ctx.beginPath();
-            ctx.moveTo(mouse.x, mouse.y);
-            ctx.lineTo(p.x, p.y);
-            ctx.strokeStyle = isLightMode 
-              ? `rgba(109, 40, 217, ${alpha})` 
-              : `rgba(255, 255, 255, ${alpha})`;
-            ctx.lineWidth = 1.2;
-            ctx.stroke();
-          }
-        });
-      }
-
-      // Draw background constellation link lines
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          if (dist < connectionDist) {
-            const alpha = (1 - dist / connectionDist) * (isLightMode ? 0.18 : 0.32);
-            ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = isLightMode 
-              ? `rgba(109, 40, 217, ${alpha})` 
-              : `rgba(255, 255, 255, ${alpha})`;
-            ctx.lineWidth = 1.0;
-            ctx.stroke();
-          }
-        }
-      }
-
-      animationFrameId = requestAnimationFrame(animate);
-    };
-    animate();
-
-    return () => {
-      window.removeEventListener('resize', resizeCanvas);
-      if (parent) {
-        parent.removeEventListener('mousemove', handleMouseMove);
-        parent.removeEventListener('mouseleave', handleMouseLeave);
-      }
-      cancelAnimationFrame(animationFrameId);
-    };
-  }, []);
-
-  return <canvas ref={canvasRef} className="sk-constellation-canvas" />;
 }
 
 /* ─────────────────────────────────────────────────
@@ -454,9 +273,6 @@ export default function Skills() {
     <section className="skills-section" id="skills">
       {/* Interactive Aceternity Background Boxes */}
       <BackgroundBoxes color={div.color} />
-      
-      {/* Constellation Particle Background */}
-      <ConstellationBg />
 
       {/* Heading */}
       <SectionHeading title="Skills" tagline="Tools of My Craft" />
@@ -543,24 +359,6 @@ export default function Skills() {
             />
           ))}
         </div>
-      </div>
-
-      {/* Bottom trait cards */}
-      <div className="sk-traits">
-        {TRAITS.map((t, i) => (
-          <div
-            key={i}
-            className="sk-trait"
-            style={{ "--ta": t.accent, animationDelay: `${i * 0.1}s` }}
-          >
-            <span className="sk-trait-icon">{t.icon}</span>
-            <div className="sk-trait-text">
-              <span className="sk-trait-title">{t.title}</span>
-              <span className="sk-trait-desc">{t.desc}</span>
-            </div>
-            <div className="sk-trait-glow" />
-          </div>
-        ))}
       </div>
     </section>
   );

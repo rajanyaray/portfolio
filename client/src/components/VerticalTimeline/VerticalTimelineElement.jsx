@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import './VerticalTimelineElement.css';
 
 // ── Native Browser IntersectionObserver Hook (Zero-dependency & fully React 19 safe) ──
-function useIntersectionObserver({ rootMargin = '0px 0px -40px 0px', triggerOnce = true } = {}) {
+function useIntersectionObserver({ rootMargin = '0px 0px -40px 0px', triggerOnce = false } = {}) {
   const [inView, setInView] = useState(false);
   const ref = useRef(null);
 
@@ -54,7 +54,7 @@ const VerticalTimelineElement = ({
   textClassName = '',
   intersectionObserverProps = {
     rootMargin: '0px 0px -40px 0px',
-    triggerOnce: true,
+    triggerOnce: false,
   },
   visible = false,
   shadowSize = 'small', // small | medium | large
