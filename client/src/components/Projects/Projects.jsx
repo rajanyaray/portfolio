@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import "./Projects.css";
 import SectionHeading from "../SectionHeading/SectionHeading";
 import { motion } from "framer-motion";
@@ -353,7 +354,14 @@ function ProjectPanel({ proj, onClose }) {
           <div className="panel-right">
             <AnimatedTitle text={proj.title} />
             <p className="panel-tagline-new">{proj.tagline}</p>
-            <p className="panel-desc-new">{proj.desc}</p>
+            {proj.desc.startsWith(proj.title) ? (
+              <p className="panel-desc-new">
+                <span className="desc-project-name">{proj.title}</span>
+                {proj.desc.substring(proj.title.length)}
+              </p>
+            ) : (
+              <p className="panel-desc-new">{proj.desc}</p>
+            )}
 
             <HolographicCard features={proj.features} />
           </div>
@@ -443,9 +451,11 @@ export default function Projects() {
         </div>
       </div>
 
-      {selected !== null && (
-        <ProjectPanel proj={projects[selected]} onClose={() => setSelected(null)} />
-      )}
+      {selected !== null &&
+        createPortal(
+          <ProjectPanel proj={projects[selected]} onClose={() => setSelected(null)} />,
+          document.body
+        )}
     </section>
   );
 }

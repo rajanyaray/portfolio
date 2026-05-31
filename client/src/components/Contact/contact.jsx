@@ -136,7 +136,7 @@ export default function Contact() {
   const profileLinks = [
     {
       label: "LinkedIn",
-      href: "#",
+      href: "https://www.linkedin.com/in/rajanya-ray-tmslsphs",
       color: "#0A66C2",
       glow: "#0A66C2",
       icon: (
@@ -147,7 +147,7 @@ export default function Contact() {
     },
     {
       label: "GitHub",
-      href: "#",
+      href: "https://github.com/rajanyaray",
       color: "#c9c9c9",
       glow: "#6e40c9",
       icon: (
@@ -158,7 +158,7 @@ export default function Contact() {
     },
     {
       label: "LeetCode",
-      href: "#",
+      href: "https://leetcode.com/u/rajanyaray/",
       color: "#FFA116",
       glow: "#FFA116",
       icon: (
@@ -172,7 +172,7 @@ export default function Contact() {
   const socialLinks = [
     {
       label: "Instagram",
-      href: "#",
+      href: "https://www.instagram.com/_.rajanya_?igsh=dmVkMWFja3cwdGFs",
       color: "#E1306C",
       glow: "#833AB4",
       gradient: "linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)",
@@ -184,7 +184,7 @@ export default function Contact() {
     },
     {
       label: "Facebook",
-      href: "#",
+      href: "https://www.facebook.com/share/1HEHSaGS2r/",
       color: "#1877F2",
       glow: "#1877F2",
       gradient: "linear-gradient(135deg,#1877F2,#0d5fc4)",
@@ -196,13 +196,13 @@ export default function Contact() {
     },
     {
       label: "X",
-      href: "#",
+      href: "https://x.com/Rajanyax07",
       color: "#ffffff",
       glow: "#888",
       gradient: "linear-gradient(135deg,#1a1a1a,#444)",
       icon: (
         <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.258 5.635 5.906-5.635zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.45-6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77Z" />
         </svg>
       ),
     },
@@ -259,7 +259,7 @@ export default function Contact() {
           </div>
 
           {/* Resume button — Uiverse Peary74 style */}
-          <a href="#" className="resume-btn" target="_blank" rel="noreferrer">
+          <a href="/resume.pdf" className="resume-btn" target="_blank" rel="noreferrer">
             <div className="resume-svg-wrapper-1">
               <div className="resume-svg-wrapper">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" className="resume-icon">
@@ -319,7 +319,7 @@ export default function Contact() {
               <div className="mail-top-row">
                 <div className="mail-meta">
                   <span className="mail-tag">✦ DROP A LINE</span>
-                  <span className="mail-address">yourname@email.com</span>
+                  <span className="mail-address">rayrajanya4@gmail.com</span>
                   <span className="mail-sub">Replies within 24 hrs · Always open to collab</span>
                 </div>
                 <div className="mail-input-wrap">

@@ -132,11 +132,11 @@ export default function Footer() {
             <p className="f-nav-heading">Connect</p>
             <ul className="f-nav-list">
               {[
-                { label: "GitHub",    href: "https://github.com/" },
-                { label: "LinkedIn",  href: "https://linkedin.com/in/" },
-                { label: "Twitter",   href: "https://twitter.com/" },
+                { label: "GitHub",    href: "https://github.com/rajanyaray" },
+                { label: "LinkedIn",  href: "https://www.linkedin.com/in/rajanya-ray-tmslsphs" },
+                { label: "Twitter",   href: "https://x.com/Rajanyax07" },
                 { label: "Resume",    href: "/resume.pdf" },
-                { label: "Say Hello", href: "mailto:hello@rajanya.dev" },
+                { label: "Say Hello", href: "mailto:rayrajanya4@gmail.com" },
               ].map(({ label, href }) => (
                 <li key={label}>
                   <a
@@ -162,10 +162,10 @@ export default function Footer() {
 
           <div className="f-socials" role="list" aria-label="Social media links">
             {[
-              { Icon: GithubIcon,   href: "https://github.com/",         label: "GitHub"   },
-              { Icon: LinkedinIcon, href: "https://linkedin.com/in/",    label: "LinkedIn" },
-              { Icon: TwitterIcon,  href: "https://twitter.com/",        label: "Twitter"  },
-              { Icon: MailIcon,     href: "mailto:hello@rajanya.dev",    label: "Email"    },
+              { Icon: GithubIcon,   href: "https://github.com/rajanyaray",         label: "GitHub"   },
+              { Icon: LinkedinIcon, href: "https://www.linkedin.com/in/rajanya-ray-tmslsphs",    label: "LinkedIn" },
+              { Icon: TwitterIcon,  href: "https://x.com/Rajanyax07",        label: "Twitter"  },
+              { Icon: MailIcon,     href: "mailto:rayrajanya4@gmail.com",    label: "Email"    },
             ].map(({ Icon, href, label }) => (
               <a
                 key={label}

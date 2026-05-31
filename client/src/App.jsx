@@ -46,6 +46,8 @@ export default function App() {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add("reveal-visible");
+        } else {
+          entry.target.classList.remove("reveal-visible");
         }
       });
     }, observerOptions);

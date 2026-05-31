@@ -50,7 +50,7 @@ body[data-theme="dark"] {
   --c-chip-bg: rgba(109, 40, 217, 0.20);
   --c-chip-border: rgba(167, 139, 250, 0.50);
   --shadow-card: 0 30px 80px rgba(0, 0, 0, 0.6);
-  --panel-bg: rgba(12, 10, 24, 0.97);
+  --panel-bg: #151329; /* Rich purple-slate panel background (completely avoids camouflage) */
   --ribbon-bg: linear-gradient(90deg, #0d001f, #1a0543, #070528, #0d001f);
   --c-accent4: #c4b5fd;
 }
@@ -338,21 +338,25 @@ body[data-theme="light"] .fp-wrap {
 
 /* ─── PANEL ─────────────────────────────────────────────────── */
 .project-panel {
-  width: 60%;
-  max-width: 1200px;
-  height: 70vh;
-  max-height: 640px;
+  width: 78%; /* ENLARGED: 60% to 78% */
+  max-width: 1280px; /* ENLARGED: 1200px to 1280px */
+  height: 86vh; /* ENLARGED: 70vh to 86vh */
+  max-height: 800px; /* ENLARGED: 640px to 800px */
   border-radius: 32px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   position: relative;
   background: var(--panel-bg);
-  border: none;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+  border: 2px solid rgba(167, 139, 250, 0.35); /* Solid premium neon border to prevent camouflage! */
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), 0 0 50px rgba(124, 58, 237, 0.15); /* Strong backdrop glow */
   animation: panelIn 0.45s cubic-bezier(0.16, 1, 0.3, 1);
   z-index: 10000;
   padding-bottom: 24px;
+}
+body[data-theme="light"] .project-panel {
+  border: 2px solid var(--c-accent1); /* Solid colored border in light mode */
+  box-shadow: 0 20px 60px rgba(109, 40, 217, 0.15);
 }
 @keyframes panelIn {
   from { transform: scale(0.88) translateY(30px); opacity: 0; }
@@ -520,6 +524,7 @@ body[data-theme="light"] .fp-wrap {
 /* ─── LEFT PANEL ────────────────────────────────────────────── */
 .panel-left {
   width: 48%;
+  height: 100%; /* Ensure it fills the vertical body height */
   background: transparent;
   position: relative;
   display: flex;
@@ -717,19 +722,63 @@ body[data-theme="light"] .fp-wrap {
 /* ─── RIGHT PANEL ───────────────────────────────────────────── */
 .panel-right {
   width: 52%;
-  padding: 0;
+  height: 100%; /* Ensure it fills the vertical body height to trigger scrolling */
+  max-height: 100%; /* Strictly limit height to parent boundary to prevent overflow cutoff */
+  padding: 0 16px 48px 0; /* ENLARGED bottom padding to allow complete scrolling for all features */
   overflow-y: auto;
   position: relative;
-  scrollbar-width: thin;
-  scrollbar-color: #3d1a7a transparent;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
+  box-sizing: border-box;
+  scrollbar-width: auto; /* Standard scrollbar width */
+  scrollbar-color: #a78bfa rgba(167, 139, 250, 0.15); /* Contrasting bright neon scroll track on Firefox */
+  /* Replaced flex layout with block layout to completely prevent Flexbox size calculation scroll bugs in Chrome/Edge */
+  display: block;
 }
-.panel-right::-webkit-scrollbar { width: 4px; }
+
+/* ─── ULTIMATE FUTURISTIC NEON SCROLL GUIDE (THE "SCROLL LINE") ─── */
+.panel-right::-webkit-scrollbar {
+  width: 14px; /* Slightly wider for the cybernetic details to show */
+  display: block !important;
+}
+
+/* The scroll track: represented as a dashed fiber-optic blueprint channel */
+.panel-right::-webkit-scrollbar-track {
+  background: rgba(21, 19, 41, 0.6); /* Translucent dark purple background */
+  border-left: 2px dashed rgba(167, 139, 250, 0.22); /* Dotted cybernetic blueprint align guide */
+  border-right: 2px dashed rgba(167, 139, 250, 0.22);
+  border-radius: 10px;
+  margin: 8px 0;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+/* The scroll thumb: represented as a floating glowing plasma capsule or crystal slide */
 .panel-right::-webkit-scrollbar-thumb {
-  background: #3d1a7a;
-  border-radius: 4px;
+  background: linear-gradient(180deg, #a78bfa 0%, #f43f5e 50%, #38bdf8 100%); /* Gorgeous three-color neon plasma gradient */
+  border-radius: 10px;
+  border: 3px solid #151329; /* Deep spacing to create a floating pill effect */
+  box-shadow: 
+    0 0 12px rgba(167, 139, 250, 0.8),
+    0 0 24px rgba(244, 63, 94, 0.5),
+    inset 0 1px 2px rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
+/* Interactive Neon Hover States */
+.panel-right::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #ffd53e 0%, #f43f5e 50%, #a78bfa 100%); /* Turns into warm golden-plasma on hover */
+  box-shadow: 
+    0 0 18px rgba(255, 213, 62, 0.9),
+    0 0 35px rgba(244, 63, 94, 0.8);
+  border-width: 2px; /* Thins the border slightly to expand the glowing pill size! */
+}
+
+/* Active Click and Drag State */
+.panel-right::-webkit-scrollbar-thumb:active {
+  background: linear-gradient(180deg, #34d399 0%, #10b981 100%); /* Cybernetic emerald charge during scroll dragging */
+  box-shadow: 
+    0 0 25px rgba(52, 211, 153, 1),
+    0 0 50px rgba(16, 185, 129, 0.7);
+  border-width: 1px; /* Expands even further to feel responsive under press */
 }
 
 /* CLOSE BUTTON */
@@ -757,24 +806,29 @@ body[data-theme="light"] .fp-wrap {
 /* ─── ANIMATED TITLE ────────────────────────────────────────── */
 .panel-title {
   font-family: "Syne", sans-serif;
-  font-size: 38px;
-  font-weight: 800;
-  color: var(--c-text); /* Theme-responsive color */
-  margin: 0;
+  font-size: 42px; /* Increased font-size */
+  font-weight: 900; /* Extra blocky and bold */
+  text-transform: uppercase;
+  letter-spacing: -1.5px;
+  margin: 0 0 10px 0; /* Space out vertically in block layout */
   line-height: 1.1;
   display: flex;
   flex-wrap: wrap;
-  gap: 1px;
+  gap: 2px;
 }
 
 .title-char {
   display: inline-block;
-  animation: titleReveal 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
-  transition: color 0.2s, transform 0.2s;
+  background: linear-gradient(135deg, var(--c-accent3), #f43f5e); /* Breathtaking violet-to-rose gradient text fill */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: titleReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s;
+  filter: drop-shadow(0 2px 8px rgba(124, 58, 237, 0.15));
 }
 .title-char:hover {
-  color: var(--c-accent1);
-  transform: translateY(-3px);
+  transform: scale(1.25) translateY(-5px) rotate(4deg) !important; /* Premium scale, lift, and rotate */
+  filter: drop-shadow(0 0 12px var(--c-accent3)) drop-shadow(0 0 24px #f43f5e); /* Intense hover glow */
 }
 @keyframes titleReveal {
   from {
@@ -794,7 +848,7 @@ body[data-theme="light"] .fp-wrap {
   font-size: 15px;
   font-weight: 700;
   color: var(--c-accent2); /* Theme-responsive accent tagline */
-  margin: 0;
+  margin: 0 0 10px 0; /* Space out vertically in block layout */
 }
 
 .panel-desc-new {
@@ -803,7 +857,19 @@ body[data-theme="light"] .fp-wrap {
   line-height: 1.6;
   color: var(--c-text); /* Theme-responsive description text */
   opacity: 0.88;
-  margin: 0;
+  margin: 0 0 18px 0; /* Space out vertically in block layout */
+}
+
+/* Beautiful color highlight for project name inside description */
+.desc-project-name {
+  background: linear-gradient(135deg, var(--c-accent3), #f43f5e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+  margin-right: 4px;
+  display: inline-block;
+  font-size: 14px;
+  letter-spacing: -0.2px;
 }
 
 /* ─── BOTTOM LIVE VIEW ACTION BUTTON ────────────────────────── */
@@ -819,9 +885,9 @@ body[data-theme="light"] .fp-wrap {
 .holo-card {
   position: relative;
   border-radius: 20px;
-  padding: 24px;
-  margin-top: 14px;
-  margin-bottom: 14px;
+  padding: 20px; /* Slightly tighter padding for premium fit */
+  margin-top: 10px; /* Tighter margins to fit 6 features beautifully */
+  margin-bottom: 10px;
   cursor: pointer;
   transition: transform 0.1s, box-shadow 0.3s;
   overflow: hidden;
@@ -829,6 +895,53 @@ body[data-theme="light"] .fp-wrap {
   border: none;
   box-shadow: 0 10px 30px rgba(61, 26, 122, 0.30);
   color: white;
+}
+
+/* Beautiful animated scroll prompt */
+.scroll-prompt {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: "Syne", "Outfit", sans-serif;
+  font-size: 11.5px;
+  font-weight: 800;
+  color: #a78bfa; /* Bright glowing neon violet */
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 18px auto 10px; /* Centered horizontally using margins in block layout */
+  padding: 8px 20px;
+  background: rgba(167, 139, 250, 0.08); /* Transparent violet glassmorphism background */
+  border: 1px dashed rgba(167, 139, 250, 0.4);
+  border-radius: 12px;
+  width: fit-content;
+  pointer-events: none;
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(167, 139, 250, 0.1);
+    border-color: rgba(167, 139, 250, 0.4);
+    transform: translateY(0);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(167, 139, 250, 0.35);
+    border-color: #c4b5fd;
+    transform: translateY(4px);
+  }
+}
+
+.scroll-prompt-arrow {
+  width: 14px;
+  height: 14px;
+  color: #a78bfa;
+  animation: arrowBounce 1s ease-in-out infinite alternate;
+}
+
+@keyframes arrowBounce {
+  from { transform: translateY(-2px); }
+  to   { transform: translateY(2px); }
 }
 body[data-theme="light"] .holo-card {
   background: #3d1a7a;

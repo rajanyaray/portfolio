@@ -561,7 +561,9 @@ export default function About() {
 
   useEffect(() => {
     const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) setStatsVisible(true); },
+      ([e]) => {
+        setStatsVisible(e.isIntersecting);
+      },
       { threshold: 0.2 }
     );
     if (statsRef.current) obs.observe(statsRef.current);

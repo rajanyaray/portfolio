@@ -123,7 +123,7 @@ body[data-theme="light"] {
   align-items: center;
   justify-content: space-between;
   gap: 2rem;
-  height: calc(100% - 72px);
+  height: 100%;
   box-sizing: border-box;
 }
 

@@ -277,87 +277,89 @@ export default function Skills() {
       {/* Heading */}
       <SectionHeading title="Skills" tagline="Tools of My Craft" />
 
-      {/* Main 3-column layout */}
-      <div className="sk-body">
+      {/* Main 3-column layout wrapped in centering wrapper */}
+      <div className="skills-content-wrapper">
+        <div className="sk-body">
 
-        {/* LEFT COLUMN — tabs 0,1,2 */}
-        <div className="sk-tabs sk-tabs--left">
-          {leftDivs.map((d, i) => (
-            <DomainTab
-              key={d.id}
-              division={d}
-              isActive={active === i}
-              onClick={() => handleTabClick(i)}
-              side="left"
-            />
-          ))}
-        </div>
-
-        {/* CENTRE COLUMN */}
-        <div className="sk-center">
-          {/* Info strip above the grid */}
-          <div className="sk-info" style={{ "--div-color": div.color, "--div-glow": div.glow }}>
-            <span className="sk-info-title">{div.title}</span>
-            <span className="sk-info-sep">·</span>
-            <span className="sk-info-desc">{div.description}</span>
-            <span className="sk-info-pill">{div.level}</span>
-          </div>
-
-          {/* 6-slot logo grid */}
-          <div
-            className="sk-logo-grid"
-            style={{ "--grid-color": div.color, "--grid-glow": div.glow }}
-          >
-            {/* Progress ring — tracks auto-cycle */}
-            <div className="sk-progress-ring">
-              <svg viewBox="0 0 36 36" className="sk-ring-svg">
-                <circle cx="18" cy="18" r="15.9" className="sk-ring-bg" />
-                <circle
-                  cx="18" cy="18" r="15.9"
-                  className="sk-ring-fill"
-                  style={{ stroke: div.color }}
-                />
-              </svg>
-              <span className="sk-ring-dot" style={{ background: div.color, boxShadow: `0 0 8px ${div.glow}` }} />
-            </div>
-
-            {/* 6 logo placeholders */}
-            {Array.from({ length: 6 }, (_, i) => (
-              <LogoSlot
-                key={i}
-                index={i}
-                currentSkill={currentSkills[i]}
-                prevSkill={prevSkills ? prevSkills[i] : null}
-                transitioning={transitioning}
-                color={div.color}
+          {/* LEFT COLUMN — tabs 0,1,2 */}
+          <div className="sk-tabs sk-tabs--left">
+            {leftDivs.map((d, i) => (
+              <DomainTab
+                key={d.id}
+                division={d}
+                isActive={active === i}
+                onClick={() => handleTabClick(i)}
+                side="left"
               />
             ))}
+          </div>
 
-            {/* Dot indicators */}
-            <div className="sk-dots">
-              {DIVISIONS.map((_, i) => (
-                <button
+          {/* CENTRE COLUMN */}
+          <div className="sk-center">
+            {/* Info strip above the grid */}
+            <div className="sk-info" style={{ "--div-color": div.color, "--div-glow": div.glow }}>
+              <span className="sk-info-title">{div.title}</span>
+              <span className="sk-info-sep">·</span>
+              <span className="sk-info-desc">{div.description}</span>
+              <span className="sk-info-pill">{div.level}</span>
+            </div>
+
+            {/* 6-slot logo grid */}
+            <div
+              className="sk-logo-grid"
+              style={{ "--grid-color": div.color, "--grid-glow": div.glow }}
+            >
+              {/* Progress ring — tracks auto-cycle */}
+              <div className="sk-progress-ring">
+                <svg viewBox="0 0 36 36" className="sk-ring-svg">
+                  <circle cx="18" cy="18" r="15.9" className="sk-ring-bg" />
+                  <circle
+                    cx="18" cy="18" r="15.9"
+                    className="sk-ring-fill"
+                    style={{ stroke: div.color }}
+                  />
+                </svg>
+                <span className="sk-ring-dot" style={{ background: div.color, boxShadow: `0 0 8px ${div.glow}` }} />
+              </div>
+
+              {/* 6 logo placeholders */}
+              {Array.from({ length: 6 }, (_, i) => (
+                <LogoSlot
                   key={i}
-                  className={`sk-dot${i === active ? " sk-dot--active" : ""}`}
-                  style={i === active ? { background: div.color, boxShadow: `0 0 8px ${div.glow}` } : {}}
-                  onClick={() => handleTabClick(i)}
+                  index={i}
+                  currentSkill={currentSkills[i]}
+                  prevSkill={prevSkills ? prevSkills[i] : null}
+                  transitioning={transitioning}
+                  color={div.color}
                 />
               ))}
+
+              {/* Dot indicators */}
+              <div className="sk-dots">
+                {DIVISIONS.map((_, i) => (
+                  <button
+                    key={i}
+                    className={`sk-dot${i === active ? " sk-dot--active" : ""}`}
+                    style={i === active ? { background: div.color, boxShadow: `0 0 8px ${div.glow}` } : {}}
+                    onClick={() => handleTabClick(i)}
+                  />
+                ))}
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* RIGHT COLUMN — tabs 3,4,5 */}
-        <div className="sk-tabs sk-tabs--right">
-          {rightDivs.map((d, i) => (
-            <DomainTab
-              key={d.id}
-              division={d}
-              isActive={active === i + 3}
-              onClick={() => handleTabClick(i + 3)}
-              side="right"
-            />
-          ))}
+          {/* RIGHT COLUMN — tabs 3,4,5 */}
+          <div className="sk-tabs sk-tabs--right">
+            {rightDivs.map((d, i) => (
+              <DomainTab
+                key={d.id}
+                division={d}
+                isActive={active === i + 3}
+                onClick={() => handleTabClick(i + 3)}
+                side="right"
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>
